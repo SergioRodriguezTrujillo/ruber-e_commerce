@@ -7,6 +7,10 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
   position: relative;
   overflow: hidden;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 4px;
 }
 
 .product-card:hover {
@@ -23,17 +27,22 @@
   font-size: 0.75rem;
   font-weight: 600;
   border-radius: 2px;
+  z-index: 2;
 }
 
 .product-image {
   position: relative;
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
   overflow: hidden; /* Añadir overflow hidden para contener el zoom */
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .product-image img {
-  width: 100%;
-  height: 200px;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
   transition: transform 0.5s ease; /* Añadir transición para el zoom */
 }
@@ -50,6 +59,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  z-index: 5;
 }
 
 .action-btn {
@@ -77,7 +87,15 @@
 .product-title {
   font-weight: 600;
   margin-bottom: 5px;
-  font-size: 1rem;
+  margin-top: 0px !important;
+  font-size: 0.9rem !important; /* Ajustado al tamaño original */
+  line-height: 1.2;
+  height: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* Mostrar solo una línea */
+  -webkit-box-orient: vertical;
 }
 
 .product-price {
@@ -90,12 +108,13 @@
 .current-price {
   color: var(--primary-color);
   font-weight: 700;
+  font-size: 0.85rem !important; /* Ajustado al tamaño original */
 }
 
 .original-price {
   text-decoration: line-through;
   color: #999;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .rating {
@@ -107,7 +126,7 @@
 
 .star {
   color: #ddd;
-  font-size: 0.9rem;
+  font-size: 0.8rem; /* Ajustado al tamaño original */
 }
 
 .star.filled {
@@ -116,7 +135,7 @@
 
 .rating-count {
   color: #777;
-  font-size: 0.8rem;
+  font-size: 0.75rem; /* Ajustado al tamaño original */
 }
 
 .color-options {
@@ -126,8 +145,8 @@
 }
 
 .color-option {
-  width: 20px;
-  height: 20px;
+  width: 16px; /* Ajustado al tamaño original */
+  height: 16px; /* Ajustado al tamaño original */
   border-radius: 50%;
   cursor: pointer;
   border: 1px solid #ddd;
@@ -179,10 +198,12 @@
   padding: 10px 0;
   text-align: center;
   font-weight: 600;
+  font-size: 1rem; /* Ajustado al tamaño original */
   transform: translateY(100%);
   transition: transform 0.3s ease;
   cursor: pointer;
   z-index: 10;
+  border: none;
 }
 
 .product-card:hover .add-to-cart-btn {

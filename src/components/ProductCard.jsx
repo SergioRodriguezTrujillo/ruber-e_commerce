@@ -12,7 +12,8 @@ const ProductCard = ({ product }) => {
   const { addToWishlist, isInWishlist, removeFromWishlist } = useWishlist()
   const [selectedColor, setSelectedColor] = useState(product.colors[0])
 
-  const handleToggleWishlist = () => {
+  const handleToggleWishlist = (e) => {
+    e.stopPropagation() // Evitar que el clic se propague a la tarjeta
     if (isInWishlist(product.id)) {
       removeFromWishlist(product.id)
     } else {
@@ -20,7 +21,8 @@ const ProductCard = ({ product }) => {
     }
   }
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e) => {
+    e.stopPropagation() // Evitar que el clic se propague a la tarjeta
     addToCart({
       ...product,
       selectedColor,
@@ -29,7 +31,7 @@ const ProductCard = ({ product }) => {
   }
 
   return (
-    <div className="product-card">
+    <Link to={`/product/${product.id}`} className="product-card">
       {product.discount > 0 && <span className="discount-badge">-{product.discount}%</span>}
 
       <div className="product-image">
@@ -43,7 +45,7 @@ const ProductCard = ({ product }) => {
         >
           <Heart size={16} strokeWidth={1.5} />
         </button>
-        <Link to={`/product/${product.id}`} className="action-btn view-btn">
+        <Link to={`/product/${product.id}`} className="action-btn view-btn" onClick={(e) => e.stopPropagation()}>
           <Eye size={16} strokeWidth={1.5} />
         </Link>
       </div>
@@ -60,7 +62,7 @@ const ProductCard = ({ product }) => {
           {[...Array(5)].map((_, i) => (
             <Star
               key={i}
-              size={14}
+              size={12}
               strokeWidth={1.5}
               className={i < product.rating ? "star filled" : "star"}
               fill={i < product.rating ? "#ffc107" : "none"}
@@ -74,7 +76,10 @@ const ProductCard = ({ product }) => {
             <div
               key={color}
               className={`color-option ${color} ${selectedColor === color ? "selected" : ""}`}
-              onClick={() => setSelectedColor(color)}
+              onClick={(e) => {
+                e.stopPropagation() // Evitar que el clic se propague a la tarjeta
+                setSelectedColor(color)
+              }}
             />
           ))}
         </div>
@@ -82,9 +87,9 @@ const ProductCard = ({ product }) => {
 
       {/* Add to Cart button that appears on hover */}
       <button className="add-to-cart-btn" onClick={handleAddToCart}>
-        Add To Cart
+        Agregar al carrito
       </button>
-    </div>
+    </Link>
   )
 }
 

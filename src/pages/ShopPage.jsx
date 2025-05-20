@@ -1,7 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
 import { Heart, Eye, ChevronDown, ChevronUp } from "lucide-react"
+import { getAllProducts } from "../services/productService"
 import "./ShopPage.css"
 
 const ShopPage = () => {
@@ -12,6 +14,13 @@ const ShopPage = () => {
   const [priceRange, setPriceRange] = useState([0, 1000])
   const [sortBy, setSortBy] = useState("featured")
   const [currentPage, setCurrentPage] = useState(1)
+  const [products, setProducts] = useState([])
+
+  useEffect(() => {
+    // Cargar productos
+    const allProducts = getAllProducts()
+    setProducts(allProducts)
+  }, [])
 
   const toggleCategory = (category) => {
     setSelectedCategories((prev) =>
@@ -50,265 +59,6 @@ const ShopPage = () => {
     "Comunicación",
     "Gaming",
     "Componentes",
-  ]
-
-  // Generate 20 products (5 rows x 4 columns)
-  const products = [
-    {
-      id: 1,
-      name: "Kit Gamer_AVA Monitor LG",
-      price: 230,
-      originalPrice: 250,
-      discount: 35,
-      rating: 5,
-      reviewCount: 88,
-      colors: ["black", "blue"],
-      image: "/pc.png",
-      isNew: true,
-      category: "Gaming",
-    },
-    {
-      id: 2,
-      name: "ROLT-120V",
-      price: 135,
-      originalPrice: 145,
-      discount: 35,
-      rating: 4,
-      reviewCount: 75,
-      colors: ["black", "blue"],
-      image: "/mini-pc.png",
-      category: "Accesorios",
-    },
-    {
-      id: 3,
-      name: "Cable IP67-SORT",
-      price: 2.5,
-      originalPrice: 3,
-      discount: 35,
-      rating: 5,
-      reviewCount: 99,
-      colors: ["black", "blue"],
-      image: "/cable.png",
-      category: "Cables",
-    },
-    {
-      id: 4,
-      name: "Memoria RAM 16GB RGB 3200Hz",
-      price: 10,
-      originalPrice: 15,
-      discount: 0,
-      rating: 5,
-      reviewCount: 99,
-      colors: ["black", "blue"],
-      image: "/ram.png",
-      isNew: true,
-      category: "Componentes",
-    },
-    // Duplicar productos para llenar 5 filas x 4 columnas (20 productos)
-    {
-      id: 5,
-      name: "Kit Gamer_AVA Monitor LG",
-      price: 230,
-      originalPrice: 250,
-      discount: 35,
-      rating: 5,
-      reviewCount: 88,
-      colors: ["black", "blue"],
-      image: "/pc.png",
-      isNew: false,
-      category: "Gaming",
-    },
-    {
-      id: 6,
-      name: "ROLT-120V",
-      price: 135,
-      originalPrice: 145,
-      discount: 35,
-      rating: 4,
-      reviewCount: 75,
-      colors: ["black", "blue"],
-      image: "/mini-pc.png",
-      category: "Accesorios",
-    },
-    {
-      id: 7,
-      name: "Cable IP67-SORT",
-      price: 2.5,
-      originalPrice: 3,
-      discount: 35,
-      rating: 5,
-      reviewCount: 99,
-      colors: ["black", "blue"],
-      image: "/cable.png",
-      isNew: true,
-      category: "Cables",
-    },
-    {
-      id: 8,
-      name: "Memoria RAM 16GB RGB 3200Hz",
-      price: 10,
-      originalPrice: 15,
-      discount: 0,
-      rating: 5,
-      reviewCount: 99,
-      colors: ["black", "blue"],
-      image: "/ram.png",
-      isNew: true,
-      category: "Componentes",
-    },
-    {
-      id: 9,
-      name: "Kit Gamer_AVA Monitor LG",
-      price: 230,
-      originalPrice: 250,
-      discount: 35,
-      rating: 5,
-      reviewCount: 88,
-      colors: ["black", "blue"],
-      image: "/pc.png",
-      isNew: false,
-      category: "Gaming",
-    },
-    {
-      id: 10,
-      name: "ROLT-120V",
-      price: 135,
-      originalPrice: 145,
-      discount: 35,
-      rating: 4,
-      reviewCount: 75,
-      colors: ["black", "blue"],
-      image: "/mini-pc.png",
-      category: "Accesorios",
-    },
-    {
-      id: 11,
-      name: "Cable IP67-SORT",
-      price: 2.5,
-      originalPrice: 3,
-      discount: 35,
-      rating: 5,
-      reviewCount: 99,
-      colors: ["black", "blue"],
-      image: "/cable.png",
-      isNew: true,
-      category: "Cables",
-    },
-    {
-      id: 12,
-      name: "Memoria RAM 16GB RGB 3200Hz",
-      price: 10,
-      originalPrice: 15,
-      discount: 0,
-      rating: 5,
-      reviewCount: 99,
-      colors: ["black", "blue"],
-      image: "/ram.png",
-      isNew: true,
-      category: "Componentes",
-    },
-    {
-      id: 13,
-      name: "Kit Gamer_AVA Monitor LG",
-      price: 230,
-      originalPrice: 250,
-      discount: 35,
-      rating: 5,
-      reviewCount: 88,
-      colors: ["black", "blue"],
-      image: "/pc.png",
-      isNew: false,
-      category: "Gaming",
-    },
-    {
-      id: 14,
-      name: "ROLT-120V",
-      price: 135,
-      originalPrice: 145,
-      discount: 35,
-      rating: 4,
-      reviewCount: 75,
-      colors: ["black", "blue"],
-      image: "/mini-pc.png",
-      category: "Accesorios",
-    },
-    {
-      id: 15,
-      name: "Cable IP67-SORT",
-      price: 2.5,
-      originalPrice: 3,
-      discount: 35,
-      rating: 5,
-      reviewCount: 99,
-      colors: ["black", "blue"],
-      image: "/cable.png",
-      isNew: true,
-      category: "Cables",
-    },
-    {
-      id: 16,
-      name: "Memoria RAM 16GB RGB 3200Hz",
-      price: 10,
-      originalPrice: 15,
-      discount: 0,
-      rating: 5,
-      reviewCount: 99,
-      colors: ["black", "blue"],
-      image: "/ram.png",
-      isNew: true,
-      category: "Componentes",
-    },
-    {
-      id: 17,
-      name: "Kit Gamer_AVA Monitor LG",
-      price: 230,
-      originalPrice: 250,
-      discount: 35,
-      rating: 5,
-      reviewCount: 88,
-      colors: ["black", "blue"],
-      image: "/pc.png",
-      isNew: false,
-      category: "Gaming",
-    },
-    {
-      id: 18,
-      name: "ROLT-120V",
-      price: 135,
-      originalPrice: 145,
-      discount: 35,
-      rating: 4,
-      reviewCount: 75,
-      colors: ["black", "blue"],
-      image: "/mini-pc.png",
-      category: "Accesorios",
-    },
-    {
-      id: 19,
-      name: "Cable IP67-SORT",
-      price: 2.5,
-      originalPrice: 3,
-      discount: 35,
-      rating: 5,
-      reviewCount: 99,
-      colors: ["black", "blue"],
-      image: "/cable.png",
-      isNew: true,
-      category: "Cables",
-    },
-    {
-      id: 20,
-      name: "Memoria RAM 16GB RGB 3200Hz",
-      price: 10,
-      originalPrice: 15,
-      discount: 0,
-      rating: 5,
-      reviewCount: 99,
-      colors: ["black", "blue"],
-      image: "/ram.png",
-      isNew: true,
-      category: "Componentes",
-    },
   ]
 
   // Filtrar productos
@@ -474,18 +224,26 @@ const ShopPage = () => {
       <div className="container">
         <div className="products-grid">
           {sortedProducts.map((product) => (
-            <div key={product.id} className="product-card">
+            <Link to={`/product/${product.id}`} key={product.id} className="product-card">
               <div className="product-image">
                 <img src={product.image || "/placeholder.svg"} alt={product.name} />
                 {product.discount > 0 && <span className="discount-badge">-{product.discount}%</span>}
                 {product.isNew && <span className="new-badge">NEW</span>}
                 <div className="product-actions">
-                  <button className="action-btn wishlist-btn">
+                  <button className="action-btn wishlist-btn" onClick={(e) => e.preventDefault()}>
                     <Heart size={16} strokeWidth={1.5} />
                   </button>
-                  <button className="action-btn view-btn">
+                  <Link
+                    to={`/product/${product.id}`}
+                    className="action-btn view-btn"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      e.stopPropagation()
+                      window.location.href = `/product/${product.id}`
+                    }}
+                  >
                     <Eye size={16} strokeWidth={1.5} />
-                  </button>
+                  </Link>
                 </div>
               </div>
               <div className="product-info">
@@ -502,11 +260,11 @@ const ShopPage = () => {
                 </div>
                 <div className="color-options">
                   {product.colors.map((color) => (
-                    <div key={color} className={`color-option ${color}`} />
+                    <div key={color} className={`color-option ${color}`} onClick={(e) => e.preventDefault()} />
                   ))}
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 

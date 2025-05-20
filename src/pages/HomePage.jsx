@@ -7,6 +7,7 @@ import ProductCard from "../components/ProductCard"
 import CategoryItem from "../components/CategoryItem"
 import ServiceItem from "../components/ServiceItem"
 import HeroSection from "../components/HeroSection"
+import { getAllProducts } from "../services/productService"
 import "./HomePage.css"
 
 const HomePage = () => {
@@ -16,6 +17,13 @@ const HomePage = () => {
     minutes: 59,
     seconds: 35,
   })
+  const [products, setProducts] = useState([])
+
+  useEffect(() => {
+    // Cargar productos
+    const allProducts = getAllProducts()
+    setProducts(allProducts)
+  }, [])
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -83,55 +91,6 @@ const HomePage = () => {
       image: "/asistencia4.png",
     },
   ]
-
-  const bestSellingProducts = [
-    {
-      id: 1,
-      name: "Kit Gamer_AVA Monitor LG",
-      price: 230,
-      originalPrice: 250,
-      discount: 35,
-      rating: 5,
-      reviewCount: 88,
-      colors: ["black", "blue"],
-      image: "/pc.png",
-    },
-    {
-      id: 2,
-      name: "ROLT-120V",
-      price: 135,
-      originalPrice: 145,
-      discount: 35,
-      rating: 4,
-      reviewCount: 75,
-      colors: ["black", "blue"],
-      image: "/mini-pc.png",
-    },
-    {
-      id: 3,
-      name: "Cable IP67-SORT",
-      price: 2.5,
-      originalPrice: 3,
-      discount: 35,
-      rating: 5,
-      reviewCount: 99,
-      colors: ["black", "blue"],
-      image: "/cable.png",
-    },
-    {
-      id: 4,
-      name: "Memoria RAM 16GB RGB 3200Hz",
-      price: 10,
-      originalPrice: 15,
-      discount: 35,
-      rating: 5,
-      reviewCount: 99,
-      colors: ["black", "blue"],
-      image: "/ram.png",
-    },
-  ]
-
-  const mostViewedProducts = [...bestSellingProducts]
 
   return (
     <div className="home-page">
@@ -243,10 +202,12 @@ const HomePage = () => {
       {/* Productos más vendidos */}
       <section className="products-section">
         <div className="container">
-          <div className="section-header">
-            <div>
-              <h2 className="section-title">Este mes</h2>
-              <h3 className="section-subtitle">Productos más vendidos</h3>
+          <div className="section-header-home">
+            <div className="section-title-container">
+              <div className="section-header">
+            <h2 className="section-title">Este mes</h2>
+          </div>
+              <h3 className="section-subtitle-home">Productos más vendidos</h3>
             </div>
             <Link to="/shop" className="view-all">
               Ver todos
@@ -254,7 +215,7 @@ const HomePage = () => {
           </div>
 
           <div className="products-grid">
-            {bestSellingProducts.map((product) => (
+            {products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
@@ -264,9 +225,9 @@ const HomePage = () => {
       {/* Productos más vistos */}
       <section className="products-section">
         <div className="container">
-          <div className="section-header">
-            <div>
-              <h3 className="section-subtitle">Productos más vistos</h3>
+          <div className="section-header-home">
+            <div className="section-title-container">
+              <h3 className="section-subtitle-home">Productos más vistos</h3>
             </div>
             <Link to="/shop" className="view-all">
               Ver todos
@@ -274,7 +235,7 @@ const HomePage = () => {
           </div>
 
           <div className="products-grid">
-            {mostViewedProducts.map((product) => (
+            {products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>

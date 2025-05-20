@@ -1,5 +1,5 @@
 .shop-page {
-  padding:  0;
+  padding: 0;
   padding-bottom: 40px;
 }
 
@@ -17,6 +17,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 50px 0;
 }
 
 .shop-hero-left {
@@ -224,8 +225,8 @@
 }
 
 .price-inputs input[type="number"]:focus {
-  border-color: #4caf50; 
-  outline: none; 
+  border-color: #4caf50;
+  outline: none;
 }
 .clear-filters {
   width: 100%;
@@ -345,7 +346,14 @@
 .product-title {
   font-weight: 600;
   margin-bottom: 5px;
-  font-size: 0.9rem;
+  font-size: 0.85rem; /* Ajustado al tamaño original */
+  line-height: 1.2;
+  height: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* Mostrar solo una línea */
+  -webkit-box-orient: vertical;
 }
 
 .product-price {
@@ -356,9 +364,9 @@
 }
 
 .current-price {
-  color: #e63946;
+  color: var(--primary-color);
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.85rem; /* Ajustado al tamaño original */
 }
 
 .original-price {
@@ -372,11 +380,12 @@
   align-items: center;
   gap: 5px;
   margin-bottom: 10px;
-  font-size: 0.8rem;
+  font-size: 0.8rem; /* Ajustado al tamaño original */
 }
 
 .star {
   color: #ddd;
+  font-size: 0.8rem; /* Ajustado al tamaño original */
 }
 
 .star.filled {
@@ -385,7 +394,7 @@
 
 .rating-count {
   color: #777;
-  font-size: 0.75rem;
+  font-size: 0.75rem; /* Ajustado al tamaño original */
 }
 
 .color-options {
@@ -394,8 +403,8 @@
 }
 
 .color-option {
-  width: 20px;
-  height: 20px;
+  width: 16px; /* Ajustado al tamaño original */
+  height: 16px; /* Ajustado al tamaño original */
   border-radius: 50%;
   cursor: pointer;
   border: 1px solid #ddd;

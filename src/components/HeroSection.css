@@ -11,7 +11,7 @@
 }
 
 .sidebar-menu {
-  width: 200px;
+  max-width: 300px;
   background-color: white;
   position: relative;
   margin-right: 40px;
@@ -47,13 +47,13 @@
   transition: background-color 0.3s;
   font-size: 14px;
   font-weight: 400;
+  border-radius: 8px;
 }
 
 /* Change hover background color to match category hover (dark blue) */
 .sidebar-menu a:hover {
   background-color: #0e2a47; /* Dark blue background on hover - same as categories */
   color: white;
-  border-radius: 8px;
 }
 
 /* Make the arrow icon white on hover */
@@ -64,6 +64,7 @@
 .menu-arrow {
   font-size: 0.7rem;
   color: #999;
+  margin-left: 4px;
 }
 
 .hero-slider {
