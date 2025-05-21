@@ -21,7 +21,7 @@ const AboutPage = () => {
             </p>
           </div>
           <div className="about-image">
-            <img src="/about-image.jpg" alt="Nuestra Historia" />
+            <img src="/nuesta-historia.jpg" alt="Nuestra Historia" />
           </div>
         </div>
 
@@ -53,7 +53,7 @@ const AboutPage = () => {
             </ul>
           </div>
           <div className="about-image">
-            <img src="/mission-image.jpg" alt="Nuestra Misión" />
+            <img src="/nuestra-mision.jpg" alt="Nuestra Misión" />
           </div>
         </div>
 
@@ -72,7 +72,7 @@ const AboutPage = () => {
             </p>
           </div>
           <div className="about-image">
-            <img src="/team-image.jpg" alt="Nuestro Equipo" />
+            <img src="/nuestro-equipo.jpg" alt="Nuestro Equipo" />
           </div>
         </div>
 

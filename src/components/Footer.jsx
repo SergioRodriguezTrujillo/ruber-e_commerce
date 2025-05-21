@@ -21,9 +21,9 @@ const Footer = () => {
               <div className="footer-subscribe">
                 <p>Subscríbete</p>
                 <form onSubmit={handleSubscribe} className="subscribe-form">
-                  <input type="email" name="email" placeholder="Introduzca correo" required />
+                  <input type="email" name="email" placeholder="Introduzca su correo" required />
                   <button type="submit">
-                    <Send size={16} strokeWidth={1.5} />
+                    <Send size={24} strokeWidth={1.5} />
                   </button>
                 </form>
               </div>
@@ -83,16 +83,26 @@ const Footer = () => {
               <h3 className="footer-title">Descargar App</h3>
               <p className="app-description">Descargar App desde las Tiendas</p>
               <p className="app-description">Escanea el código QR</p>
-              <div className="qr-code">
-                <img src="/qr-code.png" alt="QR Code" />
-              </div>
-              <div className="app-stores">
-                <a href="#" className="app-store-link">
-                  <img src="/google-play.png" alt="Google Play" />
-                </a>
-                <a href="#" className="app-store-link">
-                  <img src="/app-store.png" alt="App Store" />
-                </a>
+              <div className="app-download-container">
+                <div className="qr-code">
+                  <img src="/qr-code.png" alt="QR Code" />
+                </div>
+                <div className="app-stores">
+                  <a href="#" className="app-store-link google-play">
+                    <img src="/playstore.png" alt="Google Play Icon" />
+                    <div className="store-text">
+                      <span className="store-get">GET IT ON</span>
+                      <span className="store-name">Google Play</span>
+                    </div>
+                  </a>
+                  <a href="#" className="app-store-link apple-store">
+                    <img src="/apple.png" alt="App Store Icon" />
+                    <div className="store-text">
+                      <span className="store-get">Download on the</span>
+                      <span className="store-name">App Store</span>
+                    </div>
+                  </a>
+                </div>
               </div>
               <div className="social-links">
                 <a href="#" className="social-link">

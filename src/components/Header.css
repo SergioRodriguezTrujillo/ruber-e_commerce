@@ -2,6 +2,7 @@
   background-color: #000;
   color: white;
   padding: 10px 0;
+  transition: transform 0.3s ease;
 }
 
 .top-bar-container {
@@ -63,6 +64,24 @@
 .main-header {
   padding: 15px 0;
   border-bottom: 1px solid var(--border-color);
+  background-color: white;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+/* Sticky header styles - ajustar para una transición más fluida */
+.sticky-header .main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajustar el padding para evitar saltos */
+.sticky-header ~ main {
+  padding-top: 60px; /* Ajustar según la altura exacta del header */
 }
 
 .main-header-container {
@@ -89,10 +108,11 @@
 .main-nav li.active::after {
   content: "";
   position: absolute;
-  bottom: -16px;
+  bottom: -3px;
   left: 0;
   width: 100%;
   height: 2px;
+  border-radius: 50%;
   background-color: var(--primary-color);
 }
 
@@ -157,6 +177,11 @@
 
   .main-nav ul {
     justify-content: center;
+  }
+
+  /* Adjust padding for sticky header on mobile */
+  .sticky-header ~ main {
+    padding-top: 60px;
   }
 }
 

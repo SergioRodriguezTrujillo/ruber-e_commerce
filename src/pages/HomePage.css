@@ -68,7 +68,7 @@
   left: 0;
   top: -5px !important;
   height: 150% !important;
-  width: 5px;
+  width: 14px !important;
   background-color: var(--primary-color);
 }
 
@@ -164,7 +164,7 @@
 
 /* Increase the glow effect on the image */
 .recently-arrived-item:hover .recently-arrived-image {
-  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.9));
+  filter: drop-shadow(0 0 50px rgba(255, 255, 255, 0.5));
   transform: scale(1.05);
 }
 
@@ -395,8 +395,8 @@
 /* Imagen de fondo dentro de la sección */
 .promo-banner {
   background-image: url("/placa.jpg");
-  background-size: cover;
-  background-position: right center !important; /* Alineado explícitamente a la derecha */
+  background-size: 50%;
+  background-position: right center; /* Alineado explícitamente a la derecha */
   background-repeat: no-repeat;
   background-attachment: fixed; /* Esto hace que la imagen permanezca fija mientras se hace scroll */
   background-origin: border-box; /* Asegura que la posición se calcule desde el borde */

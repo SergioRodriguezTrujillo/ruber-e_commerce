@@ -20,6 +20,11 @@ body {
   background-color: var(--background-color);
 }
 
+/* Ajustar el padding del body cuando el header es sticky */
+body.has-sticky-header {
+  padding-top: 60px; /* Debe ser exactamente igual a la altura del header */
+}
+
 a {
   text-decoration: none;
   color: inherit;
@@ -388,6 +393,11 @@ ul {
   .hero-image {
     width: 100%;
   }
+
+  /* Adjust padding for sticky header on mobile */
+  body.has-sticky-header {
+    padding-top: 60px;
+  }
 }
 
 /* Modify the service button hover effect */
@@ -399,4 +409,34 @@ ul {
 .promo-button:hover {
   background-color: #5dbb63; /* Lighter green on hover */
   opacity: 1; /* Override the opacity */
+}
+
+/* Form success message */
+.form-success {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+/* Form error message */
+.error-message {
+  color: var(--primary-color);
+  font-size: 0.9rem;
+  display: block;
+  margin-top: 5px;
+}
+
+input.error,
+textarea.error {
+  border-color: var(--primary-color) !important;
+}
+
+/* Asegurar que los estilos de focus se apliquen a todos los inputs */
+input:focus,
+textarea:focus {
+  border: 1px solid #4caf50 !important;
+  outline: none !important;
+  box-shadow: 0 0 0 1px rgba(76, 175, 80, 0.3) !important;
 }

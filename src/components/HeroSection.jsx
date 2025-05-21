@@ -138,7 +138,7 @@ const HeroSection = () => {
             {/* Contenido estático que solo aparece en hover */}
             <div className={`slide-content-static ${isHovered ? "visible" : ""}`}>
               <div className="slide-label">
-                <Store className="store-icon" size={18} strokeWidth={1.5} />
+                <Store className="store-icon" size={40} strokeWidth={2} />
                 <span>Ventas Directas</span>
               </div>
               <h2 className="slide-title">

@@ -10,7 +10,7 @@ footer {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 30px;
 }
 
@@ -27,27 +27,35 @@ footer {
 .subscribe-form {
   display: flex;
   border: 1px solid #333;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 .subscribe-form input {
   flex: 1;
-  padding: 10px;
+  padding: 10px 8px;
   background-color: transparent;
   border: none;
   color: white;
+  width: 50px;
 }
 
 .subscribe-form button {
-  padding: 10px 15px;
+  padding: 10px;
+  padding-left: 2px;
   background-color: transparent;
   border: none;
   color: white;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .footer-info p {
   margin-bottom: 5px;
   color: #ccc;
+  font-size: 0.9rem;
 }
 
 .footer-links {
@@ -59,6 +67,7 @@ footer {
 .footer-links a {
   color: #ccc;
   transition: color 0.3s;
+  font-size: 0.9rem;
 }
 
 .footer-links a:hover {
@@ -71,28 +80,68 @@ footer {
   font-size: 0.9rem;
 }
 
-.qr-code {
-  width: 100px;
-  height: 100px;
-  background-color: white;
+.app-download-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
   margin-bottom: 15px;
- width: max-content;
- height: max-content;
+}
+
+.qr-code {
+  width: 75px;
+  height: 75px;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.qr-code img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  border-radius: 4px;
 }
 
 .app-stores {
   display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.app-store-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #111;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 2px;
+  width: 120px;
 }
 
 .app-store-link img {
+  width: 30px;
   height: 30px;
+  object-fit: contain;
+}
+
+.store-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.store-get {
+  font-size: 0.6rem;
+  color: #ccc;
+}
+
+.store-name {
+  font-size: 0.8rem;
+  font-weight: 500;
 }
 
 .social-links {
   display: flex;
-  gap: 15px;
+  gap: 30px;
 }
 
 .social-link {
@@ -106,11 +155,12 @@ footer {
 }
 
 .footer-bottom {
-  border-top: 1px solid #333;
-  padding: 15px 0;
+  border-top: 1px solid #1e1e1e;
+  padding-top: 20px;
+  padding-bottom: 70px;
   text-align: center;
   font-size: 0.9rem;
-  color: #ccc;
+  color:#1e1e1e;
 }
 
 @media (max-width: 768px) {
