@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { ChevronRight, Store } from "lucide-react"
 import "./HeroSection.css"
 
 const HeroSection = () => {
@@ -50,7 +49,7 @@ const HeroSection = () => {
     },
     {
       id: 4,
-      image: "/teclado-oscuro.jpg",
+      image: "/teclado-oscuro.png",
       title: "Todo lo que necesitas",
       subtitle: "en un solo lugar",
       label: "Ventas Directas",
@@ -59,7 +58,7 @@ const HeroSection = () => {
     },
     {
       id: 5,
-      image: "/set.jpg",
+      image: "/set.png",
       title: "Todo lo que necesitas",
       subtitle: "en un solo lugar",
       label: "Ventas Directas",
@@ -68,7 +67,7 @@ const HeroSection = () => {
     },
   ]
 
-  // Función para manejar la animación del carrusel con reset rápido
+  // Update the carousel animation to reset to first slide without cycling through all slides
   useEffect(() => {
     let interval
 
@@ -76,37 +75,18 @@ const HeroSection = () => {
       interval = setInterval(() => {
         setActiveSlide((prev) => {
           if (prev >= slides.length - 1) {
-            // Cuando llegamos al último slide, activamos el modo de retroceso suave
-            setIsRapidReset(true)
-            return prev
+            // When we reach the last slide, immediately reset to the first slide
+            return 0
           }
           return prev + 1
         })
-      }, 3000)
+      }, 3000) // Set to exactly 3 seconds
     }
 
     return () => clearInterval(interval)
-  }, [activeSlide, isHovered, slides.length])
+  }, [isHovered, slides.length])
 
-  // Añadir un useEffect separado para manejar el retroceso suave
-  useEffect(() => {
-    let resetInterval
-
-    if (isRapidReset) {
-      resetInterval = setInterval(() => {
-        setActiveSlide((prev) => {
-          if (prev <= 0) {
-            // Si llegamos al primer slide, desactivamos el modo de reset rápido
-            setIsRapidReset(false)
-            return 0
-          }
-          return prev - 1
-        })
-      }, 100) // Intervalo muy corto para el reset rápido
-    }
-
-    return () => clearInterval(resetInterval)
-  }, [isRapidReset])
+  // Remove the separate useEffect for rapid reset since we're now jumping directly to the first slide
 
   // Función para manejar el hover
   const handleMouseEnter = () => {
@@ -127,7 +107,7 @@ const HeroSection = () => {
                 <li key={item.id}>
                   <a href={item.path}>
                     {item.name}
-                    <ChevronRight className="menu-arrow" size={14} strokeWidth={1.5} />
+                    <span className="material-icons-outlined menu-arrow">chevron_right</span>
                   </a>
                 </li>
               ))}
@@ -138,14 +118,15 @@ const HeroSection = () => {
             {/* Contenido estático que solo aparece en hover */}
             <div className={`slide-content-static ${isHovered ? "visible" : ""}`}>
               <div className="slide-label">
-                <Store className="store-icon" size={40} strokeWidth={2} />
+                <span className="material-icons-outlined store-icon">storefront</span>
                 <span>Ventas Directas</span>
               </div>
               <h2 className="slide-title">
                 Todo lo que necesitas <br /> en un solo lugar
               </h2>
               <a href="/shop" className="slide-button">
-                <span className="button-text">Comprar ahora</span> <ChevronRight size={14} strokeWidth={1.5} />
+                <span className="button-text">Comprar ahora</span>{" "}
+                <span className="material-icons-outlined">chevron_right</span>
               </a>
             </div>
 

@@ -1,31 +1,18 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Link, useLocation } from "react-router-dom"
-import { Search, Heart, ShoppingCart, User, ChevronDown } from "lucide-react"
 import "./Header.css"
+
+const languageOptions = [
+  { code: "es", name: "Español", flag: "/spain.jpg" },
+  { code: "en", name: "English", flag: "/usa.jpg" },
+]
 
 const Header = () => {
   const location = useLocation()
   const [searchQuery, setSearchQuery] = useState("")
   const [language, setLanguage] = useState("Español")
-  const [isSticky, setIsSticky] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      // Hacer que el header se fije exactamente cuando comienza el scroll
-      if (window.scrollY > 0) {
-        setIsSticky(true)
-      } else {
-        setIsSticky(false)
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [])
 
   const isActive = (path) => {
     return location.pathname === path ? "active" : ""
@@ -38,7 +25,7 @@ const Header = () => {
   }
 
   return (
-    <header className={isSticky ? "sticky-header" : ""}>
+    <>
       <div className="top-bar">
         <div className="container top-bar-container">
           <p className="promo-text">Este puede ser un texto de oferta... Oferta - 25% descuento</p>
@@ -47,11 +34,22 @@ const Header = () => {
               Comprar Ahora
             </a>
             <div className="language-selector">
-              <span>{language}</span>
-              <ChevronDown size={16} />
+              <span>
+                {languageOptions.find((lang) => lang.name === language)?.code === "es" ? (
+                  <img src="/spain.jpg" alt="Español" className="language-flag" />
+                ) : (
+                  <img src="/usa.jpg" alt="English" className="language-flag" />
+                )}
+                {language}
+              </span>
+              <span className="material-icons-outlined">expand_more</span>
               <div className="language-dropdown">
-                <div onClick={() => setLanguage("Español")}>Español</div>
-                <div onClick={() => setLanguage("English")}>English</div>
+                {languageOptions.map((lang) => (
+                  <div key={lang.code} onClick={() => setLanguage(lang.name)}>
+                    <img src={lang.flag || "/placeholder.svg"} alt={lang.name} className="language-flag" />
+                    {lang.name}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -90,25 +88,25 @@ const Header = () => {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
               <button type="submit">
-                <Search size={18} />
+                <span className="material-icons-outlined">search</span>
               </button>
             </form>
 
             <div className="header-icons">
               <Link to="/wishlist" className="icon-link">
-                <Heart size={20} strokeWidth={1.5} />
+                <span className="material-icons-outlined">favorite_border</span>
               </Link>
               <Link to="/cart" className="icon-link">
-                <ShoppingCart size={20} strokeWidth={1.5} />
+                <span className="material-icons-outlined">shopping_cart</span>
               </Link>
               <Link to="/account" className="icon-link">
-                <User size={20} strokeWidth={1.5} />
+                <span className="material-icons-outlined">person_outline</span>
               </Link>
             </div>
           </div>
         </div>
       </div>
-    </header>
+    </>
   )
 }
 

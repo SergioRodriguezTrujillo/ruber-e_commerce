@@ -139,19 +139,31 @@ footer {
   font-weight: 500;
 }
 
+/* Social links styling to match the image - simple icons without background */
 .social-links {
   display: flex;
-  gap: 30px;
+  gap: 15px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-top: 10px;
 }
 
 .social-link {
   color: white;
-  font-size: 1.2rem;
   transition: opacity 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
 }
 
 .social-link:hover {
-  opacity: 0.8;
+  opacity: 0.7;
+}
+
+.social-link .material-icons-outlined {
+  font-size: 20px;
 }
 
 .footer-bottom {
@@ -160,12 +172,18 @@ footer {
   padding-bottom: 70px;
   text-align: center;
   font-size: 0.9rem;
-  color:#1e1e1e;
+  color: #1e1e1e;
 }
 
 @media (max-width: 768px) {
   .footer-grid {
     grid-template-columns: 1fr 1fr;
+  }
+
+  /* Ajustar el espaciado en móviles */
+  .social-links {
+    gap: 12px;
+    justify-content: center;
   }
 }
 
@@ -173,4 +191,13 @@ footer {
   .footer-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Ajustar tamaño de los iconos de Material Design */
+.material-icons-outlined {
+  font-size: 20px;
+}
+
+.subscribe-form button .material-icons-outlined {
+  font-size: 16px;
 }

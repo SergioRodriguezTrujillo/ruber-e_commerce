@@ -1,4 +1,3 @@
-import { Settings } from "lucide-react"
 import "./ServiceItem.css"
 
 const ServiceItem = ({ service }) => {
@@ -9,7 +8,7 @@ const ServiceItem = ({ service }) => {
       </div>
       <div className="service-footer">
         <div className="service-icon">
-          <Settings size={20} strokeWidth={1.5} />
+          <img src="/icon/avatar.svg" alt="Service Icon" width="48" height="48" />
         </div>
         <div className="service-text">
           <h3 className="service-title">{service.title}</h3>

@@ -1,7 +1,6 @@
 "use client"
 
 import { Link } from "react-router-dom"
-import { Facebook, Twitter, Instagram, Linkedin, Send } from "lucide-react"
 import "./Footer.css"
 
 const Footer = () => {
@@ -23,7 +22,7 @@ const Footer = () => {
                 <form onSubmit={handleSubscribe} className="subscribe-form">
                   <input type="email" name="email" placeholder="Introduzca su correo" required />
                   <button type="submit">
-                    <Send size={24} strokeWidth={1.5} />
+                    <span className="material-icons-outlined">send</span>
                   </button>
                 </form>
               </div>
@@ -106,16 +105,16 @@ const Footer = () => {
               </div>
               <div className="social-links">
                 <a href="#" className="social-link">
-                  <Facebook size={18} strokeWidth={1.5} />
+                  <img src="/icon/Icon-Facebook (1).svg" alt="Facebook" />
                 </a>
                 <a href="#" className="social-link">
-                  <Twitter size={18} strokeWidth={1.5} />
+                  <img src="/icon/Icon-Twitter.svg" alt="Twitter" />
                 </a>
                 <a href="#" className="social-link">
-                  <Instagram size={18} strokeWidth={1.5} />
+                  <img src="/icon/icon-instagram.svg" alt="Instagram" />
                 </a>
                 <a href="#" className="social-link">
-                  <Linkedin size={18} strokeWidth={1.5} />
+                  <img src="/icon/Icon-Linkedin.svg" alt="LinkedIn" />
                 </a>
               </div>
             </div>

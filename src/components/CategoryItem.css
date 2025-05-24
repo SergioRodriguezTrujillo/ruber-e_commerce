@@ -18,9 +18,15 @@
   color: white;
 }
 
+/* Asegurar que los iconos tengan 48px en el componente CategoryItem */
 .category-icon {
-  font-size: 2.2rem;
+  font-size: 48px !important;
   margin-bottom: 12px;
+}
+
+/* Asegurar que los iconos de Material Design dentro de category-icon también tengan 48px */
+.category-icon .material-icons {
+  font-size: 48px !important;
 }
 
 .category-name {

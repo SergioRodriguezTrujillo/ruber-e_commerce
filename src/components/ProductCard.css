@@ -1,20 +1,21 @@
-.product-card {
+/* Unified product card styles for both homepage and shop */
+.product-card,
+.product-card-shop {
   background-color: white;
-  border: 1px solid var(--border-color);
-  padding: 15px;
-  position: relative;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-  position: relative;
+  border: none;
+  border-radius: 8px;
   overflow: hidden;
-  display: block;
-  text-decoration: none;
-  color: inherit;
-  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  height: 100%;
 }
 
-.product-card:hover {
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+.product-card:hover,
+.product-card-shop:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 }
 
 .discount-badge {
@@ -30,103 +31,160 @@
   z-index: 2;
 }
 
-.product-image {
-  position: relative;
-  /* margin-bottom: 15px; */
-  overflow: hidden; /* Añadir overflow hidden para contener el zoom */
+.new-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #4caf50;
+  color: white;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 2px;
+  z-index: 2;
+}
+
+.product-image,
+.product-image-shop {
   height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 15px;
+  position: relative;
+  overflow: hidden;
 }
 
-.product-image img {
+.product-image img,
+.product-image-shop img {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-  transition: transform 0.5s ease; /* Añadir transición para el zoom */
+  transition: transform 0.5s ease;
 }
 
-/* Añadir efecto de zoom en hover */
-.product-card:hover .product-image img {
+.product-card:hover .product-image img,
+.product-card-shop:hover .product-image-shop img {
   transform: scale(1.1);
 }
 
-.product-actions {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+.product-title-container {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  z-index: 5;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0 15px;
+  margin: 10px 0;
 }
 
-.action-btn {
-  background-color: white;
-  border: 1px solid var(--border-color);
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  color: #333;
-}
-
-.action-btn:hover {
-  background-color: #f5f5f5;
-}
-
-.action-btn.active {
-  color: var(--primary-color);
-}
-
-.product-title {
+.product-title,
+.product-title-shop {
+  font-size: 0.9rem;
   font-weight: 600;
-  margin-bottom: 5px;
-  margin-top: 0px !important;
-  font-size: 0.9rem !important; /* Ajustado al tamaño original */
-  line-height: 1.2;
-  height: auto;
+  margin: 0;
+  flex: 1;
   overflow: hidden;
-  text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 1; /* Mostrar solo una línea */
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
 }
 
-.product-price {
+.wishlist-btn,
+.wishlist-btn-shop {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #999;
+  transition: color 0.3s ease;
+  padding: 0;
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.wishlist-btn:hover,
+.wishlist-btn-shop:hover {
+  color: #e63946;
+}
+
+.wishlist-btn.active,
+.wishlist-btn-shop.active {
+  color: #e63946;
+}
+
+.product-price,
+.product-price-shop {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 5px;
+  padding: 0 15px;
 }
 
-.current-price {
+.current-price,
+.current-price-shop {
   color: var(--primary-color);
   font-weight: 700;
-  font-size: 0.85rem !important; /* Ajustado al tamaño original */
+  font-size: 0.85rem;
 }
 
-.original-price {
+.original-price,
+.original-price-shop {
   text-decoration: line-through;
   color: #999;
   font-size: 0.8rem;
 }
 
+.product-buttons,
+.product-buttons-shop {
+  display: flex;
+  margin-top: auto;
+  padding: 15px;
+}
+
+.info-btn,
+.info-btn-shop {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0;
+  margin-right: 15px;
+  text-decoration: underline;
+  color: #333;
+}
+
+.quote-btn,
+.quote-btn-shop {
+  flex: 1;
+  padding: 8px 15px;
+  text-align: center;
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.quote-btn:hover,
+.quote-btn-shop:hover {
+  background-color: #f5f5f5;
+}
+
+/* Legacy styles for backward compatibility */
 .rating {
   display: flex;
   align-items: center;
   gap: 5px;
   margin-bottom: 10px;
+  padding: 0 15px;
 }
 
 .star {
   color: #ddd;
-  font-size: 0.8rem; /* Ajustado al tamaño original */
+  font-size: 0.8rem;
 }
 
 .star.filled {
@@ -135,18 +193,19 @@
 
 .rating-count {
   color: #777;
-  font-size: 0.75rem; /* Ajustado al tamaño original */
+  font-size: 0.75rem;
 }
 
 .color-options {
   display: flex;
   gap: 5px;
   margin-bottom: 15px;
+  padding: 0 15px;
 }
 
 .color-option {
-  width: 16px; /* Ajustado al tamaño original */
-  height: 16px; /* Ajustado al tamaño original */
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   cursor: pointer;
   border: 1px solid #ddd;
@@ -170,49 +229,4 @@
 
 .color-option.blue {
   background-color: #0066cc;
-}
-
-.buy-now-btn {
-  width: 100%;
-  padding: 8px 0;
-  background-color: #000;
-  color: white;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.buy-now-btn:hover {
-  opacity: 0.9;
-}
-
-/* Add the "Add to Cart" button that appears on hover */
-.add-to-cart-btn {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: #000;
-  color: white;
-  padding: 10px 0;
-  text-align: center;
-  font-weight: 600;
-  font-size: 1rem; /* Ajustado al tamaño original */
-  transform: translateY(100%);
-  transition: transform 0.3s ease;
-  cursor: pointer;
-  z-index: 10;
-  border: none;
-}
-
-.product-card:hover .add-to-cart-btn {
-  transform: translateY(0);
-}
-
-/* Ensure the product info has proper z-index and position */
-.product-info {
-  position: relative;
-  z-index: 5;
-  background-color: white;
 }

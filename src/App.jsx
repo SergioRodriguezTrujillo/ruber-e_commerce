@@ -16,8 +16,11 @@ function App() {
   // Add class to body when header becomes sticky
   useEffect(() => {
     const handleScroll = () => {
-      // Hacer que el header se fije exactamente cuando comienza el scroll
-      if (window.scrollY > 0) {
+      const topBarHeight = document.querySelector(".top-bar")?.offsetHeight || 0
+      const headerOffset = document.querySelector(".main-header")?.offsetTop || 0
+
+      // Si el scroll es mayor que la posición original del header
+      if (window.scrollY > headerOffset - topBarHeight) {
         document.body.classList.add("has-sticky-header")
       } else {
         document.body.classList.remove("has-sticky-header")

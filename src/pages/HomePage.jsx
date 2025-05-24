@@ -2,13 +2,49 @@
 
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import { ArrowRight, ArrowLeft, Headphones, Monitor, Smartphone, Clock, Camera, Gamepad2 } from "lucide-react"
 import ProductCard from "../components/ProductCard"
 import CategoryItem from "../components/CategoryItem"
 import ServiceItem from "../components/ServiceItem"
 import HeroSection from "../components/HeroSection"
+import FullServices from "../components/FullServices"
 import { getAllProducts } from "../services/productService"
 import "./HomePage.css"
+
+// Usar iconos de Material Design outline
+const MaterialIcons = {
+  Smartphone: () => (
+    <span className="material-icons-outlined" style={{ fontSize: "48px" }}>
+      smartphone
+    </span>
+  ),
+  Monitor: () => (
+    <span className="material-icons-outlined" style={{ fontSize: "48px" }}>
+      desktop_windows
+    </span>
+  ),
+  Clock: () => (
+    <span className="material-icons-outlined" style={{ fontSize: "48px" }}>
+      watch
+    </span>
+  ),
+  Camera: () => (
+    <span className="material-icons-outlined" style={{ fontSize: "48px" }}>
+      photo_camera
+    </span>
+  ),
+  Headphones: () => (
+    <span className="material-icons-outlined" style={{ fontSize: "48px" }}>
+      headset
+    </span>
+  ),
+  Gamepad: () => (
+    <span className="material-icons-outlined" style={{ fontSize: "48px" }}>
+      sports_esports
+    </span>
+  ),
+  ArrowLeft: () => <span className="material-icons-outlined">arrow_back</span>,
+  ArrowRight: () => <span className="material-icons-outlined">arrow_forward</span>,
+}
 
 const HomePage = () => {
   const [countdown, setCountdown] = useState({
@@ -56,13 +92,14 @@ const HomePage = () => {
     return () => clearInterval(timer)
   }, [])
 
+  // Update the categories with Lucide React outline icons
   const categories = [
-    { id: 1, name: "Teléfonos", slug: "telefonos", icon: <Smartphone size={24} strokeWidth={1.5} /> },
-    { id: 2, name: "Computadoras", slug: "computadoras", icon: <Monitor size={24} strokeWidth={1.5} /> },
-    { id: 3, name: "Reloj Inteligente", slug: "relojes", icon: <Clock size={24} strokeWidth={1.5} /> },
-    { id: 4, name: "Cámara", slug: "camaras", icon: <Camera size={24} strokeWidth={1.5} /> },
-    { id: 5, name: "Audífonos", slug: "audifonos", icon: <Headphones size={24} strokeWidth={1.5} /> },
-    { id: 6, name: "Jugabilidad", slug: "gaming", icon: <Gamepad2 size={24} strokeWidth={1.5} /> },
+    { id: 1, name: "Teléfonos", slug: "telefonos", icon: <MaterialIcons.Smartphone /> },
+    { id: 2, name: "Computadoras", slug: "computadoras", icon: <MaterialIcons.Monitor /> },
+    { id: 3, name: "Reloj Inteligente", slug: "relojes", icon: <MaterialIcons.Clock /> },
+    { id: 4, name: "Cámara", slug: "camaras", icon: <MaterialIcons.Camera /> },
+    { id: 5, name: "Audífonos", slug: "audifonos", icon: <MaterialIcons.Headphones /> },
+    { id: 6, name: "Jugabilidad", slug: "gaming", icon: <MaterialIcons.Gamepad /> },
   ]
 
   const services = [
@@ -182,10 +219,10 @@ const HomePage = () => {
               <h3 className="section-subtitle">Buscar por categoría</h3>
               <div className="categories-navigation">
                 <button className="categories-nav-arrow">
-                  <ArrowLeft size={16} strokeWidth={1.5} />
+                  <MaterialIcons.ArrowLeft />
                 </button>
                 <button className="categories-nav-arrow">
-                  <ArrowRight size={16} strokeWidth={1.5} />
+                  <MaterialIcons.ArrowRight />
                 </button>
               </div>
             </div>
@@ -205,9 +242,9 @@ const HomePage = () => {
           <div className="section-header-home">
             <div className="section-title-container">
               <div className="section-header">
-            <h2 className="section-title">Este mes</h2>
-          </div>
-              <h3 className="section-subtitle-home">Productos más vendidos</h3>
+                <h2 className="section-title">Este mes</h2>
+              </div>
+              <h3 className="section-subtitle">Productos más vendidos</h3>
             </div>
             <Link to="/shop" className="view-all">
               Ver todos
@@ -227,7 +264,7 @@ const HomePage = () => {
         <div className="container">
           <div className="section-header-home">
             <div className="section-title-container">
-              <h3 className="section-subtitle-home">Productos más vistos</h3>
+              <h3 className="section-subtitle">Productos más vistos</h3>
             </div>
             <Link to="/shop" className="view-all">
               Ver todos
@@ -244,6 +281,7 @@ const HomePage = () => {
 
       {/* Banner promocional */}
       <section className="promo-banner">
+        <div className="promo-banner-bg"></div>
         <div className="container">
           <div className="promo-content">
             <div className="promo-text">
@@ -292,10 +330,10 @@ const HomePage = () => {
               <h3 className="section-subtitle">Explore nuestros servicios</h3>
               <div className="categories-navigation">
                 <button className="categories-nav-arrow">
-                  <ArrowLeft size={16} strokeWidth={1.5} />
+                  <MaterialIcons.ArrowLeft />
                 </button>
                 <button className="categories-nav-arrow">
-                  <ArrowRight size={16} strokeWidth={1.5} />
+                  <MaterialIcons.ArrowRight />
                 </button>
               </div>
             </div>
@@ -314,6 +352,9 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+
+      {/* Full Services Section */}
+      <FullServices />
     </div>
   )
 }

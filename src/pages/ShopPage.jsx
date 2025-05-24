@@ -1,13 +1,13 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
-import { Heart, Eye, ChevronDown, ChevronUp } from "lucide-react"
+import { Heart, ChevronDown, ChevronUp } from "lucide-react"
 import { getAllProducts } from "../services/productService"
+import QuoteModal from "../components/QuoteModal"
+import InfoModal from "../components/InfoModal"
 import "./ShopPage.css"
 
 const ShopPage = () => {
-  const [showFilters, setShowFilters] = useState(false)
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false)
   const [selectedCategories, setSelectedCategories] = useState([])
   const [selectedColors, setSelectedColors] = useState([])
@@ -15,11 +15,30 @@ const ShopPage = () => {
   const [sortBy, setSortBy] = useState("featured")
   const [currentPage, setCurrentPage] = useState(1)
   const [products, setProducts] = useState([])
+  const [showQuoteModal, setShowQuoteModal] = useState(false)
+  const [showInfoModal, setShowInfoModal] = useState(false)
+  const [selectedProduct, setSelectedProduct] = useState(null)
 
+  // Generate 20 products for the shop page
   useEffect(() => {
-    // Cargar productos
-    const allProducts = getAllProducts()
-    setProducts(allProducts)
+    // Get base products
+    const baseProducts = getAllProducts()
+
+    // Create 20 products by duplicating the base products
+    const extendedProducts = []
+    for (let i = 0; i < 5; i++) {
+      baseProducts.forEach((product, index) => {
+        extendedProducts.push({
+          ...product,
+          id: product.id + i * baseProducts.length,
+          // Add some variation to make products more interesting
+          isNew: i === 0 && index < 2, // First 2 products in first iteration are "new"
+        })
+      })
+    }
+
+    // Take only 20 products
+    setProducts(extendedProducts.slice(0, 20))
   }, [])
 
   const toggleCategory = (category) => {
@@ -46,6 +65,16 @@ const ShopPage = () => {
 
   const toggleCategoryDropdown = () => {
     setShowCategoryDropdown(!showCategoryDropdown)
+  }
+
+  const handleQuoteClick = (product) => {
+    setSelectedProduct(product)
+    setShowQuoteModal(true)
+  }
+
+  const handleInfoClick = (product) => {
+    setSelectedProduct(product)
+    setShowInfoModal(true)
   }
 
   // Lista de categorías
@@ -96,17 +125,6 @@ const ShopPage = () => {
         return 0
     }
   })
-
-  // Renderizar estrellas para las calificaciones
-  const renderStars = (rating) => {
-    return Array(5)
-      .fill(0)
-      .map((_, i) => (
-        <span key={i} className={i < rating ? "star filled" : "star"}>
-          ★
-        </span>
-      ))
-  }
 
   return (
     <div className="shop-page">
@@ -224,93 +242,90 @@ const ShopPage = () => {
       <div className="container">
         <div className="products-grid">
           {sortedProducts.map((product) => (
-            <Link to={`/product/${product.id}`} key={product.id} className="product-card">
-              <div className="product-image">
+            <div key={product.id} className="product-card-shop">
+              {/* Badge de descuento o nuevo */}
+              {product.isNew ? (
+                <span className="new-badge">NEW</span>
+              ) : product.discount > 0 ? (
+                <span className="discount-badge">-{product.discount}%</span>
+              ) : null}
+
+              <div className="product-image-shop">
                 <img src={product.image || "/placeholder.svg"} alt={product.name} />
-                {product.discount > 0 && <span className="discount-badge">-{product.discount}%</span>}
-                {product.isNew && <span className="new-badge">NEW</span>}
-                <div className="product-actions">
-                  <button className="action-btn wishlist-btn" onClick={(e) => e.preventDefault()}>
-                    <Heart size={16} strokeWidth={1.5} />
-                  </button>
-                  <Link
-                    to={`/product/${product.id}`}
-                    className="action-btn view-btn"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      e.stopPropagation()
-                      window.location.href = `/product/${product.id}`
-                    }}
-                  >
-                    <Eye size={16} strokeWidth={1.5} />
-                  </Link>
-                </div>
               </div>
-              <div className="product-info">
-                <h3 className="product-title">{product.name}</h3>
-                <div className="product-price">
-                  <span className="current-price">${product.price.toFixed(2)}</span>
-                  {product.originalPrice > product.price && (
-                    <span className="original-price">${product.originalPrice.toFixed(2)}</span>
-                  )}
-                </div>
-                <div className="rating">
-                  {renderStars(product.rating)}
-                  <span className="rating-count">({product.reviewCount})</span>
-                </div>
-                <div className="color-options">
-                  {product.colors.map((color) => (
-                    <div key={color} className={`color-option ${color}`} onClick={(e) => e.preventDefault()} />
-                  ))}
-                </div>
+
+              <div className="product-title-container">
+                <h3 className="product-title-shop">{product.name}</h3>
+                <button className="wishlist-btn-shop">
+                  <Heart size={18} />
+                </button>
               </div>
-            </Link>
+
+              {/* Agregar precios */}
+              <div className="product-price-shop">
+                <span className="current-price-shop">${product.price.toFixed(2)}</span>
+                {product.originalPrice && product.originalPrice > product.price && (
+                  <span className="original-price-shop">${product.originalPrice.toFixed(2)}</span>
+                )}
+              </div>
+
+              <div className="product-buttons-shop">
+                <button className="info-btn-shop" onClick={() => handleInfoClick(product)}>
+                  Info
+                </button>
+                <button className="quote-btn-shop" onClick={() => handleQuoteClick(product)}>
+                  Solicitar cotización
+                </button>
+              </div>
+            </div>
           ))}
         </div>
 
         <div className="pagination-container">
           <div className="pagination">
-            <button className="pagination-arrow prev">
-              <span>&lt;</span>
+            <button className="pagination-arrow">&lt;</button>
+            <button
+              className={`pagination-number ${currentPage === 1 ? "active" : ""}`}
+              onClick={() => setCurrentPage(1)}
+            >
+              1
             </button>
-            <div className="pagination-numbers">
-              <span
-                className={`pagination-number ${currentPage === 1 ? "active" : ""}`}
-                onClick={() => setCurrentPage(1)}
-              >
-                1
-              </span>
-              <span
-                className={`pagination-number ${currentPage === 2 ? "active" : ""}`}
-                onClick={() => setCurrentPage(2)}
-              >
-                2
-              </span>
-              <span
-                className={`pagination-number ${currentPage === 3 ? "active" : ""}`}
-                onClick={() => setCurrentPage(3)}
-              >
-                3
-              </span>
-              <span
-                className={`pagination-number ${currentPage === 4 ? "active" : ""}`}
-                onClick={() => setCurrentPage(4)}
-              >
-                4
-              </span>
-              <span
-                className={`pagination-number ${currentPage === 5 ? "active" : ""}`}
-                onClick={() => setCurrentPage(5)}
-              >
-                5
-              </span>
-            </div>
-            <button className="pagination-arrow next">
-              <span>&gt;</span>
+            <button
+              className={`pagination-number ${currentPage === 2 ? "active" : ""}`}
+              onClick={() => setCurrentPage(2)}
+            >
+              2
             </button>
+            <button
+              className={`pagination-number ${currentPage === 3 ? "active" : ""}`}
+              onClick={() => setCurrentPage(3)}
+            >
+              3
+            </button>
+            <button
+              className={`pagination-number ${currentPage === 4 ? "active" : ""}`}
+              onClick={() => setCurrentPage(4)}
+            >
+              4
+            </button>
+            <button
+              className={`pagination-number ${currentPage === 5 ? "active" : ""}`}
+              onClick={() => setCurrentPage(5)}
+            >
+              5
+            </button>
+            <button className="pagination-arrow">&gt;</button>
           </div>
         </div>
       </div>
+
+      <QuoteModal
+        isOpen={showQuoteModal}
+        onClose={() => setShowQuoteModal(false)}
+        productName={selectedProduct?.name}
+      />
+
+      <InfoModal isOpen={showInfoModal} onClose={() => setShowInfoModal(false)} productName={selectedProduct?.name} />
     </div>
   )
 }

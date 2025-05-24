@@ -1,7 +1,8 @@
+/* Ajustar el espaciado de la sección hero */
 .hero-section {
   background-color: #fff;
-  margin-bottom: 40px;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 0 !important; /* Eliminar margen inferior */
+  padding: 40px 0 !important;
 }
 
 .hero-content {
@@ -30,7 +31,7 @@
 }
 
 .sidebar-menu ul {
-  list-style: none;
+  list_style: none;
   padding: 0;
   margin: 0;
 }
@@ -226,4 +227,17 @@
   .slide-title {
     font-size: 2rem;
   }
+}
+
+/* Ajustar tamaño de los iconos de Material Design */
+.menu-arrow.material-icons-outlined {
+  font-size: 14px;
+}
+
+.store-icon.material-icons-outlined {
+  font-size: 40px;
+}
+
+.slide-button .material-icons-outlined {
+  font-size: 14px;
 }
