@@ -5,14 +5,16 @@ import { Link, useLocation } from "react-router-dom"
 import "./Header.css"
 
 const languageOptions = [
+  { code: "en", name: "Inglés", flag: "/usa.jpg" },
   { code: "es", name: "Español", flag: "/spain.jpg" },
-  { code: "en", name: "English", flag: "/usa.jpg" },
 ]
 
 const Header = () => {
   const location = useLocation()
   const [searchQuery, setSearchQuery] = useState("")
   const [language, setLanguage] = useState("Español")
+  const [showLanguageDropdown, setShowLanguageDropdown] = useState(false)
+  const [showAccountDropdown, setShowAccountDropdown] = useState(false)
 
   const isActive = (path) => {
     return location.pathname === path ? "active" : ""
@@ -24,33 +26,61 @@ const Header = () => {
     console.log("Searching for:", searchQuery)
   }
 
+  const toggleLanguageDropdown = () => {
+    setShowLanguageDropdown(!showLanguageDropdown)
+    setShowAccountDropdown(false) // Cerrar el otro dropdown
+  }
+
+  const toggleAccountDropdown = () => {
+    setShowAccountDropdown(!showAccountDropdown)
+    setShowLanguageDropdown(false) // Cerrar el otro dropdown
+  }
+
+  const selectLanguage = (lang) => {
+    setLanguage(lang.name)
+    setShowLanguageDropdown(false)
+  }
+
+  const handleAccountAction = (action) => {
+    console.log("Account action:", action)
+    setShowAccountDropdown(false)
+    // Aquí puedes implementar la navegación o lógica específica para cada acción
+  }
+
+  const getCurrentLanguageFlag = () => {
+    const currentLang = languageOptions.find((lang) => lang.name === language)
+    return currentLang ? currentLang.flag : "/spain.jpg"
+  }
+
   return (
     <>
       <div className="top-bar">
         <div className="container top-bar-container">
-          <p className="promo-text">Este puede ser un texto de oferta... Oferta - 25% descuento</p>
+          <p className="promo-text-header">Este puede ser un texto de oferta... Oferta - 25% descuento</p>
           <div className="top-bar-actions">
             <a href="#" className="buy-now-btn">
               Comprar Ahora
             </a>
             <div className="language-selector">
-              <span>
-                {languageOptions.find((lang) => lang.name === language)?.code === "es" ? (
-                  <img src="/spain.jpg" alt="Español" className="language-flag" />
-                ) : (
-                  <img src="/usa.jpg" alt="English" className="language-flag" />
-                )}
-                {language}
-              </span>
-              <span className="material-icons-outlined">expand_more</span>
-              <div className="language-dropdown">
-                {languageOptions.map((lang) => (
-                  <div key={lang.code} onClick={() => setLanguage(lang.name)}>
-                    <img src={lang.flag || "/placeholder.svg"} alt={lang.name} className="language-flag" />
-                    {lang.name}
-                  </div>
-                ))}
+              <div className="language-current" onClick={toggleLanguageDropdown}>
+                <span className="language-display">
+                  <img src={getCurrentLanguageFlag() || "/placeholder.svg"} alt={language} className="language-flag" />
+                  {language}
+                </span>
+                <span className={`material-icons-outlined expand-icon ${showLanguageDropdown ? "rotated" : ""}`}>
+                  expand_more
+                </span>
               </div>
+              {showLanguageDropdown && (
+                <div className="language-dropdown">
+                  {languageOptions.map((lang) => (
+                    <div key={lang.code} className="language-dropdown-item" onClick={() => selectLanguage(lang)}>
+                      <img src={lang.flag || "/placeholder.svg"} alt={lang.name} className="language-flag" />
+                      <span>{lang.name}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -99,9 +129,35 @@ const Header = () => {
               <Link to="/cart" className="icon-link">
                 <span className="material-icons-outlined">shopping_cart</span>
               </Link>
-              <Link to="/account" className="icon-link">
-                <span className="material-icons-outlined">person_outline</span>
-              </Link>
+              <div className="account-dropdown-container">
+                <button className="icon-link account-toggle" onClick={toggleAccountDropdown}>
+                  <span className="material-icons-outlined">person_outline</span>
+                </button>
+                {showAccountDropdown && (
+                  <div className="account-dropdown">
+                    <div className="account-dropdown-item" onClick={() => handleAccountAction("manage")}>
+                      <span className="material-icons-outlined">person</span>
+                      <span>Administrar mi cuenta</span>
+                    </div>
+                    <div className="account-dropdown-item" onClick={() => handleAccountAction("orders")}>
+                      <span className="material-icons-outlined">shopping_bag</span>
+                      <span>Mis pedidos</span>
+                    </div>
+                    <div className="account-dropdown-item" onClick={() => handleAccountAction("reviews")}>
+                      <span className="material-icons-outlined">star_border</span>
+                      <span>Mis Reseñas</span>
+                    </div>
+                    <div className="account-dropdown-item" onClick={() => handleAccountAction("cancellations")}>
+                      <span className="material-icons-outlined">cancel</span>
+                      <span>Mis Cancelaciones</span>
+                    </div>
+                    <div className="account-dropdown-item" onClick={() => handleAccountAction("logout")}>
+                      <span className="material-icons-outlined">logout</span>
+                      <span>Cerrar sesión</span>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

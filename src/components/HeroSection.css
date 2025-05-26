@@ -12,7 +12,7 @@
 }
 
 .sidebar-menu {
-  max-width: 300px;
+  max-width: 170px;
   background-color: white;
   position: relative;
   margin-right: 40px;
@@ -22,10 +22,10 @@
 .sidebar-menu::after {
   content: "";
   position: absolute;
-  top: -50px;
+  top: -40px;
   right: 0;
   width: 1px;
-  height: 115%;
+  height: 112%;
   background-color: rgba(0, 0, 0, 0.1); /* Match the color of the horizontal divider */
   z-index: 2;
 }
@@ -43,6 +43,7 @@
   align-items: center;
   padding: 8px 10px; /* Reduced padding to half */
   margin: 16px;
+  margin-left: -8px;
   color: #333;
   text-decoration: none;
   transition: background-color 0.3s;
@@ -205,18 +206,6 @@
     flex-direction: column;
   }
 
-  .sidebar-menu {
-    width: 100%;
-  }
-
-  /* Hide vertical divider on mobile */
-  .sidebar-menu::after {
-    display: none;
-  }
-
-  .hero-slider {
-    height: 300px;
-  }
 }
 
 @media (max-width: 768px) {

@@ -97,7 +97,6 @@
 
 .categories-subtitle-row {
   display: flex;
-  align-items: center;
   justify-content: space-between;
 }
 
@@ -389,10 +388,10 @@
   position: absolute;
   top: 0;
   left: 0;
-  right: 50px;
+  right: 0;
   bottom: 0;
   background-image: url("/placa.png");
-  background-size: 70%;
+  background-size: 60% 150%;
   background-position: right;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -418,9 +417,16 @@
   flex: 1;
   padding-right: 30px;
   text-align: left; /* Ensure text is left-aligned */
-  max-width: 50%; /* Limit width to left side */
+  max-width: 50%; 
 }
 
+.promo-text-header {
+  flex: 1;
+  padding-right: 30px;
+  text-align: center; /* Ensure text is left-aligned */
+  max-width: 50%; /* Limit width to left side */
+  margin-left: 245px;
+}
 .promo-subtitle {
   color: #4caf50;
   margin-bottom: 10px;
@@ -487,8 +493,8 @@
 }
 
 .categories-navigation {
+align-self: start;
   display: flex;
-  align-self: start;
   gap: 10px;
 }
 

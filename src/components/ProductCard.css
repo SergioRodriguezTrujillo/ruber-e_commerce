@@ -111,7 +111,7 @@
 .wishlist-btn-shop.active {
   color: #e63946;
 }
-
+/* 
 .product-price,
 .product-price-shop {
   display: flex;
@@ -133,7 +133,7 @@
   text-decoration: line-through;
   color: #999;
   font-size: 0.8rem;
-}
+} */
 
 .product-buttons,
 .product-buttons-shop {

@@ -261,13 +261,13 @@ const ShopPage = () => {
                 </button>
               </div>
 
-              {/* Agregar precios */}
+              {/* Agregar precios
               <div className="product-price-shop">
                 <span className="current-price-shop">${product.price.toFixed(2)}</span>
                 {product.originalPrice && product.originalPrice > product.price && (
                   <span className="original-price-shop">${product.originalPrice.toFixed(2)}</span>
                 )}
-              </div>
+              </div> */}
 
               <div className="product-buttons-shop">
                 <button className="info-btn-shop" onClick={() => handleInfoClick(product)}>
