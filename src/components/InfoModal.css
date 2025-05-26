@@ -55,7 +55,7 @@
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 8px;
 }
 
 .form-group label {
@@ -103,7 +103,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-top: 8px;
+  margin-top: 16px;
 }
 
 .modal-submit-btn:hover {

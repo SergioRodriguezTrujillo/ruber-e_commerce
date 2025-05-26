@@ -194,6 +194,21 @@ ul {
   background-color: #f05c6c; /* Lighter red on hover */
 }
 
+.view-all2 {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 8px 16px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  align-self: start;
+  border-radius: 4px;
+}
+
+/* Modify the "Ver todos" button hover effect */
+.view-all2:hover {
+  background-color: #f05c6c; /* Lighter red on hover */
+}
+
 .navigation-arrows {
   display: flex;
   gap: 10px;
@@ -287,12 +302,12 @@ ul {
   font-size: 0.9rem;
 }
 
-.hero-section {
-  /* background-color: #000; */
+/* .hero-section {
+  background-color: #000;
   color: white;
   padding: 50px 0;
   margin-bottom: 2rem;
-}
+} */
 
 .hero-content {
   display: flex;

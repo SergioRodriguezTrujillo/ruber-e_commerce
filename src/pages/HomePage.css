@@ -506,10 +506,10 @@
 }
 
 .categories-nav-arrow:hover {
-  background-color: #888585;
+  background-color: #c1c0c1;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 992px) { 
   .service-grid {
     grid-template-columns: repeat(2, 1fr);
   }

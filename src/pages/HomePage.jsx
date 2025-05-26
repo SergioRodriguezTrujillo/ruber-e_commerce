@@ -266,7 +266,7 @@ const HomePage = () => {
             <div className="section-title-container">
               <h3 className="section-subtitle">Productos más vistos</h3>
             </div>
-            <Link to="/shop" className="view-all">
+            <Link to="/shop" className="view-all2">
               Ver todos
             </Link>
           </div>

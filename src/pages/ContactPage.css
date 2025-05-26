@@ -101,7 +101,6 @@
 .form-group textarea {
   height: 150px;
   resize: none;
-  margin-bottom: 20px;
 }
 
 .form-group input::placeholder,

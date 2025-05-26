@@ -29,7 +29,6 @@
 .service-icon-circle img {
   width: 80px;
   height: 80px;
-  filter: brightness(0); /* Make icons black/dark */
 }
 
 .service-feature-title {

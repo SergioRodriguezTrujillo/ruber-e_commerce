@@ -1,8 +1,8 @@
 /* Ajustar el espaciado de la sección hero */
 .hero-section {
   background-color: #fff;
-  margin-bottom: 0 !important; /* Eliminar margen inferior */
-  padding: 40px 0 !important;
+  margin-bottom: 0; /* Eliminar margen inferior */
+  padding: 40px 0;
 }
 
 .hero-content {
@@ -22,10 +22,10 @@
 .sidebar-menu::after {
   content: "";
   position: absolute;
-  top: 0;
+  top: -50px;
   right: 0;
   width: 1px;
-  height: 100%;
+  height: 115%;
   background-color: rgba(0, 0, 0, 0.1); /* Match the color of the horizontal divider */
   z-index: 2;
 }
