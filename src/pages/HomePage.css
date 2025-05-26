@@ -488,6 +488,7 @@
 
 .categories-navigation {
   display: flex;
+  align-self: start;
   gap: 10px;
 }
 
