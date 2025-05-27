@@ -65,6 +65,7 @@ const AccountPage = () => {
                   Mi Perfil
                 </Link>
               </li>
+              <ul className="account-submenu">
               <li className="account-menu-item">
                 <Link to="/account/addresses" className="account-menu-link">
                   Libreta de direcciones
@@ -75,6 +76,7 @@ const AccountPage = () => {
                   Mis opciones de pago
                 </Link>
               </li>
+              </ul>
               <li className="account-menu-item">
                 <span className="account-menu-link" style={{ fontWeight: "600", color: "#333" }}>
                   Mis pedidos
@@ -93,9 +95,9 @@ const AccountPage = () => {
                 </ul>
               </li>
               <li className="account-menu-item">
-                <Link to="/account/wishlist" className="account-menu-link">
+                <span className="account-menu-link" style={{ fontWeight: "600", color: "#333" }}>
                   Mi lista de deseos
-                </Link>
+               </span>
               </li>
             </ul>
           </div>
