@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import "./Header.css"
 
 const languageOptions = [
@@ -11,6 +11,7 @@ const languageOptions = [
 
 const Header = () => {
   const location = useLocation()
+  const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState("")
   const [language, setLanguage] = useState("Español")
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false)
@@ -44,12 +45,37 @@ const Header = () => {
   const handleAccountAction = (action) => {
     console.log("Account action:", action)
     setShowAccountDropdown(false)
-    // Aquí puedes implementar la navegación o lógica específica para cada acción
+
+    // Navegación específica para cada acción
+    switch (action) {
+      case "manage":
+        navigate("/account")
+        break
+      case "orders":
+        navigate("/account/orders")
+        break
+      case "reviews":
+        navigate("/account/reviews")
+        break
+      case "cancellations":
+        navigate("/account/cancellations")
+        break
+      case "logout":
+        // Implementar lógica de logout
+        console.log("Logging out...")
+        break
+      default:
+        break
+    }
   }
 
   const getCurrentLanguageFlag = () => {
     const currentLang = languageOptions.find((lang) => lang.name === language)
     return currentLang ? currentLang.flag : "/spain.jpg"
+  }
+
+  const handleBuyNowClick = () => {
+    navigate("/tienda")
   }
 
   return (
@@ -58,9 +84,9 @@ const Header = () => {
         <div className="container top-bar-container">
           <p className="promo-text-header">Este puede ser un texto de oferta... Oferta - 25% descuento</p>
           <div className="top-bar-actions">
-            <a href="#" className="buy-now-btn">
+            <button onClick={handleBuyNowClick} className="buy-now-btn">
               Comprar Ahora
-            </a>
+            </button>
             <div className="language-selector">
               <div className="language-current" onClick={toggleLanguageDropdown}>
                 <span className="language-display">

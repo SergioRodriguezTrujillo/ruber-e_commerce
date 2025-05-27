@@ -1,9 +1,11 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
+import { useNavigate } from "react-router-dom"
 import "./HeroSection.css"
 
 const HeroSection = () => {
+  const navigate = useNavigate()
   const [activeSlide, setActiveSlide] = useState(0)
   const [isRapidReset, setIsRapidReset] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
@@ -97,6 +99,10 @@ const HeroSection = () => {
     setIsHovered(false)
   }
 
+  const handleBuyNowClick = () => {
+    navigate("/tienda")
+  }
+
   return (
     <section className="hero-section">
       <div className="container">
@@ -124,10 +130,10 @@ const HeroSection = () => {
               <h2 className="slide-title">
                 Todo lo que necesitas <br /> en un solo lugar
               </h2>
-              <a href="/shop" className="slide-button">
+              <button onClick={handleBuyNowClick} className="slide-button">
                 <span className="button-text">Comprar ahora</span>{" "}
                 <span className="material-icons-outlined">chevron_right</span>
-              </a>
+              </button>
             </div>
 
             {/* Slides con solo imágenes */}

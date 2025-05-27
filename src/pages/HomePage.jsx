@@ -1,13 +1,13 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import ProductCard from "../components/ProductCard"
 import CategoryItem from "../components/CategoryItem"
 import ServiceItem from "../components/ServiceItem"
 import HeroSection from "../components/HeroSection"
 import FullServices from "../components/FullServices"
-import { getAllProducts } from "../services/productService"
+import { getBestSellingProductsForHome, getMostViewedProductsForHome } from "../services/productService"
 import "./HomePage.css"
 
 // Usar iconos de Material Design outline
@@ -47,18 +47,23 @@ const MaterialIcons = {
 }
 
 const HomePage = () => {
+  const navigate = useNavigate()
   const [countdown, setCountdown] = useState({
     days: 5,
     hours: 23,
     minutes: 59,
     seconds: 35,
   })
-  const [products, setProducts] = useState([])
+  const [bestSellingProducts, setBestSellingProducts] = useState([])
+  const [mostViewedProducts, setMostViewedProducts] = useState([])
 
   useEffect(() => {
-    // Cargar productos
-    const allProducts = getAllProducts()
-    setProducts(allProducts)
+    // Cargar solo 4 productos más vendidos y 4 más vistos para la homepage
+    const bestSelling = getBestSellingProductsForHome()
+    const mostViewed = getMostViewedProductsForHome()
+
+    setBestSellingProducts(bestSelling)
+    setMostViewedProducts(mostViewed)
   }, [])
 
   useEffect(() => {
@@ -129,6 +134,24 @@ const HomePage = () => {
     },
   ]
 
+  const handleViewAllBestSelling = () => {
+    // Scroll to top and navigate to shop with best-selling filter
+    window.scrollTo(0, 0)
+    navigate("/tienda?filter=best-selling")
+  }
+
+  const handleViewAllMostViewed = () => {
+    // Scroll to top and navigate to shop with most-viewed filter
+    window.scrollTo(0, 0)
+    navigate("/tienda?filter=most-viewed")
+  }
+
+  const handleBuyNowClick = () => {
+    // Scroll to top and navigate to shop
+    window.scrollTo(0, 0)
+    navigate("/tienda")
+  }
+
   return (
     <div className="home-page">
       {/* Hero Section con menú lateral y slider */}
@@ -150,9 +173,9 @@ const HomePage = () => {
                 <div className="recently-arrived-info">
                   <h3>PC</h3>
                   <p>Versión Blanco & Negro</p>
-                  <a href="/category/pc" className="buy-now-button">
+                  <button onClick={handleBuyNowClick} className="buy-now-button">
                     Comprar Ahora
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
@@ -166,9 +189,9 @@ const HomePage = () => {
                   <div className="recently-arrived-info">
                     <h3>Placas Base</h3>
                     <p>Colección de placas base destacadas solo para ti</p>
-                    <a href="/category/placas-base" className="buy-now-button">
+                    <button onClick={handleBuyNowClick} className="buy-now-button">
                       Comprar Ahora
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -182,9 +205,9 @@ const HomePage = () => {
                     <div className="recently-arrived-info">
                       <h3>Accesorios</h3>
                       <p>Accesorios múltiples</p>
-                      <a href="/category/accesorios" className="buy-now-button">
+                      <button onClick={handleBuyNowClick} className="buy-now-button">
                         Comprar Ahora
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -196,9 +219,9 @@ const HomePage = () => {
                     <div className="recently-arrived-info">
                       <h3>Rendimiento</h3>
                       <p>Todo en velocidad y rendimiento</p>
-                      <a href="/category/rendimiento" className="buy-now-button">
+                      <button onClick={handleBuyNowClick} className="buy-now-button">
                         Comprar Ahora
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -244,15 +267,15 @@ const HomePage = () => {
               <div className="section-header">
                 <h2 className="section-title">Este mes</h2>
               </div>
-              <h3 className="section-subtitle">Productos más vendidos</h3>
+              <h3 className="section-subtitle-home">Productos más vendidos</h3>
             </div>
-            <Link to="/shop" className="view-all">
+            <button onClick={handleViewAllBestSelling} className="view-all">
               Ver todos
-            </Link>
+            </button>
           </div>
 
           <div className="products-grid">
-            {products.map((product) => (
+            {bestSellingProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
@@ -264,15 +287,15 @@ const HomePage = () => {
         <div className="container">
           <div className="section-header-home">
             <div className="section-title-container">
-              <h3 className="section-subtitle">Productos más vistos</h3>
+              <h3 className="section-subtitle-home">Productos más vistos</h3>
             </div>
-            <Link to="/shop" className="view-all2">
+            <button onClick={handleViewAllMostViewed} className="view-all2">
               Ver todos
-            </Link>
+            </button>
           </div>
 
           <div className="products-grid">
-            {products.map((product) => (
+            {mostViewedProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
@@ -311,9 +334,9 @@ const HomePage = () => {
                 </div>
               </div>
 
-              <Link to="/shop" className="promo-button">
+              <button onClick={handleBuyNowClick} className="promo-button">
                 Ir a algún lado...
-              </Link>
+              </button>
             </div>
           </div>
         </div>

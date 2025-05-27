@@ -7,6 +7,7 @@ import HomePage from "./pages/HomePage"
 import ShopPage from "./pages/ShopPage"
 import ContactPage from "./pages/ContactPage"
 import AboutPage from "./pages/AboutPage"
+import AccountPage from "./pages/AccountPage"
 import ProductDetailPage from "./pages/ProductDetailPage"
 import { CartProvider } from "./context/CartContext"
 import { WishlistProvider } from "./context/WishlistContext"
@@ -45,6 +46,8 @@ function App() {
                 <Route path="/tienda" element={<ShopPage />} />
                 <Route path="/contacto" element={<ContactPage />} />
                 <Route path="/acerca-de" element={<AboutPage />} />
+                <Route path="/account" element={<AccountPage />} />
+                <Route path="/account/*" element={<AccountPage />} />
                 <Route path="/product/:id" element={<ProductDetailPage />} />
               </Routes>
             </main>

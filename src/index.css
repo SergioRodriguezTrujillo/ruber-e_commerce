@@ -59,7 +59,6 @@ ul {
   width: 12px;
   border-radius: 4px;
   background-color: var(--primary-color);
-
 }
 /* 
 .discount-badge {
@@ -187,6 +186,10 @@ ul {
   padding: 8px 16px;
   font-weight: 600;
   font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
 }
 
 /* Modify the "Ver todos" button hover effect */
@@ -202,6 +205,10 @@ ul {
   font-size: 0.9rem;
   align-self: start;
   border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
 }
 
 /* Modify the "Ver todos" button hover effect */

@@ -1,13 +1,15 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useLocation } from "react-router-dom"
 import { Heart, ChevronDown, ChevronUp } from "lucide-react"
-import { getAllProducts } from "../services/productService"
+import { getAllProducts, getBestSellingProducts, getMostViewedProducts } from "../services/productService"
 import QuoteModal from "../components/QuoteModal"
 import InfoModal from "../components/InfoModal"
 import "./ShopPage.css"
 
 const ShopPage = () => {
+  const location = useLocation()
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false)
   const [selectedCategories, setSelectedCategories] = useState([])
   const [selectedColors, setSelectedColors] = useState([])
@@ -18,28 +20,40 @@ const ShopPage = () => {
   const [showQuoteModal, setShowQuoteModal] = useState(false)
   const [showInfoModal, setShowInfoModal] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState(null)
+  const [filterType, setFilterType] = useState(null)
 
-  // Generate 20 products for the shop page
+  // Load products based on filter type
   useEffect(() => {
-    // Get base products
-    const baseProducts = getAllProducts()
+    const searchParams = new URLSearchParams(location.search)
+    const filter = searchParams.get("filter")
+    setFilterType(filter)
 
-    // Create 20 products by duplicating the base products
-    const extendedProducts = []
-    for (let i = 0; i < 5; i++) {
-      baseProducts.forEach((product, index) => {
-        extendedProducts.push({
-          ...product,
-          id: product.id + i * baseProducts.length,
-          // Add some variation to make products more interesting
-          isNew: i === 0 && index < 2, // First 2 products in first iteration are "new"
+    let productsToShow = []
+
+    if (filter === "best-selling") {
+      // Solo mostrar productos más vendidos
+      productsToShow = getBestSellingProducts()
+    } else if (filter === "most-viewed") {
+      // Solo mostrar productos más vistos
+      productsToShow = getMostViewedProducts()
+    } else {
+      // Mostrar todos los productos (generar 20 productos como antes)
+      const baseProducts = getAllProducts()
+      const extendedProducts = []
+      for (let i = 0; i < 5; i++) {
+        baseProducts.forEach((product, index) => {
+          extendedProducts.push({
+            ...product,
+            id: product.id + i * baseProducts.length,
+            isNew: i === 0 && index < 2,
+          })
         })
-      })
+      }
+      productsToShow = extendedProducts.slice(0, 20)
     }
 
-    // Take only 20 products
-    setProducts(extendedProducts.slice(0, 20))
-  }, [])
+    setProducts(productsToShow)
+  }, [location.search])
 
   const toggleCategory = (category) => {
     setSelectedCategories((prev) =>
@@ -90,8 +104,13 @@ const ShopPage = () => {
     "Componentes",
   ]
 
-  // Filtrar productos
+  // Filtrar productos (solo aplicar filtros adicionales si no es un filtro específico)
   const filteredProducts = products.filter((product) => {
+    // Si es un filtro específico (best-selling o most-viewed), no aplicar filtros adicionales
+    if (filterType === "best-selling" || filterType === "most-viewed") {
+      return true
+    }
+
     // Filtrar por categoría
     if (selectedCategories.length > 0 && !selectedCategories.includes(product.category)) {
       return false
@@ -126,114 +145,135 @@ const ShopPage = () => {
     }
   })
 
+  // Get page title based on filter
+  const getPageTitle = () => {
+    if (filterType === "best-selling") {
+      return "PRODUCTOS MÁS VENDIDOS"
+    }
+    if (filterType === "most-viewed") {
+      return "PRODUCTOS MÁS VISTOS"
+    }
+    return "PRODUCTOS"
+  }
+
+  const getPageSlogan = () => {
+    if (filterType === "best-selling") {
+      return "Descubre nuestros productos más vendidos"
+    }
+    if (filterType === "most-viewed") {
+      return "Los productos que más llaman la atención"
+    }
+    return "No compres solo un accesorio, ¡compra una ventaja!"
+  }
+
   return (
     <div className="shop-page">
       <div className="shop-hero">
         <div className="container">
           <div className="shop-hero-content">
             <div className="shop-hero-left">
-              <h1 className="shop-title">PRODUCTOS</h1>
-              <div className="category-selector">
-                <p>Buscar por categoría</p>
-                <div className="dropdown-container">
-                  <button className="dropdown-button" onClick={toggleCategoryDropdown}>
-                    Todas las categorías
-                    {showCategoryDropdown ? (
-                      <ChevronUp size={16} strokeWidth={1.5} />
-                    ) : (
-                      <ChevronDown size={16} strokeWidth={1.5} />
-                    )}
-                  </button>
-                  {showCategoryDropdown && (
-                    <div className="dropdown-menu">
-                      <div className="dropdown-item">
-                        <label className="filter-option">
-                          <input
-                            type="checkbox"
-                            checked={selectedCategories.length === 0}
-                            onChange={() => setSelectedCategories([])}
-                          />
-                          Todas las categorías
-                        </label>
-                      </div>
-
-                      {/* Categorías con checkboxes */}
-                      {categories.map((category) => (
-                        <div key={category} className="dropdown-item">
+              <h1 className="shop-title">{getPageTitle()}</h1>
+              {/* Solo mostrar selector de categoría si no es un filtro específico */}
+              {!filterType && (
+                <div className="category-selector">
+                  <p>Buscar por categoría</p>
+                  <div className="dropdown-container">
+                    <button className="dropdown-button" onClick={toggleCategoryDropdown}>
+                      Todas las categorías
+                      {showCategoryDropdown ? (
+                        <ChevronUp size={16} strokeWidth={1.5} />
+                      ) : (
+                        <ChevronDown size={16} strokeWidth={1.5} />
+                      )}
+                    </button>
+                    {showCategoryDropdown && (
+                      <div className="dropdown-menu">
+                        <div className="dropdown-item">
                           <label className="filter-option">
                             <input
                               type="checkbox"
-                              checked={selectedCategories.includes(category)}
-                              onChange={() => toggleCategory(category)}
+                              checked={selectedCategories.length === 0}
+                              onChange={() => setSelectedCategories([])}
                             />
-                            {category}
+                            Todas las categorías
                           </label>
                         </div>
-                      ))}
 
-                      {/* Sección de filtros */}
-                      <div className="dropdown-filters">
-                        <h4>Filtros</h4>
-
-                        <div className="filter-section">
-                          <h4>Color</h4>
-                          <div className="filter-options">
+                        {/* Categorías con checkboxes */}
+                        {categories.map((category) => (
+                          <div key={category} className="dropdown-item">
                             <label className="filter-option">
                               <input
                                 type="checkbox"
-                                checked={selectedColors.includes("black")}
-                                onChange={() => toggleColor("black")}
+                                checked={selectedCategories.includes(category)}
+                                onChange={() => toggleCategory(category)}
                               />
-                              Negro
-                            </label>
-                            <label className="filter-option">
-                              <input
-                                type="checkbox"
-                                checked={selectedColors.includes("blue")}
-                                onChange={() => toggleColor("blue")}
-                              />
-                              Azul
+                              {category}
                             </label>
                           </div>
-                        </div>
+                        ))}
 
-                        <div className="filter-section">
-                          <h4>Precio</h4>
-                          <div className="price-range">
-                            <div className="price-inputs">
-                              <input
-                                type="number"
-                                value={priceRange[0]}
-                                onChange={(e) => handlePriceChange(e, 0)}
-                                min="0"
-                                max={priceRange[1]}
-                              />
-                              <span>-</span>
-                              <input
-                                type="number"
-                                value={priceRange[1]}
-                                onChange={(e) => handlePriceChange(e, 1)}
-                                min={priceRange[0]}
-                                max="1000"
-                              />
+                        {/* Sección de filtros */}
+                        <div className="dropdown-filters">
+                          <h4>Filtros</h4>
+
+                          <div className="filter-section">
+                            <h4>Color</h4>
+                            <div className="filter-options">
+                              <label className="filter-option">
+                                <input
+                                  type="checkbox"
+                                  checked={selectedColors.includes("black")}
+                                  onChange={() => toggleColor("black")}
+                                />
+                                Negro
+                              </label>
+                              <label className="filter-option">
+                                <input
+                                  type="checkbox"
+                                  checked={selectedColors.includes("blue")}
+                                  onChange={() => toggleColor("blue")}
+                                />
+                                Azul
+                              </label>
                             </div>
                           </div>
-                        </div>
 
-                        <button className="clear-filters" onClick={clearFilters}>
-                          Limpiar Filtros
-                        </button>
+                          <div className="filter-section">
+                            <h4>Precio</h4>
+                            <div className="price-range">
+                              <div className="price-inputs">
+                                <input
+                                  type="number"
+                                  value={priceRange[0]}
+                                  onChange={(e) => handlePriceChange(e, 0)}
+                                  min="0"
+                                  max={priceRange[1]}
+                                />
+                                <span>-</span>
+                                <input
+                                  type="number"
+                                  value={priceRange[1]}
+                                  onChange={(e) => handlePriceChange(e, 1)}
+                                  min={priceRange[0]}
+                                  max="1000"
+                                />
+                              </div>
+                            </div>
+                          </div>
+
+                          <button className="clear-filters" onClick={clearFilters}>
+                            Limpiar Filtros
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
             <div className="shop-hero-right">
-              <h2 className="shop-slogan">
-                No compres solo un accesorio, <br />
-                ¡compra una ventaja!
-              </h2>
+              <h2 className="shop-slogan">{getPageSlogan()}</h2>
             </div>
           </div>
         </div>
@@ -261,14 +301,6 @@ const ShopPage = () => {
                 </button>
               </div>
 
-              {/* Agregar precios
-              <div className="product-price-shop">
-                <span className="current-price-shop">${product.price.toFixed(2)}</span>
-                {product.originalPrice && product.originalPrice > product.price && (
-                  <span className="original-price-shop">${product.originalPrice.toFixed(2)}</span>
-                )}
-              </div> */}
-
               <div className="product-buttons-shop">
                 <button className="info-btn-shop" onClick={() => handleInfoClick(product)}>
                   Info
@@ -281,42 +313,45 @@ const ShopPage = () => {
           ))}
         </div>
 
-        <div className="pagination-container">
-          <div className="pagination">
-            <button className="pagination-arrow">&lt;</button>
-            <button
-              className={`pagination-number ${currentPage === 1 ? "active" : ""}`}
-              onClick={() => setCurrentPage(1)}
-            >
-              1
-            </button>
-            <button
-              className={`pagination-number ${currentPage === 2 ? "active" : ""}`}
-              onClick={() => setCurrentPage(2)}
-            >
-              2
-            </button>
-            <button
-              className={`pagination-number ${currentPage === 3 ? "active" : ""}`}
-              onClick={() => setCurrentPage(3)}
-            >
-              3
-            </button>
-            <button
-              className={`pagination-number ${currentPage === 4 ? "active" : ""}`}
-              onClick={() => setCurrentPage(4)}
-            >
-              4
-            </button>
-            <button
-              className={`pagination-number ${currentPage === 5 ? "active" : ""}`}
-              onClick={() => setCurrentPage(5)}
-            >
-              5
-            </button>
-            <button className="pagination-arrow">&gt;</button>
+        {/* Solo mostrar paginación si hay productos */}
+        {sortedProducts.length > 0 && (
+          <div className="pagination-container">
+            <div className="pagination">
+              <button className="pagination-arrow">&lt;</button>
+              <button
+                className={`pagination-number ${currentPage === 1 ? "active" : ""}`}
+                onClick={() => setCurrentPage(1)}
+              >
+                1
+              </button>
+              <button
+                className={`pagination-number ${currentPage === 2 ? "active" : ""}`}
+                onClick={() => setCurrentPage(2)}
+              >
+                2
+              </button>
+              <button
+                className={`pagination-number ${currentPage === 3 ? "active" : ""}`}
+                onClick={() => setCurrentPage(3)}
+              >
+                3
+              </button>
+              <button
+                className={`pagination-number ${currentPage === 4 ? "active" : ""}`}
+                onClick={() => setCurrentPage(4)}
+              >
+                4
+              </button>
+              <button
+                className={`pagination-number ${currentPage === 5 ? "active" : ""}`}
+                onClick={() => setCurrentPage(5)}
+              >
+                5
+              </button>
+              <button className="pagination-arrow">&gt;</button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       <QuoteModal

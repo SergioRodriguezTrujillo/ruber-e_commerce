@@ -11,7 +11,8 @@
 .section-header-home {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end; /* Changed from center to flex-end to align button with subtitle */
+  align-items: flex-end;
+  margin-bottom: 48px; /* 48px separation between subtitle/button and cards */
 }
 
 .section-title-container {
@@ -19,35 +20,35 @@
   flex-direction: column;
 }
 
-.section-title-home {
+.section-title {
   position: relative;
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 1rem;
+  font-weight: 700;
   color: #333;
-  margin-bottom: 0.5rem;
-  padding-left: 15px;
+  padding-left: 24px;
+  margin-bottom: 20px;
 }
 
-.section-title-home::before {
+.section-title::before {
   content: "";
   position: absolute;
+  top: -5px;
   left: 0;
-  top: 0;
-  height: 100%;
-  width: 5px;
+  height: 150%;
+  width: 12px;
+  border-radius: 4px;
   background-color: var(--primary-color);
-}
-
-.section-subtitle-home {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #111;
 }
 
 .section-subtitle {
   font-size: 1.5rem;
   font-weight: 700;
-  /* margin-bottom: 1.5rem; */
+  color: #111;
+}
+
+.section-subtitle-home {
+  font-size: 1.5rem;
+  font-weight: 700;
   color: #111;
 }
 
@@ -58,8 +59,33 @@
   font-weight: 600;
   font-size: 0.9rem;
   border-radius: 4px;
-  align-self: flex-end; /* Ensure button aligns with the bottom of the subtitle */
-  align-self: center;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  align-self: flex-end;
+}
+
+.view-all:hover {
+  background-color: #f05c6c;
+}
+
+.view-all2 {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 8px 16px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  align-self: flex-end;
+}
+
+.view-all2:hover {
+  background-color: #f05c6c;
 }
 
 .navigation-arrows {
@@ -98,6 +124,7 @@
 .categories-subtitle-row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 /* Corregir el espaciado de las secciones */
@@ -107,7 +134,7 @@
 .services-section,
 .recently-arrived-section {
   padding: 40px 0;
-  margin-bottom: 0; /* Eliminar margen inferior */
+  margin-bottom: 0;
 }
 
 /* Estilos para la sección Recién llegado */
@@ -118,7 +145,7 @@
 }
 
 .section-header-special {
-  margin-bottom: 20px;
+  margin-bottom: 48px; /* 48px separation */
 }
 
 .recently-arrived-grid {
@@ -129,9 +156,6 @@
   height: 400px;
 }
 
-/* Modify the hover effect for the recently arrived items */
-/* Increase the glow effect and remove card border shadows */
-
 /* Remove box shadow from the card itself */
 .recently-arrived-item {
   position: relative;
@@ -139,7 +163,7 @@
   border-radius: 4px;
   background-color: #000;
   height: 100%;
-  box-shadow: none; /* Remove any default shadow */
+  box-shadow: none;
 }
 
 /* Increase the glow effect on the image */
@@ -156,7 +180,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  box-shadow: none; /* Remove the inner shadow */
+  box-shadow: none;
   z-index: 3;
   transition: all 0.3s ease;
   pointer-events: none;
@@ -164,7 +188,7 @@
 
 /* Remove the inner glow on hover */
 .recently-arrived-item:hover::before {
-  box-shadow: none; /* Remove the inner shadow on hover */
+  box-shadow: none;
 }
 
 .recently-arrived-content {
@@ -185,14 +209,13 @@
   height: 100%;
   object-fit: contain;
   object-position: center;
-  transition: transform 0.5s ease; /* Añadir transición para el zoom */
+  transition: transform 0.5s ease;
 }
 
-/* Modify the hover effect for the recently arrived items */
 /* Remove the text shadow effect */
 .recently-arrived-item:hover .recently-arrived-info h3,
 .recently-arrived-item:hover .recently-arrived-info p {
-  text-shadow: none; /* Remove text shadow on hover */
+  text-shadow: none;
 }
 
 .recently-arrived-item.large {
@@ -234,6 +257,7 @@
   text-decoration: none;
   border: none;
   position: relative;
+  cursor: pointer;
 }
 
 .buy-now-button::after {
@@ -259,16 +283,10 @@
   gap: 15px;
 }
 
-/* Ajustar el tamaño de los iconos de categorías */
-.category-icon {
-  font-size: 48px !important; /* Forzar el tamaño con !important */
-  margin-bottom: 12px;
-}
-
 /* Centrar la cuadrícula de categorías */
 .category-grid {
   display: grid;
-  grid-template-columns: repeat(6, 170px); /* Fixed width of 170px */
+  grid-template-columns: repeat(6, 170px);
   gap: 80px;
   margin-bottom: 0;
   width: 100%;
@@ -280,23 +298,22 @@
 
 /* Ensure each category item has equal width */
 .category-item {
-  width: 170px; /* Fixed width */
-  height: 145px; /* Fixed height */
+  width: 170px;
+  height: 145px;
   padding: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 4px; /* Add border radius */
-  box-sizing: border-box; /* Ensure padding is included in width calculation */
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 .category-icon {
-  font-size: 48px !important; /* Exactly 48px icon size */
+  font-size: 48px !important;
   margin-bottom: 12px;
 }
 
-/* Asegurar que los iconos de Material Design tengan 48px */
 /* Agregar una regla específica para los iconos de Material Design en las categorías */
 .category-icon .material-icons {
   font-size: 48px !important;
@@ -358,6 +375,11 @@
   color: white;
   font-weight: 600;
   border-radius: 4px;
+  text-decoration: none;
+}
+
+.service-button:hover {
+  background-color: #f05c6c;
 }
 
 /* Modificar el banner promocional para implementar el efecto de scroll */
@@ -391,7 +413,7 @@
   right: 0;
   bottom: 0;
   background-image: url("/placa.png");
-  background-size: 60% 150%;
+  background-size: 65% 120%;
   background-position: right;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -399,34 +421,29 @@
   z-index: 1;
 }
 
-/* Remove background from main container */
-.promo-banner {
-  background-image: none;
-  transform: none;
-}
-
 .promo-content {
   position: relative;
   z-index: 3;
   display: flex;
   top: -15px;
-  transform: none; /* No transform on content */
+  transform: none;
 }
 
 .promo-text {
   flex: 1;
   padding-right: 30px;
-  text-align: left; /* Ensure text is left-aligned */
-  max-width: 50%; 
+  text-align: left;
+  max-width: 50%;
 }
 
 .promo-text-header {
   flex: 1;
   padding-right: 30px;
-  text-align: center; /* Ensure text is left-aligned */
-  max-width: 50%; /* Limit width to left side */
+  text-align: center;
+  max-width: 50%;
   margin-left: 245px;
 }
+
 .promo-subtitle {
   color: #4caf50;
   margin-bottom: 10px;
@@ -449,26 +466,26 @@
 .countdown-item {
   background-color: white;
   color: black;
-  width: 65px !important; /* Círculos más grandes (antes 65px) */
-  height: 65px !important; /* Círculos más grandes (antes 65px) */
+  width: 65px !important;
+  height: 65px !important;
   border-radius: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 5px; /* Añadir padding para dar más espacio al texto */
+  padding: 5px;
 }
 
 .countdown-value {
   font-weight: 700;
-  font-size: 1.4rem; /* Texto ligeramente más grande (antes 1.2rem) */
-  line-height: 1.2; /* Ajustar el interlineado */
+  font-size: 1.4rem;
+  line-height: 1.2;
 }
 
 .countdown-label {
   font-size: 0.7rem;
   color: #777;
-  line-height: 1.2; /* Ajustar el interlineado */
+  line-height: 1.2;
 }
 
 .promo-button {
@@ -484,7 +501,7 @@
 }
 
 .promo-button:hover {
-  opacity: 0.9;
+  background-color: #5dbb63;
 }
 
 /* Eliminar la imagen a la derecha ya que ahora usamos el fondo */
@@ -493,7 +510,7 @@
 }
 
 .categories-navigation {
-align-self: start;
+  align-self: start;
   display: flex;
   gap: 10px;
 }
@@ -516,7 +533,7 @@ align-self: start;
   background-color: #c1c0c1;
 }
 
-@media (max-width: 992px) { 
+@media (max-width: 992px) {
   .service-grid {
     grid-template-columns: repeat(2, 1fr);
   }

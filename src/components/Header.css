@@ -27,6 +27,25 @@
   color: white;
   font-weight: 600;
   font-size: 0.9rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  padding-bottom: 3px;
+}
+
+.buy-now-btn::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: white;
+}
+
+.buy-now-btn:hover::after {
+  opacity: 0.7;
 }
 
 /* Language selector styles */
@@ -72,28 +91,29 @@
   position: absolute;
   top: 100%;
   right: 0;
-  background-color: #2c2c2c;
+  background-color: rgba(0, 0, 0, 0.8);
   color: white;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   z-index: 1000;
   min-width: 130px;
-  padding: 8px 0;
   overflow: hidden;
 }
 
 .language-dropdown-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
+  gap: 8px;
+  margin: 8px;
+  padding: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-size: 0.9rem;
+  border-radius: 4px;
 }
 
 .language-dropdown-item:hover {
-  background-color: #3c3c3c;
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 /* Make the main-header sticky */
@@ -138,7 +158,6 @@
   left: 0;
   width: 100%;
   height: 2px;
-  border-radius: 50%;
   background-color: var(--primary-color);
 }
 
@@ -173,8 +192,29 @@
 
 .header-icons {
   display: flex;
-  gap: 15px;
+  gap: 8px;
+  align-items: center; 
+}
+
+.header-icons .icon-link:hover,
+.account-toggle:hover {
+  background-color: var(--primary-color);
+  color: white;
+  width: 26px;
+  height: 26px;
+  transition: all 0.3s ease;
+}
+
+.header-icons .icon-link,
+.account-toggle {
+  width: 26px;
+  height: 26px;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  
+  border-radius: 50%;
 }
 
 .icon-link {
@@ -202,28 +242,28 @@
   position: absolute;
   top: 100%;
   right: 0;
-  background-color: #2c2c2c;
+  background-color: rgba(0, 0, 0, 0.8);
   color: white;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
   z-index: 1000;
   min-width: 200px;
-  padding: 8px 0;
-  margin-top: 8px;
 }
 
 .account-dropdown-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
+  gap: 8px;
+  padding: 8px;
+  margin: 8px;
+  border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-size: 0.9rem;
 }
 
 .account-dropdown-item:hover {
-  background-color: #3c3c3c;
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .account-dropdown-item .material-icons-outlined {
