@@ -1,6 +1,7 @@
 "use client"
 import { useState } from "react"
-import { Heart } from "lucide-react"
+import { Link } from "react-router-dom"
+import { Heart } from 'lucide-react'
 import { useWishlist } from "../context/WishlistContext"
 import QuoteModal from "./QuoteModal"
 import InfoModal from "./InfoModal"
@@ -13,6 +14,7 @@ const ProductCard = ({ product }) => {
 
   const handleToggleWishlist = (e) => {
     e.stopPropagation()
+    e.preventDefault()
     if (isInWishlist(product.id)) {
       removeFromWishlist(product.id)
     } else {
@@ -22,18 +24,26 @@ const ProductCard = ({ product }) => {
 
   const handleQuoteClick = (e) => {
     e.stopPropagation()
+    e.preventDefault()
     setShowQuoteModal(true)
   }
 
   const handleInfoClick = (e) => {
     e.stopPropagation()
+    e.preventDefault()
     setShowInfoModal(true)
+  }
+
+  const handleProductClick = () => {
+    // Scroll to top when navigating to product detail
+    window.scrollTo(0, 0)
   }
 
   return (
     <>
-      <div className="product-card-shop">
+      <Link to={`/product/${product.id}`} className="product-card-shop" onClick={handleProductClick}>
         {product.discount > 0 && <span className="discount-badge">-{product.discount}%</span>}
+        {product.isNew && <span className="new-badge">NEW</span>}
 
         <div className="product-image-shop">
           <img src={product.image || "/placeholder.svg"} alt={product.name} />
@@ -49,13 +59,6 @@ const ProductCard = ({ product }) => {
           </button>
         </div>
 
-        {/* <div className="product-price-shop">
-          <span className="current-price-shop">${product.price.toFixed(2)}</span>
-          {product.originalPrice && product.originalPrice > product.price && (
-            <span className="original-price-shop">${product.originalPrice.toFixed(2)}</span>
-          )}
-        </div> */}
-
         <div className="product-buttons-shop">
           <button className="info-btn-shop" onClick={handleInfoClick}>
             Info
@@ -64,7 +67,7 @@ const ProductCard = ({ product }) => {
             Solicitar cotización
           </button>
         </div>
-      </div>
+      </Link>
 
       <QuoteModal isOpen={showQuoteModal} onClose={() => setShowQuoteModal(false)} productName={product.name} />
 

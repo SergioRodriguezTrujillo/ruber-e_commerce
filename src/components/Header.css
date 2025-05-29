@@ -1,7 +1,7 @@
 .top-bar {
   background-color: #000;
   color: white;
-  padding: 10px 0;
+  padding: 4px 0;
   position: relative;
   z-index: 999;
 }
@@ -113,12 +113,12 @@
 }
 
 .language-dropdown-item:hover {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 /* Make the main-header sticky */
 .main-header {
-  padding: 15px 0;
+  padding: 8px 0;
   border-bottom: 1px solid var(--border-color);
   background-color: white;
   position: sticky;
@@ -136,10 +136,14 @@
   justify-content: space-between;
 }
 
-.logo h1 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #000;
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 40px; /* Ajusta la altura del logo según necesites */
+  width: auto;
 }
 
 .main-nav ul {
@@ -193,7 +197,7 @@
 .header-icons {
   display: flex;
   gap: 8px;
-  align-items: center; 
+  align-items: center;
 }
 
 .header-icons .icon-link:hover,
@@ -213,7 +217,7 @@
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  
+
   border-radius: 50%;
 }
 
@@ -247,7 +251,7 @@
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
   z-index: 1000;
-  min-width: 200px;
+  min-width: 210px;
 }
 
 .account-dropdown-item {
@@ -263,7 +267,7 @@
 }
 
 .account-dropdown-item:hover {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .account-dropdown-item .material-icons-outlined {
@@ -324,5 +328,9 @@
 
   .language-dropdown {
     right: -20px;
+  }
+
+  .logo img {
+    height: 35px; /* Tamaño más pequeño en móviles */
   }
 }

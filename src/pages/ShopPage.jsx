@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { Heart, ChevronDown, ChevronUp } from "lucide-react"
 import { getAllProducts, getBestSellingProducts, getMostViewedProducts } from "../services/productService"
 import QuoteModal from "../components/QuoteModal"
@@ -10,6 +10,7 @@ import "./ShopPage.css"
 
 const ShopPage = () => {
   const location = useLocation()
+  const navigate = useNavigate()
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false)
   const [selectedCategories, setSelectedCategories] = useState([])
   const [selectedColors, setSelectedColors] = useState([])
@@ -89,6 +90,13 @@ const ShopPage = () => {
   const handleInfoClick = (product) => {
     setSelectedProduct(product)
     setShowInfoModal(true)
+  }
+
+  // Función para navegar al detalle del producto
+  const handleProductClick = (productId) => {
+    // Scroll to top when navigating to product detail
+    window.scrollTo(0, 0)
+    navigate(`/product/${productId}`)
   }
 
   // Lista de categorías
@@ -290,12 +298,23 @@ const ShopPage = () => {
                 <span className="discount-badge">-{product.discount}%</span>
               ) : null}
 
-              <div className="product-image-shop">
+              {/* Hacer clickeable la imagen y título */}
+              <div
+                className="product-image-shop"
+                onClick={() => handleProductClick(product.id)}
+                style={{ cursor: "pointer" }}
+              >
                 <img src={product.image || "/placeholder.svg"} alt={product.name} />
               </div>
 
               <div className="product-title-container">
-                <h3 className="product-title-shop">{product.name}</h3>
+                <h3
+                  className="product-title-shop"
+                  onClick={() => handleProductClick(product.id)}
+                  style={{ cursor: "pointer" }}
+                >
+                  {product.name}
+                </h3>
                 <button className="wishlist-btn-shop">
                   <Heart size={18} />
                 </button>

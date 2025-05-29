@@ -13,7 +13,7 @@ const products = [
     image: "/pc.png",
     images: ["/pc.png", "/pc.png", "/pc.png", "/pc.png"],
     description:
-      "Kit Gamer completo con monitor LG de alta resolución, PC gaming con procesador de última generación, tarjeta gráfica dedicada y periféricos RGB. Perfecto para gaming competitivo y streaming.",
+      "Kit Gamer completo con monitor LG de alta resolución, PC gaming con procesador de última generación, tarjeta gráfica dedicada y periféricos RGB. Perfecto para gaming competitivo y streaming profesional.",
     specifications: {
       Procesador: "Intel Core i7 11700K",
       "Tarjeta Gráfica": "NVIDIA RTX 3070",
@@ -38,7 +38,7 @@ const products = [
     image: "/mini-pc.png",
     images: ["/mini-pc.png", "/mini-pc.png", "/mini-pc.png", "/mini-pc.png"],
     description:
-      "Mini PC ROLT-120V con diseño compacto y rendimiento excepcional. Ideal para espacios reducidos, oficinas y centros de entretenimiento. Conectividad completa y bajo consumo energético.",
+      "Mini PC ROLT-120V con diseño compacto y rendimiento excepcional. Ideal para espacios reducidos, oficinas y centros de entretenimiento. Conectividad completa y bajo consumo energético para uso diario.",
     specifications: {
       Procesador: "Intel Core i5 10400T",
       "Tarjeta Gráfica": "Intel UHD Graphics 630",
@@ -63,7 +63,7 @@ const products = [
     image: "/cable.png",
     images: ["/cable.png", "/cable.png", "/cable.png", "/cable.png"],
     description:
-      "Cable IP67-SORT resistente al agua y polvo, certificación IP67 para condiciones extremas. Fabricado con materiales de alta calidad para garantizar durabilidad y rendimiento óptimo en cualquier entorno.",
+      "Cable IP67-SORT resistente al agua y polvo, certificación IP67 para condiciones extremas. Fabricado con materiales de alta calidad para garantizar durabilidad y rendimiento óptimo en cualquier entorno industrial.",
     specifications: {
       Longitud: "1.5 metros",
       Certificación: "IP67 resistente al agua y polvo",
@@ -84,7 +84,7 @@ const products = [
     discount: 35,
     rating: 5,
     reviewCount: 99,
-    colors: ["black", "blue"],
+    colors: ["black", "red"],
     image: "/ram.png",
     images: ["/ram.png", "/ram.png", "/ram.png", "/ram.png"],
     description:
@@ -113,7 +113,7 @@ const products = [
     image: "/pc.png",
     images: ["/pc.png", "/pc.png", "/pc.png", "/pc.png"],
     description:
-      "Kit Gamer Pro con monitor LG de 32 pulgadas, PC gaming con procesador Intel i9, tarjeta gráfica RTX 4070 y periféricos mecánicos RGB. La configuración definitiva para profesionales del gaming.",
+      "Kit Gamer Pro con monitor LG de 32 pulgadas, PC gaming con procesador Intel i9, tarjeta gráfica RTX 4070 y periféricos mecánicos RGB. La configuración definitiva para profesionales del gaming y streaming.",
     specifications: {
       Procesador: "Intel Core i9 12900K",
       "Tarjeta Gráfica": "NVIDIA RTX 4070",
@@ -138,7 +138,7 @@ const products = [
     image: "/mini-pc.png",
     images: ["/mini-pc.png", "/mini-pc.png", "/mini-pc.png", "/mini-pc.png"],
     description:
-      "Mini PC ROLT-120V Advanced con procesador de última generación y mayor capacidad de almacenamiento. Perfecto para trabajo profesional y multimedia en espacios compactos.",
+      "Mini PC ROLT-120V Advanced con procesador de última generación y mayor capacidad de almacenamiento. Perfecto para trabajo profesional y multimedia en espacios compactos con máximo rendimiento.",
     specifications: {
       Procesador: "Intel Core i7 11700T",
       "Tarjeta Gráfica": "Intel Iris Xe Graphics",
@@ -165,7 +165,7 @@ const products = [
     image: "/cable.png",
     images: ["/cable.png", "/cable.png", "/cable.png", "/cable.png"],
     description:
-      "Cable IP67-SORT Premium con conectores reforzados y mayor longitud. Certificación IP67 mejorada para uso industrial y condiciones extremas. Garantía extendida de 5 años.",
+      "Cable IP67-SORT Premium con conectores reforzados y mayor longitud. Certificación IP67 mejorada para uso industrial y condiciones extremas. Garantía extendida de 5 años para máxima confiabilidad.",
     specifications: {
       Longitud: "3 metros",
       Certificación: "IP67 Premium resistente al agua y polvo",
@@ -186,11 +186,11 @@ const products = [
     discount: 29,
     rating: 5,
     reviewCount: 187,
-    colors: ["black", "blue"],
+    colors: ["black", "red"],
     image: "/ram.png",
     images: ["/ram.png", "/ram.png", "/ram.png", "/ram.png"],
     description:
-      "Memoria RAM de 32GB con iluminación RGB avanzada y frecuencia de 3600Hz. Optimizada para workstations y gaming extremo. Disipador térmico de cobre para máximo rendimiento.",
+      "Memoria RAM de 32GB con iluminación RGB avanzada y frecuencia de 3600Hz. Optimizada para workstations y gaming extremo. Disipador térmico de cobre para máximo rendimiento y estabilidad térmica.",
     specifications: {
       Capacidad: "32GB (2x16GB)",
       Frecuencia: "3600MHz",
@@ -215,7 +215,7 @@ const products = [
     image: "/pc.png",
     images: ["/pc.png", "/pc.png", "/pc.png", "/pc.png"],
     description:
-      "Kit Gamer con monitor Samsung curvo, PC gaming optimizado para 1440p y periféricos inalámbricos. Excelente relación calidad-precio para gamers intermedios.",
+      "Kit Gamer con monitor Samsung curvo, PC gaming optimizado para 1440p y periféricos inalámbricos. Excelente relación calidad-precio para gamers intermedios que buscan inmersión total.",
     specifications: {
       Procesador: "AMD Ryzen 5 5600X",
       "Tarjeta Gráfica": "NVIDIA RTX 3060",
@@ -240,7 +240,7 @@ const products = [
     image: "/mini-pc.png",
     images: ["/mini-pc.png", "/mini-pc.png", "/mini-pc.png", "/mini-pc.png"],
     description:
-      "Mini PC ROLT-120V Compact, la versión más pequeña y eficiente. Ideal para uso básico, oficina y streaming multimedia. Consumo ultra bajo y funcionamiento silencioso.",
+      "Mini PC ROLT-120V Compact, la versión más pequeña y eficiente. Ideal para uso básico, oficina y streaming multimedia. Consumo ultra bajo y funcionamiento silencioso para entornos de trabajo.",
     specifications: {
       Procesador: "Intel Celeron N5105",
       "Tarjeta Gráfica": "Intel UHD Graphics",
@@ -265,7 +265,7 @@ const products = [
     image: "/cable.png",
     images: ["/cable.png", "/cable.png", "/cable.png", "/cable.png"],
     description:
-      "Cable IP67-SORT Industrial para aplicaciones pesadas. Resistente a químicos, temperaturas extremas y vibraciones. Certificado para uso en maquinaria industrial.",
+      "Cable IP67-SORT Industrial para aplicaciones pesadas. Resistente a químicos, temperaturas extremas y vibraciones. Certificado para uso en maquinaria industrial y entornos hostiles.",
     specifications: {
       Longitud: "5 metros",
       Certificación: "IP67 Industrial + químicos",
@@ -286,11 +286,11 @@ const products = [
     discount: 33,
     rating: 4,
     reviewCount: 156,
-    colors: ["black", "blue"],
+    colors: ["black", "red"],
     image: "/ram.png",
     images: ["/ram.png", "/ram.png", "/ram.png", "/ram.png"],
     description:
-      "Memoria RAM de 8GB con iluminación RGB básica y frecuencia de 2666Hz. Perfecta para builds de entrada y upgrades económicos. Excelente estabilidad y compatibilidad.",
+      "Memoria RAM de 8GB con iluminación RGB básica y frecuencia de 2666Hz. Perfecta para builds de entrada y upgrades económicos. Excelente estabilidad y compatibilidad con sistemas básicos.",
     specifications: {
       Capacidad: "8GB (1x8GB)",
       Frecuencia: "2666MHz",
@@ -315,7 +315,7 @@ const products = [
     image: "/pc.png",
     images: ["/pc.png", "/pc.png", "/pc.png", "/pc.png"],
     description:
-      "Kit Gamer premium con monitor ASUS ROG, PC gaming de alta gama con refrigeración líquida y periféricos profesionales. Para enthusiasts y competidores profesionales.",
+      "Kit Gamer premium con monitor ASUS ROG, PC gaming de alta gama con refrigeración líquida y periféricos profesionales. Para enthusiasts y competidores profesionales que buscan el máximo rendimiento.",
     specifications: {
       Procesador: "Intel Core i9 13900K",
       "Tarjeta Gráfica": "NVIDIA RTX 4080",
@@ -340,7 +340,7 @@ const products = [
     image: "/mini-pc.png",
     images: ["/mini-pc.png", "/mini-pc.png", "/mini-pc.png", "/mini-pc.png"],
     description:
-      "Mini PC ROLT-120V Gaming con tarjeta gráfica dedicada. Compacto pero potente, ideal para gaming casual y trabajo creativo en espacios reducidos.",
+      "Mini PC ROLT-120V Gaming con tarjeta gráfica dedicada. Compacto pero potente, ideal para gaming casual y trabajo creativo en espacios reducidos sin comprometer el rendimiento.",
     specifications: {
       Procesador: "AMD Ryzen 7 5700G",
       "Tarjeta Gráfica": "AMD Radeon RX 6400",
@@ -365,7 +365,7 @@ const products = [
     image: "/cable.png",
     images: ["/cable.png", "/cable.png", "/cable.png", "/cable.png"],
     description:
-      "Cable IP67-SORT Flexible con diseño ultra flexible para instalaciones complejas. Mantiene certificación IP67 con máxima flexibilidad y durabilidad.",
+      "Cable IP67-SORT Flexible con diseño ultra flexible para instalaciones complejas. Mantiene certificación IP67 con máxima flexibilidad y durabilidad para aplicaciones que requieren movimiento constante.",
     specifications: {
       Longitud: "2 metros",
       Certificación: "IP67 Flexible",
@@ -386,11 +386,11 @@ const products = [
     discount: 29,
     rating: 5,
     reviewCount: 45,
-    colors: ["black", "blue"],
+    colors: ["black", "red"],
     image: "/ram.png",
     images: ["/ram.png", "/ram.png", "/ram.png", "/ram.png"],
     description:
-      "Memoria RAM de 64GB con iluminación RGB profesional y frecuencia de 4000Hz. Para workstations profesionales, servidores y aplicaciones que requieren máxima memoria.",
+      "Memoria RAM de 64GB con iluminación RGB profesional y frecuencia de 4000Hz. Para workstations profesionales, servidores y aplicaciones que requieren máxima memoria y rendimiento extremo.",
     specifications: {
       Capacidad: "64GB (4x16GB)",
       Frecuencia: "4000MHz",
@@ -415,7 +415,7 @@ const products = [
     image: "/pc.png",
     images: ["/pc.png", "/pc.png", "/pc.png", "/pc.png"],
     description:
-      "Kit Gamer con monitor Dell IPS, PC gaming equilibrado para 1080p y periféricos con cable. Excelente opción para gamers que buscan calidad y precio justo.",
+      "Kit Gamer con monitor Dell IPS, PC gaming equilibrado para 1080p y periféricos con cable. Excelente opción para gamers que buscan calidad y precio justo sin comprometer la experiencia.",
     specifications: {
       Procesador: "AMD Ryzen 5 4600G",
       "Tarjeta Gráfica": "NVIDIA GTX 1660 Super",
@@ -440,7 +440,7 @@ const products = [
     image: "/mini-pc.png",
     images: ["/mini-pc.png", "/mini-pc.png", "/mini-pc.png", "/mini-pc.png"],
     description:
-      "Mini PC ROLT-120V Office optimizado para productividad empresarial. Incluye software de oficina preinstalado y soporte técnico extendido para empresas.",
+      "Mini PC ROLT-120V Office optimizado para productividad empresarial. Incluye software de oficina preinstalado y soporte técnico extendido para empresas que buscan eficiencia y confiabilidad.",
     specifications: {
       Procesador: "Intel Core i3 10100T",
       "Tarjeta Gráfica": "Intel UHD Graphics 630",
@@ -465,7 +465,7 @@ const products = [
     image: "/cable.png",
     images: ["/cable.png", "/cable.png", "/cable.png", "/cable.png"],
     description:
-      "Cable IP67-SORT con conectores USB-C de última generación. Soporte para carga rápida, transferencia de datos y video 4K. Certificación IP67 para uso en exteriores.",
+      "Cable IP67-SORT con conectores USB-C de última generación. Soporte para carga rápida, transferencia de datos y video 4K. Certificación IP67 para uso en exteriores y condiciones adversas.",
     specifications: {
       Longitud: "2 metros",
       Certificación: "IP67 + USB-C 3.2",
@@ -486,11 +486,11 @@ const products = [
     discount: 23,
     rating: 5,
     reviewCount: 23,
-    colors: ["black", "blue"],
+    colors: ["black", "red"],
     image: "/ram.png",
     images: ["/ram.png", "/ram.png", "/ram.png", "/ram.png"],
     description:
-      "Memoria RAM ECC de 128GB para servidores y workstations profesionales. Corrección de errores automática y máxima estabilidad para aplicaciones críticas.",
+      "Memoria RAM ECC de 128GB para servidores y workstations profesionales. Corrección de errores automática y máxima estabilidad para aplicaciones críticas que requieren confiabilidad absoluta.",
     specifications: {
       Capacidad: "128GB (4x32GB)",
       Frecuencia: "2933MHz",
@@ -515,7 +515,7 @@ const products = [
     image: "/pc.png",
     images: ["/pc.png", "/pc.png", "/pc.png", "/pc.png"],
     description:
-      "Kit Gamer con monitor AOC gaming, PC optimizado para esports y periféricos básicos. Configuración ideal para jugadores competitivos con presupuesto ajustado.",
+      "Kit Gamer con monitor AOC gaming, PC optimizado para esports y periféricos básicos. Configuración ideal para jugadores competitivos con presupuesto ajustado que buscan rendimiento en esports.",
     specifications: {
       Procesador: "Intel Core i3 12100F",
       "Tarjeta Gráfica": "NVIDIA GTX 1650",
@@ -542,7 +542,7 @@ const products = [
     image: "/pc.png",
     images: ["/pc.png", "/pc.png", "/pc.png", "/pc.png"],
     description:
-      "Procesador Intel Core i9 de última generación con 16 núcleos y 24 hilos. Perfecto para gaming extremo, streaming y aplicaciones profesionales.",
+      "Procesador Intel Core i9 de última generación con 16 núcleos y 24 hilos. Perfecto para gaming extremo, streaming y aplicaciones profesionales que requieren máximo poder de procesamiento.",
     specifications: {
       Núcleos: "16 núcleos / 24 hilos",
       "Frecuencia Base": "3.2 GHz",
@@ -567,7 +567,7 @@ const products = [
     image: "/pc.png",
     images: ["/pc.png", "/pc.png", "/pc.png", "/pc.png"],
     description:
-      "Tarjeta gráfica NVIDIA RTX 4090, la más potente del mercado. Ray tracing avanzado, DLSS 3.0 y rendimiento excepcional en 4K.",
+      "Tarjeta gráfica NVIDIA RTX 4090, la más potente del mercado. Ray tracing avanzado, DLSS 3.0 y rendimiento excepcional en 4K para la experiencia gaming definitiva.",
     specifications: {
       GPU: "NVIDIA GeForce RTX 4090",
       "Memoria VRAM": "24GB GDDR6X",
@@ -613,8 +613,37 @@ export const getProductById = (id) => {
   return products.find((product) => product.id === numericId)
 }
 
-// Obtener productos relacionados (excluyendo el producto actual)
+// Obtener productos relacionados basados en el nombre del producto actual
 export const getRelatedProducts = (id) => {
   const numericId = Number(id)
-  return products.filter((product) => product.id !== numericId).slice(0, 4)
+  const currentProduct = products.find((product) => product.id === numericId)
+
+  if (!currentProduct) return []
+
+  // Extraer palabras clave del nombre del producto actual
+  const currentName = currentProduct.name.toLowerCase()
+
+  // Buscar productos relacionados basados en palabras clave comunes
+  const relatedProducts = products.filter((product) => {
+    if (product.id === numericId) return false // Excluir el producto actual
+
+    const productName = product.name.toLowerCase()
+
+    // Buscar productos que contengan palabras clave similares
+    if (currentName.includes("kit gamer") && productName.includes("kit gamer")) return true
+    if (currentName.includes("rolt-120v") && productName.includes("rolt-120v")) return true
+    if (currentName.includes("cable") && productName.includes("cable")) return true
+    if (currentName.includes("memoria ram") && productName.includes("memoria ram")) return true
+    if (currentName.includes("monitor") && productName.includes("monitor")) return true
+
+    return false
+  })
+
+  // Si no hay productos relacionados específicos, mostrar productos aleatorios
+  if (relatedProducts.length === 0) {
+    return products.filter((product) => product.id !== numericId).slice(0, 8)
+  }
+
+  // Limitar a 8 productos relacionados
+  return relatedProducts.slice(0, 8)
 }

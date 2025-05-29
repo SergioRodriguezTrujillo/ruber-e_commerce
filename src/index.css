@@ -132,13 +132,13 @@ ul {
   margin-top: 10px;
 }
 
-.color-option {
+/* .color-option {
   width: 20px;
   height: 20px;
   border-radius: 50%;
   cursor: pointer;
   border: 1px solid #ddd;
-}
+} */
 
 .color-option.black {
   background-color: #000;

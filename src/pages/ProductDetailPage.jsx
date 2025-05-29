@@ -1,24 +1,29 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useParams, Link } from "react-router-dom"
-import { Heart, Minus, Plus, Truck, RotateCcw, Eye } from "lucide-react"
-import { useCart } from "../context/CartContext"
+import { useParams, useNavigate } from "react-router-dom"
+import { Heart, Minus, Plus, Truck, RotateCcw } from "lucide-react"
 import { useWishlist } from "../context/WishlistContext"
 import { getProductById, getRelatedProducts } from "../services/productService"
+import QuoteModal from "../components/QuoteModal"
+import InfoModal from "../components/InfoModal"
 import "./ProductDetailPage.css"
+import ProductCard from "../components/ProductCard"
 
 const ProductDetailPage = () => {
   const { id } = useParams()
-  const { addToCart } = useCart()
+  const navigate = useNavigate()
   const { addToWishlist, isInWishlist, removeFromWishlist } = useWishlist()
   const [product, setProduct] = useState(null)
   const [loading, setLoading] = useState(true)
-  const [selectedColor, setSelectedColor] = useState(null)
+  const [selectedColor, setSelectedColor] = useState("black")
   const [selectedSize, setSelectedSize] = useState("M")
-  const [quantity, setQuantity] = useState(2)
+  const [quantity, setQuantity] = useState(1)
   const [activeImage, setActiveImage] = useState(0)
   const [relatedProducts, setRelatedProducts] = useState([])
+  const [showQuoteModal, setShowQuoteModal] = useState(false)
+  const [showInfoModal, setShowInfoModal] = useState(false)
+  const [selectedRelatedProduct, setSelectedRelatedProduct] = useState(null)
 
   // Cargar datos del producto
   useEffect(() => {
@@ -56,15 +61,24 @@ const ProductDetailPage = () => {
     }
   }
 
-  const handleAddToCart = () => {
-    if (!product) return
+  const handleQuoteClick = () => {
+    setSelectedRelatedProduct(product)
+    setShowQuoteModal(true)
+  }
 
-    addToCart({
-      ...product,
-      selectedColor,
-      selectedSize,
-      quantity,
-    })
+  const handleRelatedQuoteClick = (relatedProduct) => {
+    setSelectedRelatedProduct(relatedProduct)
+    setShowQuoteModal(true)
+  }
+
+  const handleInfoClick = () => {
+    setSelectedRelatedProduct(product)
+    setShowInfoModal(true)
+  }
+
+  const handleRelatedInfoClick = (relatedProduct) => {
+    setSelectedRelatedProduct(relatedProduct)
+    setShowInfoModal(true)
   }
 
   const decreaseQuantity = () => {
@@ -77,6 +91,10 @@ const ProductDetailPage = () => {
     setQuantity(quantity + 1)
   }
 
+  const handleContinueShopping = () => {
+    navigate("/tienda")
+  }
+
   const renderStars = (rating) => {
     return Array(5)
       .fill(0)
@@ -87,12 +105,37 @@ const ProductDetailPage = () => {
       ))
   }
 
+  const getColorClass = (color) => {
+    switch (color) {
+      case "black":
+        return "black"
+      case "blue":
+        return "blue"
+      case "red":
+        return "red"
+      default:
+        return "black"
+    }
+  }
+
   if (loading) {
-    return <div className="loading">Cargando...</div>
+    return (
+      <div className="product-detail-page">
+        <div className="container">
+          <div style={{ textAlign: "center", padding: "100px 0" }}>Cargando...</div>
+        </div>
+      </div>
+    )
   }
 
   if (!product) {
-    return <div className="error">Producto no encontrado</div>
+    return (
+      <div className="product-detail-page">
+        <div className="container">
+          <div style={{ textAlign: "center", padding: "100px 0" }}>Producto no encontrado</div>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -120,24 +163,17 @@ const ProductDetailPage = () => {
             <h1 className="product-title">{product.name}</h1>
 
             <div className="product-rating">
-              {renderStars(product.rating)}
-              <span className="review-count">({product.reviewCount} Reseñas)</span>
-              <span className="stock-status">
-                {product.inStock ? (
-                  <span className="in-stock">En existencia</span>
-                ) : (
-                  <span className="out-of-stock">Agotado</span>
-                )}
-              </span>
-            </div>
-
-            <div className="product-price">
-              <span className="current-price">${product.price.toFixed(2)}</span>
+              <div className="stars">{renderStars(product.rating)}</div>
+              <span className="rating-text">({product.reviewCount} Reseñas)</span>
+              <span className="review-count">|</span>
+              <span className="in-stock">En existencias</span>
             </div>
 
             <div className="product-description">
               <p>{product.description}</p>
             </div>
+
+            <div className="description-divider"></div>
 
             <div className="product-options">
               <div className="color-option">
@@ -146,7 +182,7 @@ const ProductDetailPage = () => {
                   {product.colors.map((color) => (
                     <div
                       key={color}
-                      className={`color-circle ${color} ${selectedColor === color ? "selected" : ""}`}
+                      className={`color-circle ${getColorClass(color)} ${selectedColor === color ? "selected" : ""}`}
                       onClick={() => setSelectedColor(color)}
                     ></div>
                   ))}
@@ -167,12 +203,10 @@ const ProductDetailPage = () => {
                   ))}
                 </div>
               </div>
-            </div>
-
-            <div className="product-actions">
-              <div className="quantity-selector">
+              <div className="size-option">
+               <div className="quantity-selector">
                 <button className="quantity-btn" onClick={decreaseQuantity}>
-                  <Minus size={16} strokeWidth={1.5} />
+                  <Minus size={14} strokeWidth={2} />
                 </button>
                 <input
                   type="number"
@@ -182,20 +216,21 @@ const ProductDetailPage = () => {
                   min="1"
                 />
                 <button className="quantity-btn" onClick={increaseQuantity}>
-                  <Plus size={16} strokeWidth={1.5} />
+                  <Plus size={14} strokeWidth={2} />
                 </button>
               </div>
 
-              <button className="add-to-cart-btn" onClick={handleAddToCart}>
-                Comprar ahora
+              <button className="quote-btn" onClick={handleQuoteClick}>
+                Solicitar cotización
               </button>
 
               <button
                 className={`wishlist-btn ${isInWishlist(product.id) ? "active" : ""}`}
                 onClick={handleToggleWishlist}
               >
-                <Heart size={20} strokeWidth={1.5} />
+                <Heart size={16} strokeWidth={1.5} />
               </button>
+              </div>
             </div>
 
             <div className="shipping-info">
@@ -225,53 +260,31 @@ const ProductDetailPage = () => {
         </div>
 
         <div className="related-products-section">
-          <div className="section-header">
-            <h2 className="section-title">Artículos relacionados</h2>
-          </div>
+          <h2 className="section-title">Artículos relacionados</h2>
 
           <div className="related-products-grid">
             {relatedProducts.map((relatedProduct) => (
-              <div key={relatedProduct.id} className="product-card">
-                <div className="product-image">
-                  <img src={relatedProduct.image || "/placeholder.svg"} alt={relatedProduct.name} />
-                  {relatedProduct.discount > 0 && <span className="discount-badge">-{relatedProduct.discount}%</span>}
-
-                  <div className="product-actions">
-                    <button className="action-btn wishlist-btn">
-                      <Heart size={16} strokeWidth={1.5} />
-                    </button>
-                    <Link to={`/product/${relatedProduct.id}`} className="action-btn view-btn">
-                      <Eye size={16} strokeWidth={1.5} />
-                    </Link>
-                  </div>
-                </div>
-
-                <div className="product-info">
-                  <h3 className="product-title">{relatedProduct.name}</h3>
-
-                  <div className="product-price">
-                    <span className="current-price">${relatedProduct.price.toFixed(2)}</span>
-                    <span className="original-price">${relatedProduct.originalPrice.toFixed(2)}</span>
-                  </div>
-
-                  <div className="rating">
-                    {renderStars(relatedProduct.rating)}
-                    <span className="rating-count">({relatedProduct.reviewCount})</span>
-                  </div>
-
-                  <div className="color-options">
-                    {relatedProduct.colors.map((color) => (
-                      <div key={color} className={`color-option ${color}`} />
-                    ))}
-                  </div>
-                </div>
-
-                <button className="add-to-cart-btn">Add To Cart</button>
-              </div>
+              <ProductCard key={relatedProduct.id} product={relatedProduct} />
             ))}
           </div>
+
+          <button className="continue-shopping-btn" onClick={handleContinueShopping}>
+            Seguir comprando
+          </button>
         </div>
       </div>
+
+      <QuoteModal
+        isOpen={showQuoteModal}
+        onClose={() => setShowQuoteModal(false)}
+        productName={selectedRelatedProduct?.name}
+      />
+
+      <InfoModal
+        isOpen={showInfoModal}
+        onClose={() => setShowInfoModal(false)}
+        productName={selectedRelatedProduct?.name}
+      />
     </div>
   )
 }

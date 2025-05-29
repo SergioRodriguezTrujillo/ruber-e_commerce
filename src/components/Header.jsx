@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import "./Header.css"
 
@@ -16,6 +16,10 @@ const Header = () => {
   const [language, setLanguage] = useState("Español")
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false)
   const [showAccountDropdown, setShowAccountDropdown] = useState(false)
+
+  // Referencias para detectar clicks fuera de los dropdowns
+  const languageDropdownRef = useRef(null)
+  const accountDropdownRef = useRef(null)
 
   const isActive = (path) => {
     return location.pathname === path ? "active" : ""
@@ -78,6 +82,29 @@ const Header = () => {
     navigate("/tienda")
   }
 
+  // Efecto para cerrar dropdowns cuando se hace click fuera
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Cerrar dropdown de idioma si se hace click fuera
+      if (languageDropdownRef.current && !languageDropdownRef.current.contains(event.target)) {
+        setShowLanguageDropdown(false)
+      }
+
+      // Cerrar dropdown de cuenta si se hace click fuera
+      if (accountDropdownRef.current && !accountDropdownRef.current.contains(event.target)) {
+        setShowAccountDropdown(false)
+      }
+    }
+
+    // Agregar event listener
+    document.addEventListener("mousedown", handleClickOutside)
+
+    // Cleanup
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
+
   return (
     <>
       <div className="top-bar">
@@ -87,7 +114,7 @@ const Header = () => {
             <button onClick={handleBuyNowClick} className="buy-now-btn">
               Comprar Ahora
             </button>
-            <div className="language-selector">
+            <div className="language-selector" ref={languageDropdownRef}>
               <div className="language-current" onClick={toggleLanguageDropdown}>
                 <span className="language-display">
                   <img src={getCurrentLanguageFlag() || "/placeholder.svg"} alt={language} className="language-flag" />
@@ -115,7 +142,7 @@ const Header = () => {
       <div className="main-header">
         <div className="container main-header-container">
           <Link to="/" className="logo">
-            <h1>IT LIVE SOLUTIONS</h1>
+            <img src="/icon/logo.svg" alt="IT LIVE SOLUTIONS" />
           </Link>
 
           <nav className="main-nav">
@@ -155,7 +182,7 @@ const Header = () => {
               <Link to="/cart" className="icon-link">
                 <span className="material-icons-outlined">shopping_cart</span>
               </Link>
-              <div className="account-dropdown-container">
+              <div className="account-dropdown-container" ref={accountDropdownRef}>
                 <button className="icon-link account-toggle" onClick={toggleAccountDropdown}>
                   <span className="material-icons-outlined">person_outline</span>
                 </button>
