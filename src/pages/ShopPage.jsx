@@ -3,7 +3,15 @@
 import { useState, useEffect } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { Heart, ChevronDown, ChevronUp } from "lucide-react"
-import { getAllProducts, getBestSellingProducts, getMostViewedProducts } from "../services/productService"
+import { useWishlist } from "../context/WishlistContext"
+import {
+  getAllProducts,
+  getBestSellingProducts,
+  getMostViewedProducts,
+  getAvailableCategories,
+  getAvailableColors,
+  filterProducts,
+} from "../services/productService"
 import QuoteModal from "../components/QuoteModal"
 import InfoModal from "../components/InfoModal"
 import "./ShopPage.css"
@@ -11,6 +19,7 @@ import "./ShopPage.css"
 const ShopPage = () => {
   const location = useLocation()
   const navigate = useNavigate()
+  const { addToWishlist, isInWishlist, removeFromWishlist } = useWishlist()
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false)
   const [selectedCategories, setSelectedCategories] = useState([])
   const [selectedColors, setSelectedColors] = useState([])
@@ -18,10 +27,22 @@ const ShopPage = () => {
   const [sortBy, setSortBy] = useState("featured")
   const [currentPage, setCurrentPage] = useState(1)
   const [products, setProducts] = useState([])
+  const [filteredProducts, setFilteredProducts] = useState([])
   const [showQuoteModal, setShowQuoteModal] = useState(false)
   const [showInfoModal, setShowInfoModal] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [filterType, setFilterType] = useState(null)
+  const [heartAnimations, setHeartAnimations] = useState({})
+  const [availableCategories, setAvailableCategories] = useState([])
+  const [availableColors, setAvailableColors] = useState([])
+
+  // Load initial data
+  useEffect(() => {
+    const categories = getAvailableCategories()
+    const colors = getAvailableColors()
+    setAvailableCategories(categories)
+    setAvailableColors(colors)
+  }, [])
 
   // Load products based on filter type
   useEffect(() => {
@@ -38,37 +59,76 @@ const ShopPage = () => {
       // Solo mostrar productos más vistos
       productsToShow = getMostViewedProducts()
     } else {
-      // Mostrar todos los productos (generar 20 productos como antes)
-      const baseProducts = getAllProducts()
-      const extendedProducts = []
-      for (let i = 0; i < 5; i++) {
-        baseProducts.forEach((product, index) => {
-          extendedProducts.push({
-            ...product,
-            id: product.id + i * baseProducts.length,
-            isNew: i === 0 && index < 2,
-          })
-        })
-      }
-      productsToShow = extendedProducts.slice(0, 20)
+      // Mostrar todos los productos
+      productsToShow = getAllProducts()
     }
 
     setProducts(productsToShow)
+    setFilteredProducts(productsToShow)
+
+    // Reset filters when changing filter type
+    if (filter === "best-selling" || filter === "most-viewed") {
+      setSelectedCategories([])
+      setSelectedColors([])
+      setPriceRange([0, 1000])
+    }
   }, [location.search])
 
+  // Apply filters whenever filters change
+  useEffect(() => {
+    if (filterType === "best-selling" || filterType === "most-viewed") {
+      // For specific filter types, don't apply additional filters
+      setFilteredProducts(products)
+    } else {
+      // Apply filters for general product view
+      const filters = {
+        categories: selectedCategories,
+        colors: selectedColors,
+        priceRange: priceRange,
+        sortBy: sortBy,
+      }
+
+      const filtered = filterProducts(filters)
+      setFilteredProducts(filtered)
+    }
+  }, [products, selectedCategories, selectedColors, priceRange, sortBy, filterType])
+
   const toggleCategory = (category) => {
-    setSelectedCategories((prev) =>
-      prev.includes(category) ? prev.filter((c) => c !== category) : [...prev, category],
-    )
+    setSelectedCategories((prev) => {
+      if (prev.includes(category)) {
+        return prev.filter((c) => c !== category)
+      } else {
+        return [...prev, category]
+      }
+    })
+  }
+
+  const handleAllCategoriesToggle = () => {
+    setSelectedCategories([])
   }
 
   const toggleColor = (color) => {
-    setSelectedColors((prev) => (prev.includes(color) ? prev.filter((c) => c !== color) : [...prev, color]))
+    setSelectedColors((prev) => {
+      if (prev.includes(color)) {
+        return prev.filter((c) => c !== color)
+      } else {
+        return [...prev, color]
+      }
+    })
   }
 
   const handlePriceChange = (e, index) => {
     const newRange = [...priceRange]
-    newRange[index] = Number.parseInt(e.target.value)
+    newRange[index] = Number.parseInt(e.target.value) || 0
+
+    // Ensure min is not greater than max
+    if (index === 0 && newRange[0] > newRange[1]) {
+      newRange[1] = newRange[0]
+    }
+    if (index === 1 && newRange[1] < newRange[0]) {
+      newRange[0] = newRange[1]
+    }
+
     setPriceRange(newRange)
   }
 
@@ -76,10 +136,31 @@ const ShopPage = () => {
     setSelectedCategories([])
     setSelectedColors([])
     setPriceRange([0, 1000])
+    setSortBy("featured")
   }
 
   const toggleCategoryDropdown = () => {
     setShowCategoryDropdown(!showCategoryDropdown)
+  }
+
+  const handleToggleWishlist = (e, product) => {
+    e.stopPropagation()
+    e.preventDefault()
+
+    const wasInWishlist = isInWishlist(product.id)
+
+    if (wasInWishlist) {
+      removeFromWishlist(product.id)
+      setHeartAnimations((prev) => ({ ...prev, [product.id]: "animate-empty" }))
+    } else {
+      addToWishlist(product)
+      setHeartAnimations((prev) => ({ ...prev, [product.id]: "animate-fill" }))
+    }
+
+    // Limpiar la animación después de que termine
+    setTimeout(() => {
+      setHeartAnimations((prev) => ({ ...prev, [product.id]: "" }))
+    }, 600)
   }
 
   const handleQuoteClick = (product) => {
@@ -98,60 +179,6 @@ const ShopPage = () => {
     window.scrollTo(0, 0)
     navigate(`/product/${productId}`)
   }
-
-  // Lista de categorías
-  const categories = [
-    "Accesorios",
-    "Cables",
-    "Redes",
-    "Almacenamiento",
-    "Procesamiento",
-    "Enrutamiento",
-    "Comunicación",
-    "Gaming",
-    "Componentes",
-  ]
-
-  // Filtrar productos (solo aplicar filtros adicionales si no es un filtro específico)
-  const filteredProducts = products.filter((product) => {
-    // Si es un filtro específico (best-selling o most-viewed), no aplicar filtros adicionales
-    if (filterType === "best-selling" || filterType === "most-viewed") {
-      return true
-    }
-
-    // Filtrar por categoría
-    if (selectedCategories.length > 0 && !selectedCategories.includes(product.category)) {
-      return false
-    }
-
-    // Filtrar por color
-    if (selectedColors.length > 0 && !product.colors.some((color) => selectedColors.includes(color))) {
-      return false
-    }
-
-    // Filtrar por precio
-    if (product.price < priceRange[0] || product.price > priceRange[1]) {
-      return false
-    }
-
-    return true
-  })
-
-  // Ordenar productos
-  const sortedProducts = [...filteredProducts].sort((a, b) => {
-    switch (sortBy) {
-      case "price-low":
-        return a.price - b.price
-      case "price-high":
-        return b.price - a.price
-      case "newest":
-        return new Date(b.date) - new Date(a.date)
-      case "rating":
-        return b.rating - a.rating
-      default:
-        return 0
-    }
-  })
 
   // Get page title based on filter
   const getPageTitle = () => {
@@ -174,6 +201,21 @@ const ShopPage = () => {
     return "No compres solo un accesorio, ¡compra una ventaja!"
   }
 
+  const getFilteredProductsCount = () => {
+    return filteredProducts.length
+  }
+
+  const getColorDisplayName = (color) => {
+    const colorNames = {
+      black: "Negro",
+      blue: "Azul",
+      red: "Rojo",
+      white: "Blanco",
+      green: "Verde",
+    }
+    return colorNames[color] || color
+  }
+
   return (
     <div className="shop-page">
       <div className="shop-hero">
@@ -187,7 +229,11 @@ const ShopPage = () => {
                   <p>Buscar por categoría</p>
                   <div className="dropdown-container">
                     <button className="dropdown-button" onClick={toggleCategoryDropdown}>
-                      Todas las categorías
+                      {selectedCategories.length === 0
+                        ? "Todas las categorías"
+                        : selectedCategories.length === 1
+                          ? selectedCategories[0]
+                          : `${selectedCategories.length} categorías seleccionadas`}
                       {showCategoryDropdown ? (
                         <ChevronUp size={16} strokeWidth={1.5} />
                       ) : (
@@ -201,14 +247,14 @@ const ShopPage = () => {
                             <input
                               type="checkbox"
                               checked={selectedCategories.length === 0}
-                              onChange={() => setSelectedCategories([])}
+                              onChange={handleAllCategoriesToggle}
                             />
                             Todas las categorías
                           </label>
                         </div>
 
                         {/* Categorías con checkboxes */}
-                        {categories.map((category) => (
+                        {availableCategories.map((category) => (
                           <div key={category} className="dropdown-item">
                             <label className="filter-option">
                               <input
@@ -228,22 +274,16 @@ const ShopPage = () => {
                           <div className="filter-section">
                             <h4>Color</h4>
                             <div className="filter-options">
-                              <label className="filter-option">
-                                <input
-                                  type="checkbox"
-                                  checked={selectedColors.includes("black")}
-                                  onChange={() => toggleColor("black")}
-                                />
-                                Negro
-                              </label>
-                              <label className="filter-option">
-                                <input
-                                  type="checkbox"
-                                  checked={selectedColors.includes("blue")}
-                                  onChange={() => toggleColor("blue")}
-                                />
-                                Azul
-                              </label>
+                              {availableColors.map((color) => (
+                                <label key={color} className="filter-option">
+                                  <input
+                                    type="checkbox"
+                                    checked={selectedColors.includes(color)}
+                                    onChange={() => toggleColor(color)}
+                                  />
+                                  {getColorDisplayName(color)}
+                                </label>
+                              ))}
                             </div>
                           </div>
 
@@ -257,6 +297,7 @@ const ShopPage = () => {
                                   onChange={(e) => handlePriceChange(e, 0)}
                                   min="0"
                                   max={priceRange[1]}
+                                  placeholder="Min"
                                 />
                                 <span>-</span>
                                 <input
@@ -264,7 +305,8 @@ const ShopPage = () => {
                                   value={priceRange[1]}
                                   onChange={(e) => handlePriceChange(e, 1)}
                                   min={priceRange[0]}
-                                  max="1000"
+                                  max="2000"
+                                  placeholder="Max"
                                 />
                               </div>
                             </div>
@@ -288,52 +330,159 @@ const ShopPage = () => {
       </div>
 
       <div className="container">
-        <div className="products-grid">
-          {sortedProducts.map((product) => (
-            <div key={product.id} className="product-card-shop">
-              {/* Badge de descuento o nuevo */}
-              {product.isNew ? (
-                <span className="new-badge">NEW</span>
-              ) : product.discount > 0 ? (
-                <span className="discount-badge">-{product.discount}%</span>
-              ) : null}
-
-              {/* Hacer clickeable la imagen y título */}
+        {/* Mostrar información de filtros activos */}
+        {!filterType &&
+          (selectedCategories.length > 0 || selectedColors.length > 0 || priceRange[0] > 0 || priceRange[1] < 1000) && (
+            <div
+              className="active-filters"
+              style={{ marginBottom: "20px", padding: "15px", backgroundColor: "#f8f9fa", borderRadius: "8px" }}
+            >
               <div
-                className="product-image-shop"
-                onClick={() => handleProductClick(product.id)}
-                style={{ cursor: "pointer" }}
+                style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px" }}
               >
-                <img src={product.image || "/placeholder.svg"} alt={product.name} />
+                <h4 style={{ margin: 0, fontSize: "0.9rem", fontWeight: "600" }}>Filtros activos:</h4>
+                <span style={{ fontSize: "0.9rem", color: "#666" }}>
+                  {getFilteredProductsCount()} productos encontrados
+                </span>
               </div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+                {selectedCategories.map((category) => (
+                  <span
+                    key={category}
+                    style={{
+                      backgroundColor: "#e63946",
+                      color: "white",
+                      padding: "4px 8px",
+                      borderRadius: "4px",
+                      fontSize: "0.8rem",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => toggleCategory(category)}
+                  >
+                    {category} ×
+                  </span>
+                ))}
+                {selectedColors.map((color) => (
+                  <span
+                    key={color}
+                    style={{
+                      backgroundColor: "#4caf50",
+                      color: "white",
+                      padding: "4px 8px",
+                      borderRadius: "4px",
+                      fontSize: "0.8rem",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => toggleColor(color)}
+                  >
+                    {getColorDisplayName(color)} ×
+                  </span>
+                ))}
+                {(priceRange[0] > 0 || priceRange[1] < 1000) && (
+                  <span
+                    style={{
+                      backgroundColor: "#ff9800",
+                      color: "white",
+                      padding: "4px 8px",
+                      borderRadius: "4px",
+                      fontSize: "0.8rem",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => setPriceRange([0, 1000])}
+                  >
+                    ${priceRange[0]} - ${priceRange[1]} ×
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
 
-              <div className="product-title-container">
-                <h3
-                  className="product-title-shop"
+        <div className="products-grid">
+          {filteredProducts.map((product) => {
+            const isInWishlistState = isInWishlist(product.id)
+            const heartAnimation = heartAnimations[product.id] || ""
+
+            return (
+              <div key={product.id} className="product-card-shop">
+                {/* Badge de descuento o nuevo */}
+                {product.isNew ? (
+                  <span className="new-badge">NEW</span>
+                ) : product.discount > 0 ? (
+                  <span className="discount-badge">-{product.discount}%</span>
+                ) : null}
+
+                {/* Hacer clickeable la imagen y título */}
+                <div
+                  className="product-image-shop"
                   onClick={() => handleProductClick(product.id)}
                   style={{ cursor: "pointer" }}
                 >
-                  {product.name}
-                </h3>
-                <button className="wishlist-btn-shop">
-                  <Heart size={18} />
-                </button>
-              </div>
+                  <img src={product.image || "/placeholder.svg"} alt={product.name} />
+                </div>
 
-              <div className="product-buttons-shop">
-                <button className="info-btn-shop" onClick={() => handleInfoClick(product)}>
-                  Info
-                </button>
-                <button className="quote-btn-shop" onClick={() => handleQuoteClick(product)}>
-                  Solicitar cotización
-                </button>
+                <div className="product-title-container">
+                  <h3
+                    className="product-title-shop"
+                    onClick={() => handleProductClick(product.id)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {product.name}
+                  </h3>
+                  <button
+                    className={`wishlist-btn-shop ${isInWishlistState ? "active" : ""} ${heartAnimation}`}
+                    onClick={(e) => handleToggleWishlist(e, product)}
+                  >
+                    <Heart size={18} fill={isInWishlistState ? "#e63946" : "none"} />
+                  </button>
+                </div>
+
+                <div className="product-buttons-shop">
+                  <button className="info-btn-shop" onClick={() => handleInfoClick(product)}>
+                    Info
+                  </button>
+                  <button className="quote-btn-shop" onClick={() => handleQuoteClick(product)}>
+                    Solicitar cotización
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
+        {/* Mostrar mensaje si no hay productos */}
+        {filteredProducts.length === 0 && (
+          <div
+            style={{
+              textAlign: "center",
+              padding: "60px 20px",
+              backgroundColor: "white",
+              borderRadius: "8px",
+              boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
+            }}
+          >
+            <h3 style={{ color: "#666", marginBottom: "15px" }}>No se encontraron productos</h3>
+            <p style={{ color: "#999", marginBottom: "20px" }}>
+              Intenta ajustar los filtros para encontrar lo que buscas
+            </p>
+            <button
+              onClick={clearFilters}
+              style={{
+                backgroundColor: "#e63946",
+                color: "white",
+                border: "none",
+                padding: "10px 20px",
+                borderRadius: "4px",
+                cursor: "pointer",
+                fontWeight: "600",
+              }}
+            >
+              Limpiar todos los filtros
+            </button>
+          </div>
+        )}
+
         {/* Solo mostrar paginación si hay productos */}
-        {sortedProducts.length > 0 && (
+        {filteredProducts.length > 0 && (
           <div className="pagination-container">
             <div className="pagination">
               <button className="pagination-arrow">&lt;</button>

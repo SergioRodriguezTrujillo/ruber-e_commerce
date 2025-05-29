@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
+import { useWishlist } from "../context/WishlistContext"
+import { useCart } from "../context/CartContext"
 import "./Header.css"
 
 const languageOptions = [
@@ -12,18 +14,54 @@ const languageOptions = [
 const Header = () => {
   const location = useLocation()
   const navigate = useNavigate()
+  const { wishlistItems } = useWishlist()
+  const { getCartCount } = useCart()
   const [searchQuery, setSearchQuery] = useState("")
   const [language, setLanguage] = useState("Español")
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false)
   const [showAccountDropdown, setShowAccountDropdown] = useState(false)
+  const [wishlistAnimate, setWishlistAnimate] = useState(false)
+  const [cartAnimate, setCartAnimate] = useState(false)
 
   // Referencias para detectar clicks fuera de los dropdowns
   const languageDropdownRef = useRef(null)
   const accountDropdownRef = useRef(null)
+  const prevWishlistCount = useRef(wishlistItems.length)
+  const prevCartCount = useRef(getCartCount())
 
   const isActive = (path) => {
     return location.pathname === path ? "active" : ""
   }
+
+  // Animación cuando cambia el contador de wishlist
+  useEffect(() => {
+    const currentWishlistCount = wishlistItems.length
+    if (currentWishlistCount > prevWishlistCount.current) {
+      // Producto agregado
+      setWishlistAnimate("animate")
+      setTimeout(() => setWishlistAnimate(""), 600)
+    } else if (currentWishlistCount < prevWishlistCount.current) {
+      // Producto eliminado
+      setWishlistAnimate("animate-remove")
+      setTimeout(() => setWishlistAnimate(""), 500)
+    }
+    prevWishlistCount.current = currentWishlistCount
+  }, [wishlistItems.length])
+
+  // Animación cuando cambia el contador del carrito
+  useEffect(() => {
+    const currentCartCount = getCartCount()
+    if (currentCartCount > prevCartCount.current) {
+      // Producto agregado
+      setCartAnimate("animate")
+      setTimeout(() => setCartAnimate(""), 600)
+    } else if (currentCartCount < prevCartCount.current) {
+      // Producto eliminado
+      setCartAnimate("animate-remove")
+      setTimeout(() => setCartAnimate(""), 500)
+    }
+    prevCartCount.current = currentCartCount
+  }, [getCartCount()])
 
   const handleSearch = (e) => {
     e.preventDefault()
@@ -105,6 +143,8 @@ const Header = () => {
     }
   }, [])
 
+  const cartCount = getCartCount()
+
   return (
     <>
       <div className="top-bar">
@@ -176,11 +216,15 @@ const Header = () => {
             </form>
 
             <div className="header-icons">
-              <Link to="/wishlist" className="icon-link">
+              <Link to="/wishlist" className={`icon-link wishlist-icon-container ${wishlistAnimate}`}>
                 <span className="material-icons-outlined">favorite_border</span>
+                {wishlistItems.length > 0 && (
+                  <span className={`wishlist-count ${wishlistAnimate}`}>{wishlistItems.length}</span>
+                )}
               </Link>
-              <Link to="/cart" className="icon-link">
+              <Link to="/cart" className={`icon-link cart-icon-container ${cartAnimate}`}>
                 <span className="material-icons-outlined">shopping_cart</span>
+                {cartCount > 0 && <span className={`cart-count ${cartAnimate}`}>{cartCount}</span>}
               </Link>
               <div className="account-dropdown-container" ref={accountDropdownRef}>
                 <button className="icon-link account-toggle" onClick={toggleAccountDropdown}>

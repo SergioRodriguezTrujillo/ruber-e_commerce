@@ -89,50 +89,88 @@
   text-overflow: ellipsis;
 }
 
+/* Animaciones para el corazón */
+@keyframes heartBeat {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.2) rotate(5deg);
+  }
+  50% {
+    transform: scale(1.1) rotate(-5deg);
+  }
+  75% {
+    transform: scale(1.15) rotate(3deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes heartFill {
+  0% {
+    color: #999;
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3) rotate(10deg);
+  }
+  100% {
+    color: #e63946;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes heartEmpty {
+  0% {
+    color: #e63946;
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.8) rotate(-10deg);
+  }
+  100% {
+    color: #999;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
 .wishlist-btn,
 .wishlist-btn-shop {
   background: none;
   border: none;
   cursor: pointer;
   color: #999;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
   padding: 0;
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .wishlist-btn:hover,
 .wishlist-btn-shop:hover {
   color: #e63946;
+  transform: scale(1.1);
 }
 
 .wishlist-btn.active,
 .wishlist-btn-shop.active {
   color: #e63946;
 }
-/* 
-.product-price,
-.product-price-shop {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 5px;
-  padding: 0 15px;
+
+/* Aplicar animación cuando se activa el corazón */
+.wishlist-btn.animate-fill,
+.wishlist-btn-shop.animate-fill {
+  animation: heartFill 0.6s ease-in-out;
 }
 
-.current-price,
-.current-price-shop {
-  color: var(--primary-color);
-  font-weight: 700;
-  font-size: 0.85rem;
+/* Aplicar animación cuando se desactiva el corazón */
+.wishlist-btn.animate-empty,
+.wishlist-btn-shop.animate-empty {
+  animation: heartEmpty 0.4s ease-in-out;
 }
-
-.original-price,
-.original-price-shop {
-  text-decoration: line-through;
-  color: #999;
-  font-size: 0.8rem;
-} */
 
 .product-buttons,
 .product-buttons-shop {
@@ -201,15 +239,6 @@
   margin-bottom: 15px;
   padding: 0 15px;
 }
-
-/* .color-option {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 1px solid #ddd;
-  position: relative;
-} */
 
 .color-option.selected::after {
   content: "";

@@ -24,6 +24,7 @@ const ProductDetailPage = () => {
   const [showQuoteModal, setShowQuoteModal] = useState(false)
   const [showInfoModal, setShowInfoModal] = useState(false)
   const [selectedRelatedProduct, setSelectedRelatedProduct] = useState(null)
+  const [heartAnimation, setHeartAnimation] = useState("")
 
   // Cargar datos del producto
   useEffect(() => {
@@ -54,11 +55,18 @@ const ProductDetailPage = () => {
   const handleToggleWishlist = () => {
     if (!product) return
 
-    if (isInWishlist(product.id)) {
+    const wasInWishlist = isInWishlist(product.id)
+
+    if (wasInWishlist) {
       removeFromWishlist(product.id)
+      setHeartAnimation("animate-empty")
     } else {
       addToWishlist(product)
+      setHeartAnimation("animate-fill")
     }
+
+    // Limpiar la animación después de que termine
+    setTimeout(() => setHeartAnimation(""), 600)
   }
 
   const handleQuoteClick = () => {
@@ -138,6 +146,8 @@ const ProductDetailPage = () => {
     )
   }
 
+  const isInWishlistState = isInWishlist(product.id)
+
   return (
     <div className="product-detail-page">
       <div className="container">
@@ -204,32 +214,32 @@ const ProductDetailPage = () => {
                 </div>
               </div>
               <div className="size-option">
-               <div className="quantity-selector">
-                <button className="quantity-btn" onClick={decreaseQuantity}>
-                  <Minus size={14} strokeWidth={2} />
-                </button>
-                <input
-                  type="number"
-                  className="quantity-input"
-                  value={quantity}
-                  onChange={(e) => setQuantity(Number.parseInt(e.target.value) || 1)}
-                  min="1"
-                />
-                <button className="quantity-btn" onClick={increaseQuantity}>
-                  <Plus size={14} strokeWidth={2} />
-                </button>
-              </div>
+                <div className="quantity-selector">
+                  <button className="quantity-btn" onClick={decreaseQuantity}>
+                    <Minus size={14} strokeWidth={2} />
+                  </button>
+                  <input
+                    type="number"
+                    className="quantity-input"
+                    value={quantity}
+                    onChange={(e) => setQuantity(Number.parseInt(e.target.value) || 1)}
+                    min="1"
+                  />
+                  <button className="quantity-btn" onClick={increaseQuantity}>
+                    <Plus size={14} strokeWidth={2} />
+                  </button>
+                </div>
 
-              <button className="quote-btn" onClick={handleQuoteClick}>
-                Solicitar cotización
-              </button>
+                <button className="quote-btn" onClick={handleQuoteClick}>
+                  Solicitar cotización
+                </button>
 
-              <button
-                className={`wishlist-btn ${isInWishlist(product.id) ? "active" : ""}`}
-                onClick={handleToggleWishlist}
-              >
-                <Heart size={16} strokeWidth={1.5} />
-              </button>
+                <button
+                  className={`wishlist-btn ${isInWishlistState ? "active" : ""} ${heartAnimation}`}
+                  onClick={handleToggleWishlist}
+                >
+                  <Heart size={16} strokeWidth={1.5} fill={isInWishlistState ? "#e63946" : "none"} />
+                </button>
               </div>
             </div>
 

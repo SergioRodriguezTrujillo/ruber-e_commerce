@@ -22,32 +22,31 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem("cart", JSON.stringify(cartItems))
   }, [cartItems])
 
-  const addToCart = (product) => {
+  const addToCart = (product, quantity = 1) => {
     setCartItems((prevItems) => {
-      const existingItem = prevItems.find(
-        (item) => item.id === product.id && item.selectedColor === product.selectedColor,
-      )
+      const existingItem = prevItems.find((item) => item.id === product.id)
 
       if (existingItem) {
         return prevItems.map((item) =>
-          item.id === product.id && item.selectedColor === product.selectedColor
-            ? { ...item, quantity: item.quantity + product.quantity }
-            : item,
+          item.id === product.id ? { ...item, quantity: item.quantity + quantity } : item,
         )
       } else {
-        return [...prevItems, product]
+        return [...prevItems, { ...product, quantity }]
       }
     })
   }
 
-  const removeFromCart = (id, color) => {
-    setCartItems((prevItems) => prevItems.filter((item) => !(item.id === id && item.selectedColor === color)))
+  const removeFromCart = (id) => {
+    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id))
   }
 
-  const updateQuantity = (id, color, quantity) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) => (item.id === id && item.selectedColor === color ? { ...item, quantity } : item)),
-    )
+  const updateQuantity = (id, quantity) => {
+    if (quantity <= 0) {
+      removeFromCart(id)
+      return
+    }
+
+    setCartItems((prevItems) => prevItems.map((item) => (item.id === id ? { ...item, quantity } : item)))
   }
 
   const clearCart = () => {
@@ -62,6 +61,16 @@ export const CartProvider = ({ children }) => {
     return cartItems.reduce((count, item) => count + item.quantity, 0)
   }
 
+  const isInCart = (id) => {
+    return cartItems.some((item) => item.id === id)
+  }
+
+  const addMultipleToCart = (products) => {
+    products.forEach((product) => {
+      addToCart(product, 1)
+    })
+  }
+
   const value = {
     cartItems,
     addToCart,
@@ -70,6 +79,8 @@ export const CartProvider = ({ children }) => {
     clearCart,
     getCartTotal,
     getCartCount,
+    isInCart,
+    addMultipleToCart,
   }
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>

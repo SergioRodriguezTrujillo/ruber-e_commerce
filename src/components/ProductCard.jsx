@@ -1,7 +1,7 @@
 "use client"
 import { useState } from "react"
 import { Link } from "react-router-dom"
-import { Heart } from 'lucide-react'
+import { Heart } from "lucide-react"
 import { useWishlist } from "../context/WishlistContext"
 import QuoteModal from "./QuoteModal"
 import InfoModal from "./InfoModal"
@@ -11,15 +11,24 @@ const ProductCard = ({ product }) => {
   const { addToWishlist, isInWishlist, removeFromWishlist } = useWishlist()
   const [showQuoteModal, setShowQuoteModal] = useState(false)
   const [showInfoModal, setShowInfoModal] = useState(false)
+  const [heartAnimation, setHeartAnimation] = useState("")
 
   const handleToggleWishlist = (e) => {
     e.stopPropagation()
     e.preventDefault()
-    if (isInWishlist(product.id)) {
+
+    const wasInWishlist = isInWishlist(product.id)
+
+    if (wasInWishlist) {
       removeFromWishlist(product.id)
+      setHeartAnimation("animate-empty")
     } else {
       addToWishlist(product)
+      setHeartAnimation("animate-fill")
     }
+
+    // Limpiar la animación después de que termine
+    setTimeout(() => setHeartAnimation(""), 600)
   }
 
   const handleQuoteClick = (e) => {
@@ -39,6 +48,8 @@ const ProductCard = ({ product }) => {
     window.scrollTo(0, 0)
   }
 
+  const isInWishlistState = isInWishlist(product.id)
+
   return (
     <>
       <Link to={`/product/${product.id}`} className="product-card-shop" onClick={handleProductClick}>
@@ -52,10 +63,10 @@ const ProductCard = ({ product }) => {
         <div className="product-title-container">
           <h3 className="product-title-shop">{product.name}</h3>
           <button
-            className={`wishlist-btn-shop ${isInWishlist(product.id) ? "active" : ""}`}
+            className={`wishlist-btn-shop ${isInWishlistState ? "active" : ""} ${heartAnimation}`}
             onClick={handleToggleWishlist}
           >
-            <Heart size={18} />
+            <Heart size={18} fill={isInWishlistState ? "#e63946" : "none"} />
           </button>
         </div>
 

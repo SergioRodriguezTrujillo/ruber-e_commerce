@@ -1,6 +1,6 @@
 "use client"
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
 import HomePage from "./pages/HomePage"
@@ -9,9 +9,22 @@ import ContactPage from "./pages/ContactPage"
 import AboutPage from "./pages/AboutPage"
 import AccountPage from "./pages/AccountPage"
 import ProductDetailPage from "./pages/ProductDetailPage"
+import WishlistPage from "./pages/WishlistPage"
+import CartPage from "./pages/CartPage"
 import { CartProvider } from "./context/CartContext"
 import { WishlistProvider } from "./context/WishlistContext"
 import { useEffect } from "react"
+
+// Componente para manejar el scroll al cambiar de página
+function ScrollToTop() {
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+
+  return null
+}
 
 function App() {
   // Add class to body when header becomes sticky
@@ -39,6 +52,7 @@ function App() {
       <CartProvider>
         <WishlistProvider>
           <div className="app">
+            <ScrollToTop />
             <Header />
             <main>
               <Routes>
@@ -49,6 +63,8 @@ function App() {
                 <Route path="/account" element={<AccountPage />} />
                 <Route path="/account/*" element={<AccountPage />} />
                 <Route path="/product/:id" element={<ProductDetailPage />} />
+                <Route path="/wishlist" element={<WishlistPage />} />
+                <Route path="/cart" element={<CartPage />} />
               </Routes>
             </main>
             <Footer />

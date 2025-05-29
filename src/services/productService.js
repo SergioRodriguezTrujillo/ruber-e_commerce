@@ -1,4 +1,4 @@
-// Datos de productos con descripciones únicas
+// Datos de productos con descripciones únicas y categorías
 const products = [
   // PRODUCTOS MÁS VENDIDOS (6 productos)
   {
@@ -10,6 +10,7 @@ const products = [
     rating: 5,
     reviewCount: 88,
     colors: ["black", "blue"],
+    category: "Gaming",
     image: "/pc.png",
     images: ["/pc.png", "/pc.png", "/pc.png", "/pc.png"],
     description:
@@ -35,6 +36,7 @@ const products = [
     rating: 4,
     reviewCount: 75,
     colors: ["black", "blue"],
+    category: "Procesamiento",
     image: "/mini-pc.png",
     images: ["/mini-pc.png", "/mini-pc.png", "/mini-pc.png", "/mini-pc.png"],
     description:
@@ -60,6 +62,7 @@ const products = [
     rating: 5,
     reviewCount: 99,
     colors: ["black", "blue"],
+    category: "Cables",
     image: "/cable.png",
     images: ["/cable.png", "/cable.png", "/cable.png", "/cable.png"],
     description:
@@ -85,6 +88,7 @@ const products = [
     rating: 5,
     reviewCount: 99,
     colors: ["black", "red"],
+    category: "Componentes",
     image: "/ram.png",
     images: ["/ram.png", "/ram.png", "/ram.png", "/ram.png"],
     description:
@@ -110,6 +114,7 @@ const products = [
     rating: 5,
     reviewCount: 156,
     colors: ["black", "blue"],
+    category: "Gaming",
     image: "/pc.png",
     images: ["/pc.png", "/pc.png", "/pc.png", "/pc.png"],
     description:
@@ -135,6 +140,7 @@ const products = [
     rating: 4,
     reviewCount: 92,
     colors: ["black", "blue"],
+    category: "Procesamiento",
     image: "/mini-pc.png",
     images: ["/mini-pc.png", "/mini-pc.png", "/mini-pc.png", "/mini-pc.png"],
     description:
@@ -162,6 +168,7 @@ const products = [
     rating: 5,
     reviewCount: 234,
     colors: ["black", "blue"],
+    category: "Cables",
     image: "/cable.png",
     images: ["/cable.png", "/cable.png", "/cable.png", "/cable.png"],
     description:
@@ -187,6 +194,7 @@ const products = [
     rating: 5,
     reviewCount: 187,
     colors: ["black", "red"],
+    category: "Componentes",
     image: "/ram.png",
     images: ["/ram.png", "/ram.png", "/ram.png", "/ram.png"],
     description:
@@ -212,6 +220,7 @@ const products = [
     rating: 4,
     reviewCount: 143,
     colors: ["black", "blue"],
+    category: "Gaming",
     image: "/pc.png",
     images: ["/pc.png", "/pc.png", "/pc.png", "/pc.png"],
     description:
@@ -237,6 +246,7 @@ const products = [
     rating: 4,
     reviewCount: 67,
     colors: ["black", "blue"],
+    category: "Procesamiento",
     image: "/mini-pc.png",
     images: ["/mini-pc.png", "/mini-pc.png", "/mini-pc.png", "/mini-pc.png"],
     description:
@@ -262,6 +272,7 @@ const products = [
     rating: 5,
     reviewCount: 298,
     colors: ["black", "blue"],
+    category: "Cables",
     image: "/cable.png",
     images: ["/cable.png", "/cable.png", "/cable.png", "/cable.png"],
     description:
@@ -287,6 +298,7 @@ const products = [
     rating: 4,
     reviewCount: 156,
     colors: ["black", "red"],
+    category: "Componentes",
     image: "/ram.png",
     images: ["/ram.png", "/ram.png", "/ram.png", "/ram.png"],
     description:
@@ -312,6 +324,7 @@ const products = [
     rating: 5,
     reviewCount: 89,
     colors: ["black", "blue"],
+    category: "Gaming",
     image: "/pc.png",
     images: ["/pc.png", "/pc.png", "/pc.png", "/pc.png"],
     description:
@@ -337,6 +350,7 @@ const products = [
     rating: 4,
     reviewCount: 78,
     colors: ["black", "blue"],
+    category: "Procesamiento",
     image: "/mini-pc.png",
     images: ["/mini-pc.png", "/mini-pc.png", "/mini-pc.png", "/mini-pc.png"],
     description:
@@ -362,6 +376,7 @@ const products = [
     rating: 4,
     reviewCount: 167,
     colors: ["black", "blue"],
+    category: "Cables",
     image: "/cable.png",
     images: ["/cable.png", "/cable.png", "/cable.png", "/cable.png"],
     description:
@@ -387,6 +402,7 @@ const products = [
     rating: 5,
     reviewCount: 45,
     colors: ["black", "red"],
+    category: "Componentes",
     image: "/ram.png",
     images: ["/ram.png", "/ram.png", "/ram.png", "/ram.png"],
     description:
@@ -412,6 +428,7 @@ const products = [
     rating: 4,
     reviewCount: 112,
     colors: ["black", "blue"],
+    category: "Gaming",
     image: "/pc.png",
     images: ["/pc.png", "/pc.png", "/pc.png", "/pc.png"],
     description:
@@ -437,6 +454,7 @@ const products = [
     rating: 4,
     reviewCount: 134,
     colors: ["black", "blue"],
+    category: "Procesamiento",
     image: "/mini-pc.png",
     images: ["/mini-pc.png", "/mini-pc.png", "/mini-pc.png", "/mini-pc.png"],
     description:
@@ -462,6 +480,7 @@ const products = [
     rating: 5,
     reviewCount: 203,
     colors: ["black", "blue"],
+    category: "Cables",
     image: "/cable.png",
     images: ["/cable.png", "/cable.png", "/cable.png", "/cable.png"],
     description:
@@ -487,6 +506,7 @@ const products = [
     rating: 5,
     reviewCount: 23,
     colors: ["black", "red"],
+    category: "Componentes",
     image: "/ram.png",
     images: ["/ram.png", "/ram.png", "/ram.png", "/ram.png"],
     description:
@@ -512,6 +532,7 @@ const products = [
     rating: 4,
     reviewCount: 98,
     colors: ["black", "blue"],
+    category: "Gaming",
     image: "/pc.png",
     images: ["/pc.png", "/pc.png", "/pc.png", "/pc.png"],
     description:
@@ -539,6 +560,7 @@ const products = [
     rating: 5,
     reviewCount: 67,
     colors: ["black", "blue"],
+    category: "Procesamiento",
     image: "/pc.png",
     images: ["/pc.png", "/pc.png", "/pc.png", "/pc.png"],
     description:
@@ -564,6 +586,7 @@ const products = [
     rating: 5,
     reviewCount: 89,
     colors: ["black", "blue"],
+    category: "Componentes",
     image: "/pc.png",
     images: ["/pc.png", "/pc.png", "/pc.png", "/pc.png"],
     description:
@@ -575,6 +598,140 @@ const products = [
       "Frecuencia Base": "2230 MHz",
       "Frecuencia Boost": "2520 MHz",
     },
+    sizes: ["XS", "S", "M", "L", "XL"],
+    inStock: true,
+    isBestSelling: false,
+    isMostViewed: false,
+  },
+  // Productos adicionales para otras categorías
+  {
+    id: 24,
+    name: "Router WiFi 6 Pro",
+    price: 89,
+    originalPrice: 120,
+    discount: 26,
+    rating: 4,
+    reviewCount: 156,
+    colors: ["black", "blue"],
+    category: "Redes",
+    image: "/mini-pc.png",
+    images: ["/mini-pc.png", "/mini-pc.png", "/mini-pc.png", "/mini-pc.png"],
+    description: "Router WiFi 6 de alta velocidad para redes domésticas y empresariales.",
+    specifications: {},
+    sizes: ["XS", "S", "M", "L", "XL"],
+    inStock: true,
+    isBestSelling: false,
+    isMostViewed: false,
+  },
+  {
+    id: 25,
+    name: "Disco SSD 1TB NVMe",
+    price: 75,
+    originalPrice: 95,
+    discount: 21,
+    rating: 5,
+    reviewCount: 234,
+    colors: ["black", "red"],
+    category: "Almacenamiento",
+    image: "/ram.png",
+    images: ["/ram.png", "/ram.png", "/ram.png", "/ram.png"],
+    description: "Disco SSD NVMe de 1TB con velocidades de lectura ultra rápidas.",
+    specifications: {},
+    sizes: ["XS", "S", "M", "L", "XL"],
+    inStock: true,
+    isBestSelling: false,
+    isMostViewed: false,
+  },
+  {
+    id: 26,
+    name: "Switch Gigabit 24 Puertos",
+    price: 145,
+    originalPrice: 180,
+    discount: 19,
+    rating: 4,
+    reviewCount: 89,
+    colors: ["black", "blue"],
+    category: "Enrutamiento",
+    image: "/mini-pc.png",
+    images: ["/mini-pc.png", "/mini-pc.png", "/mini-pc.png", "/mini-pc.png"],
+    description: "Switch Gigabit de 24 puertos para redes empresariales.",
+    specifications: {},
+    sizes: ["XS", "S", "M", "L", "XL"],
+    inStock: true,
+    isBestSelling: false,
+    isMostViewed: false,
+  },
+  {
+    id: 27,
+    name: "Teléfono IP Empresarial",
+    price: 65,
+    originalPrice: 85,
+    discount: 24,
+    rating: 4,
+    reviewCount: 67,
+    colors: ["black", "blue"],
+    category: "Comunicación",
+    image: "/mini-pc.png",
+    images: ["/mini-pc.png", "/mini-pc.png", "/mini-pc.png", "/mini-pc.png"],
+    description: "Teléfono IP para comunicaciones empresariales VoIP.",
+    specifications: {},
+    sizes: ["XS", "S", "M", "L", "XL"],
+    inStock: true,
+    isBestSelling: false,
+    isMostViewed: false,
+  },
+  {
+    id: 28,
+    name: "Teclado Mecánico RGB",
+    price: 45,
+    originalPrice: 60,
+    discount: 25,
+    rating: 5,
+    reviewCount: 178,
+    colors: ["black", "red"],
+    category: "Accesorios",
+    image: "/cable.png",
+    images: ["/cable.png", "/cable.png", "/cable.png", "/cable.png"],
+    description: "Teclado mecánico con switches Cherry MX e iluminación RGB.",
+    specifications: {},
+    sizes: ["XS", "S", "M", "L", "XL"],
+    inStock: true,
+    isBestSelling: false,
+    isMostViewed: false,
+  },
+  {
+    id: 29,
+    name: "Mouse Gaming Inalámbrico",
+    price: 35,
+    originalPrice: 50,
+    discount: 30,
+    rating: 4,
+    reviewCount: 145,
+    colors: ["black", "red"],
+    category: "Accesorios",
+    image: "/cable.png",
+    images: ["/cable.png", "/cable.png", "/cable.png", "/cable.png"],
+    description: "Mouse gaming inalámbrico con sensor óptico de alta precisión.",
+    specifications: {},
+    sizes: ["XS", "S", "M", "L", "XL"],
+    inStock: true,
+    isBestSelling: false,
+    isMostViewed: false,
+  },
+  {
+    id: 30,
+    name: "Webcam 4K Ultra HD",
+    price: 55,
+    originalPrice: 75,
+    discount: 27,
+    rating: 4,
+    reviewCount: 123,
+    colors: ["black", "blue"],
+    category: "Accesorios",
+    image: "/cable.png",
+    images: ["/cable.png", "/cable.png", "/cable.png", "/cable.png"],
+    description: "Webcam 4K con enfoque automático para videoconferencias profesionales.",
+    specifications: {},
     sizes: ["XS", "S", "M", "L", "XL"],
     inStock: true,
     isBestSelling: false,
@@ -646,4 +803,68 @@ export const getRelatedProducts = (id) => {
 
   // Limitar a 8 productos relacionados
   return relatedProducts.slice(0, 8)
+}
+
+// Obtener todas las categorías disponibles
+export const getAvailableCategories = () => {
+  const categories = [...new Set(products.map((product) => product.category))]
+  return categories.sort()
+}
+
+// Obtener todos los colores disponibles
+export const getAvailableColors = () => {
+  const colors = [...new Set(products.flatMap((product) => product.colors))]
+  return colors.sort()
+}
+
+// Función para filtrar productos
+export const filterProducts = (filters) => {
+  const { categories, colors, priceRange, sortBy } = filters
+
+  let filteredProducts = [...products]
+
+  // Filtrar por categorías
+  if (categories && categories.length > 0) {
+    filteredProducts = filteredProducts.filter((product) => categories.includes(product.category))
+  }
+
+  // Filtrar por colores
+  if (colors && colors.length > 0) {
+    filteredProducts = filteredProducts.filter((product) => product.colors.some((color) => colors.includes(color)))
+  }
+
+  // Filtrar por rango de precio
+  if (priceRange && priceRange.length === 2) {
+    const [minPrice, maxPrice] = priceRange
+    filteredProducts = filteredProducts.filter((product) => product.price >= minPrice && product.price <= maxPrice)
+  }
+
+  // Ordenar productos
+  if (sortBy) {
+    switch (sortBy) {
+      case "price-low":
+        filteredProducts.sort((a, b) => a.price - b.price)
+        break
+      case "price-high":
+        filteredProducts.sort((a, b) => b.price - a.price)
+        break
+      case "newest":
+        filteredProducts.sort((a, b) => new Date(b.date) - new Date(a.date))
+        break
+      case "rating":
+        filteredProducts.sort((a, b) => b.rating - a.rating)
+        break
+      case "name-asc":
+        filteredProducts.sort((a, b) => a.name.localeCompare(b.name))
+        break
+      case "name-desc":
+        filteredProducts.sort((a, b) => b.name.localeCompare(a.name))
+        break
+      default:
+        // No sorting for 'featured' or default
+        break
+    }
+  }
+
+  return filteredProducts
 }
