@@ -1,0 +1,182 @@
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f9fa;
+}
+
+.login-content {
+  flex: 1;
+  display: flex;
+  width: 100%;
+}
+
+.login-container {  
+  background-color: white;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  min-height: calc(100vh - 120px); /* Ajustar según altura del header */
+}
+
+.login-left {
+  background: linear-gradient(135deg, #a8e6cf 0%, #88d8c0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.login-illustration {
+  max-width: 80%;
+  height: auto;
+  z-index: 2;
+  position: relative;
+}
+
+.login-right {
+  padding: 40px 60px; /* Reducido de 60px 80px */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  max-width: 600px; /* Mantener ancho máximo para el contenido */
+  margin: 0 auto; /* Centrar el contenido */
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 30px; /* Reducido de 40px */
+}
+
+.login-title {
+  font-size: 1.7rem; /* Reducido de 2rem para "Iniciar sesión en" */
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.login-title-company {
+  font-size: 2rem; /* Mantener tamaño original para "IT LIVE SOLUTIONS" */
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.login-subtitle {
+  color: #666;
+  font-size: 1rem;
+}
+
+.login-form {
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 20px; /* Reducido de 24px */
+}
+
+.form-input {
+  width: 100%;
+  padding: 14px 0; /* Reducido de 16px */
+  border: none;
+  border-bottom: 2px solid #e1e1e1;
+  background-color: transparent;
+  font-size: 1rem;
+  color: #333;
+  transition: border-color 0.3s ease;
+  outline: none;
+}
+
+.form-input:focus {
+  border-bottom-color: #e63946;
+}
+
+.form-input::placeholder {
+  color: #999;
+}
+
+.forgot-password {
+  text-align: right;
+  margin-bottom: 28px; /* Reducido de 32px */
+}
+
+.forgot-password a {
+  color: #e63946;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.forgot-password a:hover {
+  text-decoration: underline;
+}
+
+.login-button {
+  width: 100%;
+  padding: 14px; /* Reducido de 16px */
+  background-color: #e63946;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 20px; /* Reducido de 24px */
+}
+
+.login-button:hover {
+  background-color: #d62f3d;
+}
+
+.login-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.signup-link {
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.signup-link a {
+  color: #e63946;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  color: #e63946;
+  font-size: 0.9rem;
+  margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    grid-template-columns: 1fr;
+  }
+
+  .login-left {
+    display: none;
+  }
+
+  .login-right {
+    padding: 30px 20px; /* Ajustado para móvil */
+    max-width: none;
+  }
+
+  .login-title,
+  .login-title-company {
+    font-size: 1.5rem;
+  }
+}

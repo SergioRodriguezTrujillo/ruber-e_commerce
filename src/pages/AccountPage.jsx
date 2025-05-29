@@ -1,20 +1,27 @@
 "use client"
 
 import { useState } from "react"
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, Navigate } from "react-router-dom"
+import { useAuth } from "../context/AuthContext"
 import "./AccountPage.css"
 
 const AccountPage = () => {
   const location = useLocation()
+  const { user, isAuthenticated } = useAuth()
   const [formData, setFormData] = useState({
-    firstName: "Ernesto",
+    firstName: user?.name || "",
     lastName: "",
-    email: "ernesto@gmail.com",
+    email: user?.email || "",
     address: "una dirección ...",
     currentPassword: "",
     newPassword: "",
     confirmPassword: "",
   })
+
+  // Redirigir a login si no está autenticado
+  if (!isAuthenticated) {
+    return <Navigate to="/login" state={{ from: location }} replace />
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -33,9 +40,9 @@ const AccountPage = () => {
   const handleCancel = () => {
     // Resetear formulario o redirigir
     setFormData({
-      firstName: "Ernesto",
+      firstName: user?.name || "",
       lastName: "",
-      email: "ernesto@gmail.com",
+      email: user?.email || "",
       address: "una dirección ...",
       currentPassword: "",
       newPassword: "",
@@ -52,7 +59,7 @@ const AccountPage = () => {
       <div className="container">
         <div className="account-welcome">
           <span className="account-welcome-text">
-            Bienvenido! <span className="account-welcome-name">Ernesto</span>
+            Bienvenido! <span className="account-welcome-name">{user?.name || "Usuario"}</span>
           </span>
         </div>
 
@@ -66,16 +73,16 @@ const AccountPage = () => {
                 </Link>
               </li>
               <ul className="account-submenu">
-              <li className="account-menu-item">
-                <Link to="/account/addresses" className="account-menu-link">
-                  Libreta de direcciones
-                </Link>
-              </li>
-              <li className="account-menu-item">
-                <Link to="/account/payment" className="account-menu-link">
-                  Mis opciones de pago
-                </Link>
-              </li>
+                <li className="account-menu-item">
+                  <Link to="/account/addresses" className="account-menu-link">
+                    Libreta de direcciones
+                  </Link>
+                </li>
+                <li className="account-menu-item">
+                  <Link to="/account/payment" className="account-menu-link">
+                    Mis opciones de pago
+                  </Link>
+                </li>
               </ul>
               <li className="account-menu-item">
                 <span className="account-menu-link" style={{ fontWeight: "600", color: "#333" }}>
@@ -97,7 +104,7 @@ const AccountPage = () => {
               <li className="account-menu-item">
                 <span className="account-menu-link" style={{ fontWeight: "600", color: "#333" }}>
                   Mi lista de deseos
-               </span>
+                </span>
               </li>
             </ul>
           </div>
@@ -118,7 +125,7 @@ const AccountPage = () => {
                     value={formData.firstName}
                     onChange={handleChange}
                     className="account-form-input"
-                    placeholder="Ernesto"
+                    placeholder="Nombre"
                   />
                 </div>
                 <div className="account-form-group">
@@ -149,7 +156,7 @@ const AccountPage = () => {
                     value={formData.email}
                     onChange={handleChange}
                     className="account-form-input"
-                    placeholder="ernesto@gmail.com"
+                    placeholder="correo@ejemplo.com"
                   />
                 </div>
                 <div className="account-form-group">

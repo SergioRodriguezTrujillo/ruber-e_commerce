@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { useWishlist } from "../context/WishlistContext"
 import { useCart } from "../context/CartContext"
+import { useAuth } from "../context/AuthContext"
 import "./Header.css"
 
 const languageOptions = [
@@ -16,6 +17,7 @@ const Header = () => {
   const navigate = useNavigate()
   const { wishlistItems } = useWishlist()
   const { getCartCount } = useCart()
+  const { user, isAuthenticated, logout } = useAuth()
   const [searchQuery, setSearchQuery] = useState("")
   const [language, setLanguage] = useState("Español")
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false)
@@ -103,11 +105,30 @@ const Header = () => {
         navigate("/account/cancellations")
         break
       case "logout":
-        // Implementar lógica de logout
-        console.log("Logging out...")
+        handleLogout()
         break
       default:
         break
+    }
+  }
+
+  const handleAuthAction = (action) => {
+    setShowAccountDropdown(false)
+
+    // Guardar la ubicación actual para redirigir después del login/signup
+    const currentLocation = location.pathname
+
+    if (action === "login") {
+      navigate("/login", { state: { from: { pathname: currentLocation } } })
+    } else if (action === "signup") {
+      navigate("/signup", { state: { from: { pathname: currentLocation } } })
+    }
+  }
+
+  const handleLogout = () => {
+    const confirmLogout = window.confirm("¿Estás seguro de que quieres cerrar sesión?")
+    if (confirmLogout) {
+      logout()
     }
   }
 
@@ -144,6 +165,15 @@ const Header = () => {
   }, [])
 
   const cartCount = getCartCount()
+
+  // Función para obtener el texto del tooltip
+  const getWishlistTooltipText = () => {
+    return wishlistItems.length === 0 ? "Actualmente está vacía" : "Lista de deseos"
+  }
+
+  const getCartTooltipText = () => {
+    return cartCount === 0 ? "Actualmente está vacía" : "Carro de compras"
+  }
 
   return (
     <>
@@ -221,10 +251,12 @@ const Header = () => {
                 {wishlistItems.length > 0 && (
                   <span className={`wishlist-count ${wishlistAnimate}`}>{wishlistItems.length}</span>
                 )}
+                <div className="icon-tooltip">{getWishlistTooltipText()}</div>
               </Link>
               <Link to="/cart" className={`icon-link cart-icon-container ${cartAnimate}`}>
                 <span className="material-icons-outlined">shopping_cart</span>
                 {cartCount > 0 && <span className={`cart-count ${cartAnimate}`}>{cartCount}</span>}
+                <div className="icon-tooltip">{getCartTooltipText()}</div>
               </Link>
               <div className="account-dropdown-container" ref={accountDropdownRef}>
                 <button className="icon-link account-toggle" onClick={toggleAccountDropdown}>
@@ -232,26 +264,43 @@ const Header = () => {
                 </button>
                 {showAccountDropdown && (
                   <div className="account-dropdown">
-                    <div className="account-dropdown-item" onClick={() => handleAccountAction("manage")}>
-                      <span className="material-icons-outlined">person</span>
-                      <span>Administrar mi cuenta</span>
-                    </div>
-                    <div className="account-dropdown-item" onClick={() => handleAccountAction("orders")}>
-                      <span className="material-icons-outlined">shopping_bag</span>
-                      <span>Mis pedidos</span>
-                    </div>
-                    <div className="account-dropdown-item" onClick={() => handleAccountAction("reviews")}>
-                      <span className="material-icons-outlined">star_border</span>
-                      <span>Mis Reseñas</span>
-                    </div>
-                    <div className="account-dropdown-item" onClick={() => handleAccountAction("cancellations")}>
-                      <span className="material-icons-outlined">cancel</span>
-                      <span>Mis Cancelaciones</span>
-                    </div>
-                    <div className="account-dropdown-item" onClick={() => handleAccountAction("logout")}>
-                      <span className="material-icons-outlined">logout</span>
-                      <span>Cerrar sesión</span>
-                    </div>
+                    {isAuthenticated ? (
+                      // Menú para usuarios autenticados
+                      <>
+                        <div className="account-dropdown-item" onClick={() => handleAccountAction("manage")}>
+                          <span className="material-icons-outlined">person</span>
+                          <span>Administrar mi cuenta</span>
+                        </div>
+                        <div className="account-dropdown-item" onClick={() => handleAccountAction("orders")}>
+                          <span className="material-icons-outlined">shopping_bag</span>
+                          <span>Mis pedidos</span>
+                        </div>
+                        <div className="account-dropdown-item" onClick={() => handleAccountAction("reviews")}>
+                          <span className="material-icons-outlined">star_border</span>
+                          <span>Mis Reseñas</span>
+                        </div>
+                        <div className="account-dropdown-item" onClick={() => handleAccountAction("cancellations")}>
+                          <span className="material-icons-outlined">cancel</span>
+                          <span>Mis Cancelaciones</span>
+                        </div>
+                        <div className="account-dropdown-item" onClick={() => handleAccountAction("logout")}>
+                          <span className="material-icons-outlined">logout</span>
+                          <span>Cerrar sesión</span>
+                        </div>
+                      </>
+                    ) : (
+                      // Menú para usuarios no autenticados
+                      <>
+                        <div className="account-dropdown-item" onClick={() => handleAuthAction("login")}>
+                          <span className="material-icons-outlined">login</span>
+                          <span>Iniciar Sesión</span>
+                        </div>
+                        <div className="account-dropdown-item" onClick={() => handleAuthAction("signup")}>
+                          <span className="material-icons-outlined">person_add</span>
+                          <span>Registrarse</span>
+                        </div>
+                      </>
+                    )}
                   </div>
                 )}
               </div>
