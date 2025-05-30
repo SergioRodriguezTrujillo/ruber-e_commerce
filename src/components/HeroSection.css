@@ -25,7 +25,7 @@
   top: -40px;
   right: 0;
   width: 1px;
-  height: 112%;
+  height: 108%;
   background-color: rgba(0, 0, 0, 0.1); /* Match the color of the horizontal divider */
   z-index: 2;
 }
@@ -42,14 +42,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 10px; /* Reduced padding to half */
-  margin: 16px;
-  margin-left: -8px;
+  margin: 0 16px 20px -8px;
   color: #333;
   text-decoration: none;
   transition: background-color 0.3s;
   font-size: 14px;
   font-weight: 400;
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
 /* Change hover background color to match category hover (dark blue) */

@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { ShoppingCart, Minus, Plus, Trash2, Settings } from "lucide-react"
+import { Minus, Plus, Trash2, Settings } from "lucide-react"
 import { useCart } from "../context/CartContext"
 import "./CartPage.css"
 
@@ -10,6 +10,7 @@ const CartPage = () => {
   const navigate = useNavigate()
   const { cartItems, updateQuantity, removeFromCart, clearCart, getCartTotal, getCartCount } = useCart()
   const [showFeatureModal, setShowFeatureModal] = useState(false)
+  const [isClearing, setIsClearing] = useState(false)
 
   const handleQuantityChange = (id, newQuantity) => {
     if (newQuantity < 1) {
@@ -27,7 +28,13 @@ const CartPage = () => {
 
   const handleClearCart = () => {
     if (window.confirm("¿Estás seguro de que quieres vaciar tu carrito?")) {
-      clearCart()
+      setIsClearing(true)
+
+      // Wait for the animation to complete before actually clearing
+      setTimeout(() => {
+        clearCart()
+        setIsClearing(false)
+      }, 1000) // Wait for the staggered animation to complete
     }
   }
 
@@ -63,7 +70,7 @@ const CartPage = () => {
             </div>
 
             <div className="cart-content">
-              <div className="cart-items">
+              <div className={`cart-items ${isClearing ? "clearing" : ""}`}>
                 {cartItems.map((item) => (
                   <div key={item.id} className="cart-item">
                     <div className="cart-item-image" onClick={() => handleProductClick(item.id)}>
@@ -144,14 +151,22 @@ const CartPage = () => {
           </>
         ) : (
           <div className="empty-cart">
-            <div className="empty-cart-icon">
-              <ShoppingCart size={80} strokeWidth={1} />
+            <div className="empty-cart-header">
+              <h1 className="empty-cart-title">CARRO DE COMPRAS</h1>
             </div>
-            <h2>Tu carrito está vacío</h2>
-            <p>Agrega productos a tu carrito para continuar con tu compra</p>
-            <Link to="/tienda" className="continue-shopping-btn">
-              Continuar comprando
-            </Link>
+
+            <div className="empty-cart-banner-container">
+              <div className="empty-cart-banner">
+                <h2 className="empty-cart-banner-title">Tu carro de compras está vacío</h2>
+                <p className="empty-cart-banner-subtitle">¡Comienza a llenar tu carro con tus productos favoritos!</p>
+              </div>
+            </div>
+
+            <div className="empty-cart-content">
+              <Link to="/tienda" className="continue-shopping-btn">
+                Seguir comprando
+              </Link>
+            </div>
           </div>
         )}
 

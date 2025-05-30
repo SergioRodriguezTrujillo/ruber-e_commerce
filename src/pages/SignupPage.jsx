@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom"
+import { Eye, EyeOff } from "lucide-react"
 import { useAuth } from "../context/AuthContext"
 import AuthHeader from "../components/AuthHeader"
 import Footer from "../components/Footer"
@@ -18,6 +19,7 @@ const SignupPage = () => {
   })
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   // Obtener la página de donde vino el usuario
   const from = location.state?.from?.pathname || "/"
@@ -36,6 +38,10 @@ const SignupPage = () => {
         [name]: "",
       }))
     }
+  }
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword)
   }
 
   const validateForm = () => {
@@ -142,14 +148,23 @@ const SignupPage = () => {
               </div>
 
               <div className="form-group">
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Contraseña"
-                  value={formData.password}
-                  onChange={handleChange}
-                  className="form-input"
-                />
+                <div className="password-input-container">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    placeholder="Contraseña"
+                    value={formData.password}
+                    onChange={handleChange}
+                    className="form-input"
+                  />
+                  <button type="button" className="password-toggle" onClick={togglePasswordVisibility}>
+                    {showPassword ? (
+                      <EyeOff className={`eye-icon open`} size={20} />
+                    ) : (
+                      <Eye className={`eye-icon closed`} size={20} />
+                    )}
+                  </button>
+                </div>
                 {errors.password && <div className="error-message">{errors.password}</div>}
               </div>
 

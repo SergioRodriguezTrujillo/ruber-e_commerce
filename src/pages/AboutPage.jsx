@@ -11,13 +11,10 @@ const AboutPage = () => {
           <div className="about-content">
             <h2>Nuestra Historia</h2>
             <p>
-              IT LIVE SOLUTIONS nació en 2020 con la misión de proporcionar soluciones tecnológicas de alta calidad a
-              precios accesibles. Desde nuestros humildes comienzos, hemos crecido hasta convertirnos en un referente en
-              el mercado de hardware y accesorios informáticos.
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum minima corporis velit natus laborum. Necessitatibus, quisquam omnis numquam harum fuga tempore nesciunt voluptatibus perferendis, deleniti quos quidem ducimus unde aperiam!
             </p>
             <p>
-              Nuestra pasión por la tecnología y el compromiso con la satisfacción del cliente nos ha permitido expandir
-              nuestra oferta de productos y servicios, manteniendo siempre los más altos estándares de calidad.
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minus ea atque iste laboriosam nemo mollitia autem doloribus esse eveniet maxime eos tempore soluta perspiciatis molestiae laborum consectetur natus, libero eaque?
             </p>
           </div>
           <div className="about-image">
@@ -29,9 +26,7 @@ const AboutPage = () => {
           <div className="about-content">
             <h2>Nuestra Misión</h2>
             <p>
-              En IT LIVE SOLUTIONS, nuestra misión es proporcionar productos tecnológicos innovadores y de alta calidad
-              que mejoren la vida digital de nuestros clientes. Nos esforzamos por ofrecer un servicio excepcional y
-              soluciones personalizadas que satisfagan las necesidades específicas de cada cliente.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis et consequuntur, dolores id necessitatibus soluta qui libero quo veritatis hic iure accusamus corrupti numquam excepturi vel ad omnis minus aspernatur.
             </p>
             <ul className="mission-list">
               <li>
@@ -61,14 +56,10 @@ const AboutPage = () => {
           <div className="about-content">
             <h2>Nuestro Equipo</h2>
             <p>
-              Nuestro equipo está formado por apasionados de la tecnología con amplia experiencia en el sector. Desde
-              expertos en hardware hasta especialistas en atención al cliente, cada miembro de IT LIVE SOLUTIONS está
-              comprometido con proporcionar la mejor experiencia posible a nuestros clientes.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Error ut a placeat alias doloremque odit magnam, voluptas, totam assumenda voluptatem accusamus, dolorum modi nesciunt quae et? Eius nobis sunt iure?
             </p>
             <p>
-              Invertimos continuamente en la formación y desarrollo de nuestro equipo para mantenernos actualizados con
-              las últimas tendencias y avances tecnológicos, asegurando que podamos ofrecer siempre las mejores
-              soluciones.
+             Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus harum provident quis unde corrupti ullam perspiciatis ex omnis, amet voluptatibus sint id voluptas deleniti quo fugit. Asperiores dolorem ipsa quam.
             </p>
           </div>
           <div className="about-image">
@@ -82,29 +73,25 @@ const AboutPage = () => {
             <div className="value-card">
               <h3>Calidad</h3>
               <p>
-                Nos comprometemos a ofrecer productos y servicios de la más alta calidad, seleccionando cuidadosamente
-                cada artículo de nuestro catálogo.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, non iste. Iure nostrum natus blanditiis sequi saepe soluta eius corporis impedit tempora voluptates, similique nisi necessitatibus inventore quo sunt illum.
               </p>
             </div>
             <div className="value-card">
               <h3>Innovación</h3>
               <p>
-                Buscamos constantemente nuevas tecnologías y soluciones para mantenernos a la vanguardia del mercado y
-                ofrecer lo mejor a nuestros clientes.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae, odio soluta asperiores atque voluptas architecto cupiditate mollitia enim nulla explicabo provident in quasi, debitis perferendis quas eum illo fugiat ab.
               </p>
             </div>
             <div className="value-card">
               <h3>Integridad</h3>
               <p>
-                Actuamos con honestidad y transparencia en todas nuestras operaciones, construyendo relaciones de
-                confianza con clientes y proveedores.
+               Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore voluptate dolor iste, perferendis non assumenda nobis recusandae laboriosam dolore at quaerat ullam. Possimus illo sapiente velit ratione esse id perspiciatis.
               </p>
             </div>
             <div className="value-card">
               <h3>Servicio</h3>
               <p>
-                Nos esforzamos por superar las expectativas de nuestros clientes, ofreciendo un servicio personalizado y
-                atento a sus necesidades.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident hic at animi vitae nam obcaecati molestiae. Necessitatibus, quam ex ab laborum quae eaque iusto ullam molestiae doloribus aut repellendus adipisci?
               </p>
             </div>
           </div>

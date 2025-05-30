@@ -2,8 +2,8 @@
   position: fixed;
   bottom: 30px;
   right: 30px;
-  width: 50px;
-  height: 50px;
+  width: 44px;
+  height: 44px;
   background-color: #f5f5f5;
   border: none;
   border-radius: 50%;
@@ -32,7 +32,7 @@
 }
 
 .scroll-to-top .material-icons-outlined {
-  font-size: 24px;
+  font-size: 32px;
   color: #333;
 }
 

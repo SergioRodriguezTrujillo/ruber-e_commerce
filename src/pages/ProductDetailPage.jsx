@@ -278,7 +278,7 @@ const ProductDetailPage = () => {
             ))}
           </div>
 
-          <button className="continue-shopping-btn" onClick={handleContinueShopping}>
+          <button className="continue-shopping-btn2" onClick={handleContinueShopping}>
             Seguir comprando
           </button>
         </div>

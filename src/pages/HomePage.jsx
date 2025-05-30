@@ -370,7 +370,7 @@ const HomePage = () => {
 
           <div className="service-button-container">
             <Link to="/services" className="service-button">
-              Ver todos los Servicios
+              Ver todos
             </Link>
           </div>
         </div>

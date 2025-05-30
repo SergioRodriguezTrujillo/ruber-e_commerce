@@ -18,6 +18,7 @@ body {
   font-family: "Inter", sans-serif;
   color: var(--text-color);
   background-color: var(--background-color);
+  padding-top: 88px; /* top-bar (32px) + main-header (56px) */
 }
 
 a {
@@ -60,18 +61,6 @@ ul {
   border-radius: 4px;
   background-color: var(--primary-color);
 }
-/* 
-.discount-badge {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background-color: var(--primary-color);
-  color: white;
-  padding: 4px 8px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  border-radius: 2px;
-} */
 
 .product-card {
   background-color: white;
@@ -132,14 +121,6 @@ ul {
   margin-top: 10px;
 }
 
-/* .color-option {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 1px solid #ddd;
-} */
-
 .color-option.black {
   background-color: #000;
 }
@@ -183,9 +164,9 @@ ul {
 .view-all {
   background-color: var(--primary-color);
   color: white;
-  padding: 8px 16px;
+  padding: 10px 20px;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 1rem;
   border: none;
   cursor: pointer;
   text-decoration: none;
@@ -200,9 +181,9 @@ ul {
 .view-all2 {
   background-color: var(--primary-color);
   color: white;
-  padding: 8px 16px;
+  padding: 10px 20px;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 1rem;
   align-self: start;
   border-radius: 4px;
   border: none;
@@ -309,13 +290,6 @@ ul {
   font-size: 0.9rem;
 }
 
-/* .hero-section {
-  background-color: #000;
-  color: white;
-  padding: 50px 0;
-  margin-bottom: 2rem;
-} */
-
 .hero-content {
   display: flex;
   align-items: center;
@@ -391,8 +365,14 @@ ul {
     width: 100%;
   }
 
-  body.has-sticky-header {
-    padding-top: 60px;
+  body {
+    padding-top: 140px; /* Adjust for mobile with larger headers */
+  }
+}
+
+@media (max-width: 992px) {
+  body {
+    padding-top: 120px; /* Adjust for tablet layout */
   }
 }
 

@@ -1,7 +1,7 @@
 "use client"
 
+import { useState } from "react"
 import { Link } from "react-router-dom"
-import { Heart } from "lucide-react"
 import { useWishlist } from "../context/WishlistContext"
 import { useCart } from "../context/CartContext"
 import ProductCard from "../components/ProductCard"
@@ -10,6 +10,7 @@ import "./WishlistPage.css"
 const WishlistPage = () => {
   const { wishlistItems, clearWishlist } = useWishlist()
   const { addMultipleToCart } = useCart()
+  const [isClearing, setIsClearing] = useState(false)
 
   const handleMoveAllToCart = () => {
     if (wishlistItems.length === 0) return
@@ -26,7 +27,13 @@ const WishlistPage = () => {
 
   const handleClearWishlist = () => {
     if (window.confirm("¿Estás seguro de que quieres vaciar tu lista de deseos?")) {
-      clearWishlist()
+      setIsClearing(true)
+
+      // Wait for the animation to complete before actually clearing
+      setTimeout(() => {
+        clearWishlist()
+        setIsClearing(false)
+      }, 1000) // Wait for the staggered animation to complete
     }
   }
 
@@ -36,13 +43,18 @@ const WishlistPage = () => {
         {wishlistItems.length > 0 ? (
           <>
             <div className="wishlist-header">
-              <h1 className="wishlist-title">Lista de Deseos</h1>
-              <button className="move-all-btn" onClick={handleMoveAllToCart}>
-                Mover todo al carro de compras
-              </button>
+              <h1 className="wishlist-title">LISTA DE DESEOS</h1>
+              <div className="wishlist-actions">
+                <button className="clear-wishlist-btn" onClick={handleClearWishlist}>
+                  Vaciar la lista
+                </button>
+                <button className="move-all-btn" onClick={handleMoveAllToCart}>
+                  Mover todo al carro de compras
+                </button>
+              </div>
             </div>
 
-            <div className="wishlist-grid">
+            <div className={`wishlist-grid ${isClearing ? "clearing" : ""}`}>
               {wishlistItems.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
@@ -50,14 +62,24 @@ const WishlistPage = () => {
           </>
         ) : (
           <div className="empty-wishlist">
-            <div className="empty-wishlist-icon">
-              <Heart size={80} strokeWidth={1} />
+            <div className="empty-wishlist-header">
+              <h1 className="empty-wishlist-title">LISTA DE DESEOS</h1>
             </div>
-            <h2>Tu lista de deseos está vacía</h2>
-            <p>Agrega productos que te gusten para encontrarlos fácilmente más tarde</p>
-            <Link to="/tienda" className="continue-shopping-btn">
-              Continuar comprando
-            </Link>
+
+            <div className="empty-wishlist-banner-container">
+              <div className="empty-wishlist-banner">
+                <h2 className="empty-wishlist-banner-title">Tu lista de deseos está vacía</h2>
+                <p className="empty-wishlist-banner-subtitle">
+                  ¡Agrega productos que te gusten para encontrarlos fácilmente más tarde!
+                </p>
+              </div>
+            </div>
+
+            <div className="empty-wishlist-content">
+              <Link to="/tienda" className="continue-shopping-btn">
+                Seguir comprando
+              </Link>
+            </div>
           </div>
         )}
       </div>

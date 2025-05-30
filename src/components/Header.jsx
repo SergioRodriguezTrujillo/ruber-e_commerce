@@ -167,12 +167,28 @@ const Header = () => {
   const cartCount = getCartCount()
 
   // Función para obtener el texto del tooltip
-  const getWishlistTooltipText = () => {
-    return wishlistItems.length === 0 ? "Actualmente está vacía" : "Lista de deseos"
+  const getWishlistTooltipContent = () => {
+    if (wishlistItems.length === 0) {
+      return (
+        <div className="icon-tooltip">
+          <div className="tooltip-title">Lista de Deseos</div>
+          <div className="tooltip-subtitle">Actualmente está vacía</div>
+        </div>
+      )
+    }
+    return <div className="icon-tooltip">Lista de deseos</div>
   }
 
-  const getCartTooltipText = () => {
-    return cartCount === 0 ? "Actualmente está vacía" : "Carro de compras"
+  const getCartTooltipContent = () => {
+    if (cartCount === 0) {
+      return (
+        <div className="icon-tooltip">
+          <div className="tooltip-title">Carro de Compras</div>
+          <div className="tooltip-subtitle">Actualmente está vacío</div>
+        </div>
+      )
+    }
+    return <div className="icon-tooltip">Carro de compras</div>
   }
 
   return (
@@ -251,12 +267,12 @@ const Header = () => {
                 {wishlistItems.length > 0 && (
                   <span className={`wishlist-count ${wishlistAnimate}`}>{wishlistItems.length}</span>
                 )}
-                <div className="icon-tooltip">{getWishlistTooltipText()}</div>
+                {getWishlistTooltipContent()}
               </Link>
               <Link to="/cart" className={`icon-link cart-icon-container ${cartAnimate}`}>
                 <span className="material-icons-outlined">shopping_cart</span>
                 {cartCount > 0 && <span className={`cart-count ${cartAnimate}`}>{cartCount}</span>}
-                <div className="icon-tooltip">{getCartTooltipText()}</div>
+                {getCartTooltipContent()}
               </Link>
               <div className="account-dropdown-container" ref={accountDropdownRef}>
                 <button className="icon-link account-toggle" onClick={toggleAccountDropdown}>
