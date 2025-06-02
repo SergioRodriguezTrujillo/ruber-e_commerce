@@ -31,7 +31,7 @@
 }
 
 .sidebar-menu ul {
-  list_style: none;
+  list-style: none;
   padding: 0;
   margin: 0;
 }
@@ -203,20 +203,61 @@
   animation: slideRight 0.5s forwards;
 }
 
-@media (max-width: 992px) {
-  .hero-content {
-    flex-direction: column;
-  }
+/* Mobile category dropdown */
+.mobile-categories-dropdown {
+  display: none;
+  width: 100%;
+  margin-top: 15px;
+  margin-bottom: 20px;
 }
 
-@media (max-width: 768px) {
-  .slide-content-static {
-    padding: 0 30px;
-  }
+.mobile-dropdown-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 12px 15px;
+  background-color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #333;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
 
-  .slide-title {
-    font-size: 2rem;
-  }
+.mobile-dropdown-button:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.mobile-dropdown-content {
+  display: none;
+  width: 100%;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.mobile-dropdown-content.open {
+  display: block;
+}
+
+.mobile-dropdown-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  color: #333;
+  text-decoration: none;
+}
+
+.mobile-dropdown-item:last-child {
+  border-bottom: none;
 }
 
 /* Ajustar tamaño de los iconos de Material Design */
@@ -230,4 +271,104 @@
 
 .slide-button .material-icons-outlined {
   font-size: 14px;
+}
+
+/* Tablet styles */
+@media (max-width: 992px) {
+  .hero-content {
+    /* Mantener el layout horizontal en tablet */
+    flex-direction: row;
+  }
+
+  .sidebar-menu {
+    /* Mantener el menú a la izquierda */
+    max-width: 150px;
+    margin-right: 20px;
+  }
+
+  .sidebar-menu::after {
+    /* Mantener el divisor vertical */
+    display: block;
+  }
+
+  .hero-slider {
+    /* Mantener el slider a la derecha */
+    height: 300px;
+    flex: 1;
+  }
+
+  .slide-content-static {
+    padding: 0 30px;
+  }
+
+  .slide-title {
+    font-size: 2rem;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 0px;
+  }
+
+  .hero-content {
+    /* Cambiar a layout vertical en móvil */
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .sidebar-menu {
+    /* Ocultar el menú lateral en móvil */
+    display: none;
+  }
+
+  .sidebar-menu::after {
+    /* Ocultar el divisor vertical */
+    display: none;
+  }
+
+  .hero-slider {
+    /* Slider a todo ancho en móvil */
+    height: 250px;
+    width: 100%;
+    flex: none;
+    display: block;
+    margin: 0;
+    margin-bottom: 20px;
+  }
+
+  .slide {
+    /* Asegurar que las slides sean visibles */
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .slide-content-static {
+    padding: 0 20px;
+    /* Hacer el contenido siempre visible en móvil */
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+  }
+
+  .slide-title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+
+  .slide-label {
+    margin-bottom: 10px;
+  }
+
+  .store-icon {
+    font-size: 1rem;
+  }
+
+  /* Mostrar el dropdown de categorías en móvil */
+  .mobile-categories-dropdown {
+    display: block;
+    margin: 0;
+  }
 }

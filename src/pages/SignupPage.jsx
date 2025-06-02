@@ -16,10 +16,12 @@ const SignupPage = () => {
     name: "",
     email: "",
     password: "",
+    confirmPassword: "",
   })
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
   // Obtener la página de donde vino el usuario
   const from = location.state?.from?.pathname || "/"
@@ -44,6 +46,10 @@ const SignupPage = () => {
     setShowPassword(!showPassword)
   }
 
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword)
+  }
+
   const validateForm = () => {
     const newErrors = {}
 
@@ -59,6 +65,12 @@ const SignupPage = () => {
       newErrors.password = "La contraseña es requerida"
     } else if (formData.password.length < 6) {
       newErrors.password = "La contraseña debe tener al menos 6 caracteres"
+    }
+
+    if (!formData.confirmPassword.trim()) {
+      newErrors.confirmPassword = "Confirmar la contraseña es requerido"
+    } else if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = "Las contraseñas no coinciden"
     }
 
     return newErrors
@@ -166,6 +178,27 @@ const SignupPage = () => {
                   </button>
                 </div>
                 {errors.password && <div className="error-message">{errors.password}</div>}
+              </div>
+
+              <div className="form-group">
+                <div className="password-input-container">
+                  <input
+                    type={showConfirmPassword ? "text" : "password"}
+                    name="confirmPassword"
+                    placeholder="Confirmar Contraseña"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    className="form-input"
+                  />
+                  <button type="button" className="password-toggle" onClick={toggleConfirmPasswordVisibility}>
+                    {showConfirmPassword ? (
+                      <EyeOff className={`eye-icon open`} size={20} />
+                    ) : (
+                      <Eye className={`eye-icon closed`} size={20} />
+                    )}
+                  </button>
+                </div>
+                {errors.confirmPassword && <div className="error-message">{errors.confirmPassword}</div>}
               </div>
 
               <button type="submit" className="signup-button" disabled={loading}>

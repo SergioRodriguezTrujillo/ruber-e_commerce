@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Link, useLocation, Navigate } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
 import "./AccountPage.css"
@@ -8,6 +8,29 @@ import "./AccountPage.css"
 const AccountPage = () => {
   const location = useLocation()
   const { user, isAuthenticated } = useAuth()
+  const [activeMenuItem, setActiveMenuItem] = useState("profile")
+
+  // Establecer el elemento activo del menú basado en la ruta actual
+  useEffect(() => {
+    const path = location.pathname
+
+    if (path === "/account") {
+      setActiveMenuItem("profile")
+    } else if (path === "/account/addresses") {
+      setActiveMenuItem("addresses")
+    } else if (path === "/account/payment") {
+      setActiveMenuItem("payment")
+    } else if (path === "/account/orders") {
+      setActiveMenuItem("orders")
+    } else if (path === "/account/returns") {
+      setActiveMenuItem("returns")
+    } else if (path === "/account/cancellations") {
+      setActiveMenuItem("cancellations")
+    } else if (path === "/wishlist") {
+      setActiveMenuItem("wishlist")
+    }
+  }, [location.pathname])
+
   const [formData, setFormData] = useState({
     firstName: user?.name || "",
     lastName: "",
@@ -50,8 +73,8 @@ const AccountPage = () => {
     })
   }
 
-  const isActive = (path) => {
-    return location.pathname === path
+  const handleMenuItemClick = (menuItem) => {
+    setActiveMenuItem(menuItem)
   }
 
   return (
@@ -68,43 +91,71 @@ const AccountPage = () => {
             <h2 className="account-sidebar-title">Administrar mi cuenta</h2>
             <ul className="account-menu">
               <li className="account-menu-item">
-                <Link to="/account" className={`account-menu-link ${isActive("/account") ? "active" : ""}`}>
+                <Link
+                  to="/account"
+                  className={`account-menu-link main-title ${activeMenuItem === "profile" ? "active" : ""}`}
+                  onClick={() => handleMenuItemClick("profile")}
+                >
                   Mi Perfil
                 </Link>
               </li>
               <ul className="account-submenu">
                 <li className="account-menu-item">
-                  <Link to="/account/addresses" className="account-menu-link">
+                  <Link
+                    to="/account/addresses"
+                    className={`account-menu-link ${activeMenuItem === "addresses" ? "active" : ""}`}
+                    onClick={() => handleMenuItemClick("addresses")}
+                  >
                     Libreta de direcciones
                   </Link>
                 </li>
                 <li className="account-menu-item">
-                  <Link to="/account/payment" className="account-menu-link">
+                  <Link
+                    to="/account/payment"
+                    className={`account-menu-link ${activeMenuItem === "payment" ? "active" : ""}`}
+                    onClick={() => handleMenuItemClick("payment")}
+                  >
                     Mis opciones de pago
                   </Link>
                 </li>
               </ul>
               <li className="account-menu-item">
-                <span className="account-menu-link" style={{ fontWeight: "600", color: "#333" }}>
+                <Link
+                  to="/account/orders"
+                  className={`account-menu-link main-title ${activeMenuItem === "orders" ? "active" : ""}`}
+                  onClick={() => handleMenuItemClick("orders")}
+                >
                   Mis pedidos
-                </span>
+                </Link>
                 <ul className="account-submenu">
                   <li className="account-submenu-item">
-                    <Link to="/account/returns" className="account-submenu-link">
+                    <Link
+                      to="/account/returns"
+                      className={`account-submenu-link ${activeMenuItem === "returns" ? "active" : ""}`}
+                      onClick={() => handleMenuItemClick("returns")}
+                    >
                       Mis devoluciones
                     </Link>
                   </li>
                   <li className="account-submenu-item">
-                    <Link to="/account/cancellations" className="account-submenu-link">
+                    <Link
+                      to="/account/cancellations"
+                      className={`account-submenu-link ${activeMenuItem === "cancellations" ? "active" : ""}`}
+                      onClick={() => handleMenuItemClick("cancellations")}
+                    >
                       Mis cancelaciones
                     </Link>
                   </li>
                 </ul>
               </li>
               <li className="account-menu-item">
-                <span className="account-menu-link" style={{ fontWeight: "600", color: "#333" }}>
+                <Link
+                  to="/wishlist"
+                  className={`account-menu-link main-title ${activeMenuItem === "wishlist" ? "active" : ""}`}
+                  onClick={() => handleMenuItemClick("wishlist")}
+                >
                   Mi lista de deseos
-                </span>
+                </Link>
               </li>
             </ul>
           </div>

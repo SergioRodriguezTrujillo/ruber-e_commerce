@@ -346,6 +346,20 @@ ul {
   font-size: 0.7rem;
   color: #777;
 }
+/* Adjust spacing between subtitle and content */
+.section-subtitle {
+  margin-bottom: 48px !important; /* Exactly 48px between subtitle and content */
+}
+.categories-section,
+.products-section,
+.featured-section,
+.services-section,
+.recently-arrived-section {
+  padding: 40px 0;
+  margin-bottom: 0; /* Eliminar margen inferior */
+  margin-top: 0; /* Eliminar margen superior */
+}
+
 
 @media (max-width: 768px) {
   .products-grid {
@@ -365,15 +379,17 @@ ul {
     width: 100%;
   }
 
-  body {
-    padding-top: 140px; /* Adjust for mobile with larger headers */
+  .container {
+    padding: 0;
   }
-}
 
-@media (max-width: 992px) {
-  body {
-    padding-top: 120px; /* Adjust for tablet layout */
+  .section-subtitle {
+    margin-bottom: 16px !important;
   }
+
+  .recently-arrived-section {
+  padding: 16px 0;
+}
 }
 
 /* Modify the service button hover effect */
@@ -418,17 +434,5 @@ textarea:focus {
 }
 
 /* Modificar el espaciado de las secciones para que tengan padding de 40px y no tengan margen */
-.categories-section,
-.products-section,
-.featured-section,
-.services-section,
-.recently-arrived-section {
-  padding: 40px 0;
-  margin-bottom: 0; /* Eliminar margen inferior */
-  margin-top: 0; /* Eliminar margen superior */
-}
 
-/* Adjust spacing between subtitle and content */
-.section-subtitle {
-  margin-bottom: 48px !important; /* Exactly 48px between subtitle and content */
-}
+

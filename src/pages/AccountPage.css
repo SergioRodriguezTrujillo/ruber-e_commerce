@@ -72,13 +72,23 @@
   line-height: 1.5;
 }
 
+.account-menu-link.main-title {
+  color: #333;
+  font-weight: 600;
+}
+
+.account-menu-link.main-title.active {
+  color: #e63946;
+  font-weight: 600;
+}
+
 .account-menu-link:hover {
   background-color: transparent;
   color: #333;
 }
 
 .account-menu-link.active {
-  color: #e63946;
+  color: #333;
   font-weight: 600;
   background-color: transparent;
   border-right: none;
@@ -113,6 +123,11 @@
 .account-submenu-link:hover {
   background-color: transparent;
   color: #333;
+}
+
+.account-submenu-link.active {
+  color: #333;
+  font-weight: 600;
 }
 
 .account-main-content {
@@ -212,7 +227,7 @@
 }
 
 .account-btn-cancel:hover {
-  background-color: #f8f9fa;
+  background-color: #c1c0c1;
   border-color: #999;
 }
 
@@ -229,7 +244,7 @@
 }
 
 .account-btn-save:hover {
-  background-color: #d62f3d;
+  background-color: #f05c6c;
 }
 
 /* Hide labels for password fields */

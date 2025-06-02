@@ -18,7 +18,7 @@ const Footer = () => {
             <div className="footer-column">
               <h3 className="footer-title">IT LIVE SOLUTIONS</h3>
               <div className="footer-subscribe">
-                <p>Subscríbete</p>
+                <p>A su alcance</p>
                 <form onSubmit={handleSubscribe} className="subscribe-form">
                   <input type="email" name="email" placeholder="Introduzca su correo" required />
                   <button type="submit">
@@ -38,28 +38,7 @@ const Footer = () => {
                 <p>+1 (470) 502 3412</p>
               </div>
             </div>
-
-            <div className="footer-column">
-              <h3 className="footer-title">Cuenta</h3>
-              <ul className="footer-links">
-                <li>
-                  <Link to="/account">Mi Cuenta</Link>
-                </li>
-                <li>
-                  <Link to="/login">Iniciar / Registrarse</Link>
-                </li>
-                <li>
-                  <Link to="/cart">Carro de Compras</Link>
-                </li>
-                <li>
-                  <Link to="/wishlist">Lista de Deseos</Link>
-                </li>
-                <li>
-                  <Link to="/shop">Tienda</Link>
-                </li>
-              </ul>
-            </div>
-
+            
             <div className="footer-column">
               <h3 className="footer-title">Accesos directos</h3>
               <ul className="footer-links">

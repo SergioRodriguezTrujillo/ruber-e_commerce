@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { Heart, ChevronDown, ChevronUp } from "lucide-react"
 import { useWishlist } from "../context/WishlistContext"
@@ -143,6 +143,26 @@ const ShopPage = () => {
     setShowCategoryDropdown(!showCategoryDropdown)
   }
 
+  // Referencia para detectar clics fuera del dropdown
+  const dropdownRef = useRef(null)
+
+  // Efecto para cerrar el dropdown cuando se hace clic fuera
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowCategoryDropdown(false)
+      }
+    }
+
+    // Agregar event listener
+    document.addEventListener("mousedown", handleClickOutside)
+
+    // Cleanup
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
+
   const handleToggleWishlist = (e, product) => {
     e.stopPropagation()
     e.preventDefault()
@@ -198,7 +218,12 @@ const ShopPage = () => {
     if (filterType === "most-viewed") {
       return "Los productos que más llaman la atención"
     }
-    return "No compres solo un accesorio, ¡compra una ventaja!"
+    return (
+      <>
+        <div>No compres solo un accesorio,</div>
+        <div>¡compra una ventaja!</div>
+      </>
+    )
   }
 
   const getFilteredProductsCount = () => {
@@ -227,7 +252,7 @@ const ShopPage = () => {
               {!filterType && (
                 <div className="category-selector">
                   <p>Buscar por categoría</p>
-                  <div className="dropdown-container">
+                  <div className="dropdown-container" ref={dropdownRef}>
                     <button className="dropdown-button" onClick={toggleCategoryDropdown}>
                       {selectedCategories.length === 0
                         ? "Todas las categorías"

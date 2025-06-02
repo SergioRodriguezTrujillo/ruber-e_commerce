@@ -34,7 +34,7 @@ const CartPage = () => {
       setTimeout(() => {
         clearCart()
         setIsClearing(false)
-      }, 1000) // Wait for the staggered animation to complete
+      }, 300) // Wait for the staggered animation to complete
     }
   }
 

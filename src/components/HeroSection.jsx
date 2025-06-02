@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
+import { ChevronDown, ChevronUp } from "lucide-react"
 import "./HeroSection.css"
 
 const HeroSection = () => {
@@ -9,6 +10,8 @@ const HeroSection = () => {
   const [activeSlide, setActiveSlide] = useState(0)
   const [isRapidReset, setIsRapidReset] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const sliderRef = useRef(null)
 
   const menuItems = [
@@ -69,6 +72,18 @@ const HeroSection = () => {
     },
   ]
 
+  // Detectar si es móvil
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
+
   // Update the carousel animation to reset to first slide without cycling through all slides
   useEffect(() => {
     let interval
@@ -88,19 +103,25 @@ const HeroSection = () => {
     return () => clearInterval(interval)
   }, [isHovered, slides.length])
 
-  // Remove the separate useEffect for rapid reset since we're now jumping directly to the first slide
-
-  // Función para manejar el hover
+  // Función para manejar el hover (solo en desktop)
   const handleMouseEnter = () => {
-    setIsHovered(true)
+    if (!isMobile) {
+      setIsHovered(true)
+    }
   }
 
   const handleMouseLeave = () => {
-    setIsHovered(false)
+    if (!isMobile) {
+      setIsHovered(false)
+    }
   }
 
   const handleBuyNowClick = () => {
     navigate("/tienda")
+  }
+
+  const toggleMobileDropdown = () => {
+    setMobileDropdownOpen(!mobileDropdownOpen)
   }
 
   return (
@@ -121,8 +142,8 @@ const HeroSection = () => {
           </div>
 
           <div className="hero-slider" ref={sliderRef} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            {/* Contenido estático que solo aparece en hover */}
-            <div className={`slide-content-static ${isHovered ? "visible" : ""}`}>
+            {/* Contenido estático que aparece en hover en desktop o siempre en móvil */}
+            <div className={`slide-content-static ${isHovered || isMobile ? "visible" : ""}`}>
               <div className="slide-label">
                 <span className="material-icons-outlined store-icon">storefront</span>
                 <span>Ventas Directas</span>
@@ -147,6 +168,22 @@ const HeroSection = () => {
                   backgroundPosition: "center",
                 }}
               ></div>
+            ))}
+          </div>
+        </div>
+
+        {/* Mobile Categories Dropdown - Aparece debajo del slider en móvil */}
+        <div className="mobile-categories-dropdown">
+          <button className="mobile-dropdown-button" onClick={toggleMobileDropdown}>
+            <span>Categorías</span>
+            {mobileDropdownOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+          </button>
+          <div className={`mobile-dropdown-content ${mobileDropdownOpen ? "open" : ""}`}>
+            {menuItems.map((item) => (
+              <a key={item.id} href={item.path} className="mobile-dropdown-item">
+                {item.name}
+                <span className="material-icons-outlined menu-arrow">chevron_right</span>
+              </a>
             ))}
           </div>
         </div>

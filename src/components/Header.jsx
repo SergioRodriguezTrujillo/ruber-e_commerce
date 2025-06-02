@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 import { useWishlist } from "../context/WishlistContext"
 import { useCart } from "../context/CartContext"
 import { useAuth } from "../context/AuthContext"
+import { Menu } from "lucide-react"
 import "./Header.css"
 
 const languageOptions = [
@@ -21,12 +22,15 @@ const Header = () => {
   const [searchQuery, setSearchQuery] = useState("")
   const [language, setLanguage] = useState("Español")
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false)
+  const [showMobileLanguageDropdown, setShowMobileLanguageDropdown] = useState(false)
   const [showAccountDropdown, setShowAccountDropdown] = useState(false)
   const [wishlistAnimate, setWishlistAnimate] = useState(false)
   const [cartAnimate, setCartAnimate] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   // Referencias para detectar clicks fuera de los dropdowns
   const languageDropdownRef = useRef(null)
+  const mobileLanguageDropdownRef = useRef(null)
   const accountDropdownRef = useRef(null)
   const prevWishlistCount = useRef(wishlistItems.length)
   const prevCartCount = useRef(getCartCount())
@@ -76,14 +80,24 @@ const Header = () => {
     setShowAccountDropdown(false) // Cerrar el otro dropdown
   }
 
+  const toggleMobileLanguageDropdown = () => {
+    setShowMobileLanguageDropdown(!showMobileLanguageDropdown)
+  }
+
   const toggleAccountDropdown = () => {
     setShowAccountDropdown(!showAccountDropdown)
     setShowLanguageDropdown(false) // Cerrar el otro dropdown
   }
 
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen)
+    setShowMobileLanguageDropdown(false) // Cerrar el dropdown de idioma al abrir/cerrar el menú
+  }
+
   const selectLanguage = (lang) => {
     setLanguage(lang.name)
     setShowLanguageDropdown(false)
+    setShowMobileLanguageDropdown(false)
   }
 
   const handleAccountAction = (action) => {
@@ -149,6 +163,11 @@ const Header = () => {
         setShowLanguageDropdown(false)
       }
 
+      // Cerrar dropdown de idioma móvil si se hace click fuera
+      if (mobileLanguageDropdownRef.current && !mobileLanguageDropdownRef.current.contains(event.target)) {
+        setShowMobileLanguageDropdown(false)
+      }
+
       // Cerrar dropdown de cuenta si se hace click fuera
       if (accountDropdownRef.current && !accountDropdownRef.current.contains(event.target)) {
         setShowAccountDropdown(false)
@@ -194,32 +213,42 @@ const Header = () => {
   return (
     <>
       <div className="top-bar">
-        <div className="container top-bar-container">
-          <p className="promo-text-header">Este puede ser un texto de oferta... Oferta - 25% descuento</p>
-          <div className="top-bar-actions">
-            <button onClick={handleBuyNowClick} className="buy-now-btn">
-              Comprar Ahora
-            </button>
-            <div className="language-selector" ref={languageDropdownRef}>
-              <div className="language-current" onClick={toggleLanguageDropdown}>
-                <span className="language-display">
-                  <img src={getCurrentLanguageFlag() || "/placeholder.svg"} alt={language} className="language-flag" />
-                  {language}
-                </span>
-                <span className={`material-icons-outlined expand-icon ${showLanguageDropdown ? "rotated" : ""}`}>
-                  expand_more
-                </span>
-              </div>
-              {showLanguageDropdown && (
-                <div className="language-dropdown">
-                  {languageOptions.map((lang) => (
-                    <div key={lang.code} className="language-dropdown-item" onClick={() => selectLanguage(lang)}>
-                      <img src={lang.flag || "/placeholder.svg"} alt={lang.name} className="language-flag" />
-                      <span>{lang.name}</span>
-                    </div>
-                  ))}
+        <div className="container">
+          <div className="top-bar-content">
+            <div className="promo-text-container">
+              <p className="promo-text-header">
+                Este puede ser un texto de oferta... Oferta - 25% descuento{" "}
+                <button onClick={handleBuyNowClick} className="buy-now-btn">
+                  Comprar Ahora
+                </button>
+              </p>
+            </div>
+            <div className="top-bar-actions">
+              <div className="language-selector" ref={languageDropdownRef}>
+                <div className="language-current" onClick={toggleLanguageDropdown}>
+                  <span className="language-display">
+                    <img
+                      src={getCurrentLanguageFlag() || "/placeholder.svg"}
+                      alt={language}
+                      className="language-flag"
+                    />
+                    {language}
+                  </span>
+                  <span className={`material-icons-outlined expand-icon ${showLanguageDropdown ? "rotated" : ""}`}>
+                    expand_more
+                  </span>
                 </div>
-              )}
+                {showLanguageDropdown && (
+                  <div className="language-dropdown">
+                    {languageOptions.map((lang) => (
+                      <div key={lang.code} className="language-dropdown-item" onClick={() => selectLanguage(lang)}>
+                        <img src={lang.flag || "/placeholder.svg"} alt={lang.name} className="language-flag" />
+                        <span>{lang.name}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -230,6 +259,10 @@ const Header = () => {
           <Link to="/" className="logo">
             <img src="/icon/logo.svg" alt="IT LIVE SOLUTIONS" />
           </Link>
+
+          <button className="mobile-menu-toggle" onClick={toggleMobileMenu}>
+            <Menu size={24} />
+          </button>
 
           <nav className="main-nav">
             <ul>
@@ -299,7 +332,7 @@ const Header = () => {
                           <span className="material-icons-outlined">cancel</span>
                           <span>Mis Cancelaciones</span>
                         </div>
-                        <div className="account-dropdown-item" onClick={() => handleAccountAction("logout")}>
+                        <div className="account-dropdown-itemLogout" onClick={() => handleAccountAction("logout")}>
                           <span className="material-icons-outlined">logout</span>
                           <span>Cerrar sesión</span>
                         </div>
@@ -322,6 +355,110 @@ const Header = () => {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <div className={`mobile-menu ${mobileMenuOpen ? "open" : ""}`}>
+        <div className="mobile-menu-section">
+          <h3 className="mobile-menu-title">Menú</h3>
+          <div className="mobile-menu-links">
+            <Link to="/" className="mobile-menu-link" onClick={() => setMobileMenuOpen(false)}>
+              Inicio
+            </Link>
+            <Link to="/tienda" className="mobile-menu-link" onClick={() => setMobileMenuOpen(false)}>
+              Tienda
+            </Link>
+            <Link to="/contacto" className="mobile-menu-link" onClick={() => setMobileMenuOpen(false)}>
+              Contacto
+            </Link>
+            <Link to="/acerca-de" className="mobile-menu-link" onClick={() => setMobileMenuOpen(false)}>
+              Acerca de
+            </Link>
+          </div>
+        </div>
+
+        {/* Selector de idioma en el menú móvil */}
+        <div className="mobile-menu-section">
+          <h3 className="mobile-menu-title">Idioma</h3>
+          <div className="mobile-menu-links">
+            <div className="mobile-language-selector" ref={mobileLanguageDropdownRef}>
+              <div className="mobile-language-current" onClick={toggleMobileLanguageDropdown}>
+                <div className="mobile-language-display">
+                  <img src={getCurrentLanguageFlag() || "/placeholder.svg"} alt={language} className="language-flag" />
+                  <span>{language}</span>
+                </div>
+                <span className={`material-icons-outlined expand-icon ${showMobileLanguageDropdown ? "rotated" : ""}`}>
+                  expand_more
+                </span>
+              </div>
+              {showMobileLanguageDropdown && (
+                <div className="mobile-language-dropdown">
+                  {languageOptions.map((lang) => (
+                    <div
+                      key={lang.code}
+                      className="mobile-language-dropdown-item"
+                      onClick={() => {
+                        selectLanguage(lang)
+                        setMobileMenuOpen(false)
+                      }}
+                    >
+                      <img src={lang.flag || "/placeholder.svg"} alt={lang.name} className="language-flag" />
+                      <span>{lang.name}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="mobile-menu-section">
+          <h3 className="mobile-menu-title">Mi Cuenta</h3>
+          <div className="mobile-menu-links">
+            {isAuthenticated ? (
+              <>
+                <Link to="/account" className="mobile-menu-link" onClick={() => setMobileMenuOpen(false)}>
+                  Administrar mi cuenta
+                </Link>
+                <Link to="/account/orders" className="mobile-menu-link" onClick={() => setMobileMenuOpen(false)}>
+                  Mis pedidos
+                </Link>
+                <Link to="/wishlist" className="mobile-menu-link" onClick={() => setMobileMenuOpen(false)}>
+                  Mi lista de deseos
+                </Link>
+                <Link to="/cart" className="mobile-menu-link" onClick={() => setMobileMenuOpen(false)}>
+                  Mi carrito
+                </Link>
+                <div className="mobile-menu-link" onClick={handleLogout}>
+                  Cerrar sesión
+                </div>
+              </>
+            ) : (
+              <>
+                <Link to="/login" className="mobile-menu-link" onClick={() => setMobileMenuOpen(false)}>
+                  Iniciar Sesión
+                </Link>
+                <Link to="/signup" className="mobile-menu-link" onClick={() => setMobileMenuOpen(false)}>
+                  Registrarse
+                </Link>
+              </>
+            )}
+          </div>
+        </div>
+
+        <div className="mobile-menu-section">
+          <form className="search-form" onSubmit={handleSearch} style={{ width: "100%" }}>
+            <input
+              type="text"
+              placeholder="¿Qué estás buscando?"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <button type="submit">
+              <span className="material-icons-outlined">search</span>
+            </button>
+          </form>
         </div>
       </div>
     </>

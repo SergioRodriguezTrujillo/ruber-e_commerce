@@ -436,11 +436,7 @@
 }
 
 .promo-text-header {
-  flex: 1;
-  padding-right: 30px;
   text-align: center;
-  max-width: 50%;
-  margin-left: 245px;
 }
 
 .promo-subtitle {
@@ -520,81 +516,206 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  background: #f5f5f5;
+  border: 1px solid var(--border-color);
+  background: none;
   cursor: pointer;
   transition: all 0.3s ease;
-  color: #333;
-  border: none;
 }
 
 .categories-nav-arrow:hover {
-  background-color: #c1c0c1;
+  background-color: #f5f5f5;
 }
 
+/* Tablet styles */
 @media (max-width: 992px) {
-  .service-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .category-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 100%;
   }
 
-  .promo-content {
-    flex-direction: column;
-  }
-
-  .promo-text {
-    padding-right: 0;
+  .category-item {
+    width: 100%;
+    height: 120px;
   }
 
   .products-grid {
     grid-template-columns: repeat(3, 1fr);
   }
-}
 
-@media (max-width: 768px) {
-  .recently-arrived-grid {
-    grid-template-columns: 1fr;
-    height: auto;
-  }
-
-  .recently-arrived-item.large {
-    grid-row: span 1;
-    height: 300px;
-  }
-
-  .right-grid {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .right-bottom-grid {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .recently-arrived-item {
-    height: 200px;
-  }
-
-  .products-grid {
+  .service-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .featured-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .service-grid {
-    grid-template-columns: 1fr;
-  }
-
-  /* Adjust category grid for mobile */
-  .category-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .recently-arrived-grid {
+    height: 350px;
   }
 }
 
-@media (max-width: 576px) {
+/* Mobile styles */
+@media (max-width: 768px) {
+  .home-page {
+    padding: 16px;
+    padding-top: 8px;
+  }
+
+  /* Espaciado entre secciones */
+  .categories-section,
+  .products-section,
+  .featured-section,
+  .services-section,
+  .recently-arrived-section {
+    padding: 16px 0;
+    margin-bottom: 0;
+  }
+
+  .recently-arrived-section {
+    padding: 16px 0;
+    max-width: 100%;
+  }
+
+  /* Sección Recién llegado - solo mostrar PC */
+  .recently-arrived-grid {
+    display: block;
+    height: auto;
+  }
+
+  .recently-arrived-item {
+    display: none;
+  }
+
+  .recently-arrived-item.large {
+    display: block;
+    height: 250px;
+    margin-bottom: 20px;
+  }
+
+  .recently-arrived-info {
+    width: 70%;
+  }
+
+  /* Categorías - scroll horizontal */
+  .category-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    padding: 0 0 16px 0;
+    margin: 0;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .category-item {
+    flex: 0 0 140px;
+    width: 140px;
+    height: 120px;
+    scroll-snap-align: start;
+  }
+
+  .category-grid::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .category-grid::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 2px;
+  }
+
+  .category-grid::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 2px;
+  }
+
+  .category-grid::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+  }
+
+  /* Ocultar flechas de navegación en móvil */
+  .categories-navigation {
+    display: none;
+  }
+
+  /* Productos - 2 columnas */
   .products-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  /* Servicios - 2 columnas */
+  .service-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  /* Banner promocional */
+  .promo-banner {
+    margin: 32px -16px;
+    padding: 40px 16px;
+    height: 300px;
+  }
+
+  .promo-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .promo-text {
+    max-width: 100%;
+    padding-right: 0;
+  }
+
+  .promo-text-header {
+    max-width: 100%;
+    margin-left: 0;
+    padding-right: 0;
+  }
+
+  .promo-title {
+    font-size: 1.8rem;
+  }
+
+  .countdown {
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .countdown-item {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  .countdown-value {
+    font-size: 1.1rem;
+  }
+
+  .countdown-label {
+    font-size: 0.6rem;
+  }
+
+  /* Ajustar títulos de sección */
+  .section-title {
+    font-size: 0.9rem;
+    padding-left: 20px;
+    margin-bottom: 16px;
+  }
+
+  .section-title::before {
+    width: 10px;
+  }
+
+  .section-subtitle,
+  .section-subtitle-home {
+    font-size: 1.2rem;
+  }
+
+  .section-header-home {
+    margin-bottom: 24px;
+  }
+
+  /* Botones */
+  .view-all,
+  .view-all2 {
+    padding: 8px 16px;
+    font-size: 0.8rem;
   }
 }
