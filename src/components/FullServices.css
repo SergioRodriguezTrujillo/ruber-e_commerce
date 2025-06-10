@@ -1,5 +1,5 @@
 .full-services {
-  padding: 40px 0;
+  padding: 16px 0; /* Changed to 16px */
   background-color: white; /* Changed from #f9f9f9 to white to match page background */
 }
 
@@ -43,6 +43,43 @@
   font-size: 0.9rem;
   color: #666;
   line-height: 1.4;
+}
+
+/* Mobile carousel for full services */
+@media (max-width: 450px) {
+  .full-services-container {
+    display: none; /* Hide desktop version on mobile */
+  }
+
+  .full-services-mobile {
+    display: block;
+  }
+
+  .full-services-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .full-services-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #ddd;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+  }
+
+  .full-services-dot.active {
+    background-color: #333;
+  }
+}
+
+@media (min-width: 451px) {
+  .full-services-mobile {
+    display: none; /* Hide mobile version on desktop */
+  }
 }
 
 @media (max-width: 992px) {

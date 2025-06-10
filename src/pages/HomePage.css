@@ -12,7 +12,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: 48px; /* 48px separation between subtitle/button and cards */
+  margin-bottom: 16px; /* Reduced from 48px to 16px for subtitle */
 }
 
 .section-title-container {
@@ -26,7 +26,7 @@
   font-weight: 700;
   color: #333;
   padding-left: 24px;
-  margin-bottom: 20px;
+  margin-bottom: 16px; /* Set to 20px as requested */
 }
 
 .section-title::before {
@@ -44,18 +44,20 @@
   font-size: 1.5rem;
   font-weight: 700;
   color: #111;
+  margin-bottom: 16px; /* Set to 16px as requested */
 }
 
 .section-subtitle-home {
   font-size: 1.5rem;
   font-weight: 700;
   color: #111;
+  margin-bottom: 16px; /* Set to 16px as requested */
 }
 
 .view-all {
   background-color: var(--primary-color);
   color: white;
-  padding: 10px 20px;
+  padding: 8px 16px; /* Reduced padding */
   font-weight: 600;
   font-size: 0.9rem;
   border-radius: 4px;
@@ -73,7 +75,7 @@
 .view-all2 {
   background-color: var(--primary-color);
   color: white;
-  padding: 8px 16px;
+  padding: 8px 16px; /* Reduced padding */
   font-weight: 600;
   font-size: 0.9rem;
   border-radius: 4px;
@@ -127,25 +129,23 @@
   align-items: center;
 }
 
-/* Corregir el espaciado de las secciones */
 .categories-section,
 .products-section,
 .featured-section,
 .services-section,
 .recently-arrived-section {
   padding: 40px 0;
-  margin-bottom: 0;
+  margin-bottom: 0; /* Eliminar margen inferior */
+  margin-top: 0; /* Eliminar margen superior */
 }
-
 /* Estilos para la sección Recién llegado */
 .recently-arrived-section {
-  padding: 40px 0;
   margin: 0 auto;
   max-width: 1200px;
 }
 
 .section-header-special {
-  margin-bottom: 48px; /* 48px separation */
+  margin-bottom: 16px; /* Changed from 48px to 16px */
 }
 
 .recently-arrived-grid {
@@ -335,7 +335,7 @@
 
 /* Modificar los estilos de la sección de servicios */
 .services-section {
-  padding: 40px 0;
+  padding: 16px 0; /* Changed to 16px */
 }
 
 .services-header {
@@ -369,7 +369,7 @@
 
 .service-button {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 8px 16px; /* Reduced padding */
   background-color: var(--primary-color);
   color: white;
   font-weight: 600;
@@ -456,13 +456,14 @@
   display: flex;
   gap: 15px;
   margin-bottom: 30px;
+  align-self: flex-start; /* Align to the left */
 }
 
 .countdown-item {
   background-color: white;
   color: black;
-  width: 65px !important;
-  height: 65px !important;
+  width: 64px !important; /* Changed to 64px as requested */
+  height: 64px !important; /* Changed to 64px as requested */
   border-radius: 50%;
   display: flex;
   flex-direction: column;
@@ -552,6 +553,286 @@
   }
 }
 
+/* Mobile Carousel Styles for ≤450px */
+@media (max-width: 450px) {
+  .home-page {
+    padding: 16px;
+    padding-top: 8px;
+  }
+
+  /* Mobile Carousel Container */
+  .mobile-carousel-container {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .mobile-carousel-wrapper {
+    display: flex;
+    transition: transform 0.3s ease;
+    touch-action: pan-y;
+    will-change: transform; /* Optimize for animations */
+  }
+
+  .mobile-carousel-slide {
+    min-width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 0 4px;
+  }
+
+  /* Mobile Categories Carousel */
+  .categories-section .mobile-carousel-slide .category-item {
+    width: 100%;
+    height: 140px;
+    padding: 12px;
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .categories-section .mobile-carousel-slide .category-item:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    background-color: #0e2a47;
+    color: white;
+  }
+
+  .categories-section .mobile-carousel-slide .category-item:hover .category-icon {
+    color: white;
+  }
+
+  .categories-section .mobile-carousel-slide .category-item:hover .category-name {
+    color: white;
+  }
+
+  .categories-section .mobile-carousel-slide .category-icon {
+    font-size: 36px !important;
+    margin-bottom: 8px;
+  }
+
+  .categories-section .mobile-carousel-slide .category-name {
+    font-size: 0.8rem;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  /* Mobile Products Carousel */
+  .products-section .mobile-carousel-slide .product-card-shop,
+  .services-section .mobile-carousel-slide .service-item {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    overflow: hidden;
+  }
+
+  /* Mobile Service Items */
+  .services-section .mobile-carousel-slide .service-item {
+    border: 1px solid #e1e1e1;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .services-section .mobile-carousel-slide .service-image {
+    width: 100%;
+    height: 120px;
+    overflow: hidden;
+  }
+
+  .services-section .mobile-carousel-slide .service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .services-section .mobile-carousel-slide .service-footer {
+    padding: 12px;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .services-section .mobile-carousel-slide .service-icon img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .services-section .mobile-carousel-slide .service-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .services-section .mobile-carousel-slide .service-description {
+    font-size: 0.75rem;
+    color: #666;
+  }
+
+  /* Mobile Product Cards */
+  .products-section .mobile-carousel-slide .product-image-shop {
+    height: 120px;
+    padding: 8px;
+  }
+
+  .products-section .mobile-carousel-slide .product-title-shop {
+    font-size: 0.8rem;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    height: 2.4em; /* Fixed height for consistent card height */
+  }
+
+  .products-section .mobile-carousel-slide .product-buttons-shop {
+    padding: 8px 12px 12px 12px;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .products-section .mobile-carousel-slide .info-btn-shop {
+    font-size: 0.8rem;
+    margin-right: 0;
+    margin-bottom: 4px;
+    align-self: flex-start;
+  }
+
+  .products-section .mobile-carousel-slide .quote-btn-shop {
+    font-size: 0.8rem;
+    padding: 8px 12px;
+  }
+
+  /* Dots Indicator */
+  .mobile-dots-container {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 16px 0;
+  }
+
+  .mobile-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #ddd;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+  }
+
+  .mobile-dot.active {
+    background-color: #333;
+  }
+
+  /* Mobile View All Button */
+  .mobile-view-all-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+  }
+
+  .mobile-view-all-btn {
+    background-color: #e63946;
+    color: white;
+    border: none;
+    padding: 8px 16px; /* Reduced padding */
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .mobile-view-all-btn:hover {
+    background-color: #d62f3d;
+  }
+
+  /* Hide desktop elements on mobile */
+  .categories-section .category-grid,
+  .products-section .products-grid,
+  .services-section .service-grid {
+    display: none;
+  }
+
+  .section-header-home .view-all,
+  .section-header-home .view-all2,
+  .services-subtitle-row .view-all,
+  .categories-navigation {
+    display: none;
+  }
+
+  /* Adjust section spacing */
+  .categories-section,
+  .products-section,
+  .services-section {
+    padding: 16px 0;
+  }
+  .categories-section{
+    padding-bottom: 0 !important;
+  }
+
+  .section-header-home {
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-size: 0.9rem;
+    padding-left: 16px;
+    margin-bottom: 12px;
+  }
+
+  .section-title::before {
+    width: 8px;
+  }
+
+  .section-subtitle,
+  .section-subtitle-home {
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+  }
+
+  .services-title-row {
+    margin-bottom: 8px;
+  }
+
+  .services-subtitle-row {
+    margin-bottom: 0;
+  }
+
+  .categories-subtitle-row {
+    margin-bottom: 0;
+  }
+  .promo-banner {
+    margin: 0 -16px 16px -16px !important;
+  }
+  /* FullServices carousel for mobile */
+  .full-services-mobile-carousel {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .full-services-mobile-wrapper {
+    display: flex;
+    transition: transform 0.3s ease;
+  }
+
+  .full-services-mobile-slide {
+    min-width: 100%;
+    flex-shrink: 0;
+    padding: 0 15px;
+  }
+  .right-grid {
+    gap: 0;
+  }
+}
+
 /* Mobile styles */
 @media (max-width: 768px) {
   .home-page {
@@ -587,7 +868,6 @@
   .recently-arrived-item.large {
     display: block;
     height: 250px;
-    margin-bottom: 20px;
   }
 
   .recently-arrived-info {
@@ -675,13 +955,8 @@
   }
 
   .countdown {
-    justify-content: center;
+    justify-content: flex-start; /* Align to the left */
     gap: 10px;
-  }
-
-  .countdown-item {
-    width: 50px !important;
-    height: 50px !important;
   }
 
   .countdown-value {
@@ -706,10 +981,11 @@
   .section-subtitle,
   .section-subtitle-home {
     font-size: 1.2rem;
+    margin-bottom: 16px;
   }
 
   .section-header-home {
-    margin-bottom: 24px;
+    margin-bottom: 16px;
   }
 
   /* Botones */

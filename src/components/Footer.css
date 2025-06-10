@@ -29,6 +29,7 @@ footer {
   border: 1px solid #333;
   border-radius: 4px;
   overflow: hidden;
+  width: 60%; /* Set to 60% of container width */
 }
 
 .subscribe-form input {
@@ -144,7 +145,7 @@ footer {
   display: flex;
   gap: 15px;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: flex-end; /* Align to the right */
   flex-wrap: wrap;
   margin-top: 10px;
 }
@@ -184,6 +185,10 @@ footer {
     gap: 12px;
     justify-content: center;
   }
+
+  .subscribe-form {
+    width: 100%; /* Full width on mobile */
+  }
 }
 
 @media (max-width: 576px) {
@@ -199,4 +204,18 @@ footer {
 
 .subscribe-form button .material-icons-outlined {
   font-size: 16px;
+}
+
+@media (max-width: 450px) {
+  footer {
+    padding: 16px;
+  }
+
+  .subscribe-form {
+    width: 60%;
+  }
+
+  .social-links {
+    justify-content: left;
+  }
 }

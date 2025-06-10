@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import ProductCard from "../components/ProductCard"
 import CategoryItem from "../components/CategoryItem"
@@ -56,6 +56,186 @@ const HomePage = () => {
   })
   const [bestSellingProducts, setBestSellingProducts] = useState([])
   const [mostViewedProducts, setMostViewedProducts] = useState([])
+
+  // Mobile carousel states
+  const [isMobile, setIsMobile] = useState(false)
+  const [categoriesSlide, setCategoriesSlide] = useState(0)
+  const [bestSellingSlide, setBestSellingSlide] = useState(0)
+  const [mostViewedSlide, setMostViewedSlide] = useState(0)
+  const [servicesSlide, setServicesSlide] = useState(0)
+
+  // Touch tracking refs for smooth carousel
+  const touchStartX = useRef(0)
+  const touchEndX = useRef(0)
+  const isDragging = useRef(false)
+  const startTranslate = useRef({})
+  const currentTranslate = useRef({})
+  const carouselRefs = useRef({
+    categories: null,
+    bestSelling: null,
+    mostViewed: null,
+    services: null,
+  })
+
+  // Check if mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 450)
+    }
+
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
+
+  // Generic touch handlers for smooth carousel
+  const handleTouchStart = (e, carouselType) => {
+    if (!isMobile) return
+
+    touchStartX.current = e.touches[0].clientX
+    isDragging.current = true
+    startTranslate.current[carouselType] = currentTranslate.current[carouselType] || 0
+
+    if (carouselRefs.current[carouselType]) {
+      carouselRefs.current[carouselType].style.transition = "none"
+    }
+  }
+
+  const handleTouchMove = (e, carouselType, itemCount) => {
+    if (!isMobile || !isDragging.current) return
+
+    const currentX = e.touches[0].clientX
+    const diff = currentX - touchStartX.current
+
+    // Calculate new position with boundaries
+    const totalSlides = Math.ceil(itemCount / 2)
+    const maxSlides = totalSlides - 1
+    const newTranslate = (startTranslate.current[carouselType] || 0) + diff
+
+    // Apply boundaries
+    currentTranslate.current[carouselType] = Math.max(Math.min(newTranslate, 0), -100 * maxSlides)
+
+    // Apply the transform
+    if (carouselRefs.current[carouselType]) {
+      carouselRefs.current[carouselType].style.transform = `translateX(${currentTranslate.current[carouselType]}%)`
+    }
+  }
+
+  const handleTouchEnd = (carouselType, itemCount, setSlideFunction) => {
+    if (!isMobile || !isDragging.current) return
+
+    isDragging.current = false
+
+    // Calculate which slide to snap to
+    const slideWidth = 100
+    const totalSlides = Math.ceil(itemCount / 2)
+    const slideIndex = Math.min(
+      Math.max(Math.round(Math.abs(currentTranslate.current[carouselType] || 0) / slideWidth), 0),
+      totalSlides - 1,
+    )
+
+    setSlideFunction(slideIndex)
+
+    // Apply smooth transition for snap
+    if (carouselRefs.current[carouselType]) {
+      carouselRefs.current[carouselType].style.transition = "transform 0.3s ease"
+      carouselRefs.current[carouselType].style.transform = `translateX(-${slideIndex * 100}%)`
+      currentTranslate.current[carouselType] = -slideIndex * 100
+    }
+  }
+
+  // Update transform when slide changes
+  useEffect(() => {
+    if (carouselRefs.current.categories) {
+      carouselRefs.current.categories.style.transition = "transform 0.3s ease"
+      carouselRefs.current.categories.style.transform = `translateX(-${categoriesSlide * 100}%)`
+      currentTranslate.current.categories = -categoriesSlide * 100
+    }
+  }, [categoriesSlide])
+
+  useEffect(() => {
+    if (carouselRefs.current.bestSelling) {
+      carouselRefs.current.bestSelling.style.transition = "transform 0.3s ease"
+      carouselRefs.current.bestSelling.style.transform = `translateX(-${bestSellingSlide * 100}%)`
+      currentTranslate.current.bestSelling = -bestSellingSlide * 100
+    }
+  }, [bestSellingSlide])
+
+  useEffect(() => {
+    if (carouselRefs.current.mostViewed) {
+      carouselRefs.current.mostViewed.style.transition = "transform 0.3s ease"
+      carouselRefs.current.mostViewed.style.transform = `translateX(-${mostViewedSlide * 100}%)`
+      currentTranslate.current.mostViewed = -mostViewedSlide * 100
+    }
+  }, [mostViewedSlide])
+
+  useEffect(() => {
+    if (carouselRefs.current.services) {
+      carouselRefs.current.services.style.transition = "transform 0.3s ease"
+      carouselRefs.current.services.style.transform = `translateX(-${servicesSlide * 100}%)`
+      currentTranslate.current.services = -servicesSlide * 100
+    }
+  }, [servicesSlide])
+
+  // Mobile carousel component with smooth dragging
+  const MobileCarousel = ({
+    items,
+    currentSlide,
+    setCurrentSlide,
+    renderItem,
+    showViewAll = false,
+    viewAllAction,
+    carouselType,
+  }) => {
+    const totalSlides = Math.ceil(items.length / 2)
+
+    const getSlideItems = (slideIndex) => {
+      const startIndex = slideIndex * 2
+      return items.slice(startIndex, startIndex + 2)
+    }
+
+    return (
+      <div className="mobile-carousel-container">
+        <div
+          className="mobile-carousel-wrapper"
+          style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+          onTouchStart={(e) => handleTouchStart(e, carouselType)}
+          onTouchMove={(e) => handleTouchMove(e, carouselType, items.length)}
+          onTouchEnd={() => handleTouchEnd(carouselType, items.length, setCurrentSlide)}
+          ref={(el) => (carouselRefs.current[carouselType] = el)}
+        >
+          {Array.from({ length: totalSlides }, (_, slideIndex) => (
+            <div key={slideIndex} className="mobile-carousel-slide">
+              {getSlideItems(slideIndex).map((item, index) => (
+                <div key={item.id || index}>{renderItem(item)}</div>
+              ))}
+            </div>
+          ))}
+        </div>
+
+        {totalSlides > 1 && (
+          <div className="mobile-dots-container">
+            {Array.from({ length: totalSlides }, (_, index) => (
+              <div
+                key={index}
+                className={`mobile-dot ${index === currentSlide ? "active" : ""}`}
+                onClick={() => setCurrentSlide(index)}
+              />
+            ))}
+          </div>
+        )}
+
+        {showViewAll && (
+          <div className="mobile-view-all-container">
+            <button className="mobile-view-all-btn" onClick={viewAllAction}>
+              Ver todos
+            </button>
+          </div>
+        )}
+      </div>
+    )
+  }
 
   useEffect(() => {
     // Cargar solo 4 productos más vendidos y 4 más vistos para la homepage
@@ -251,11 +431,22 @@ const HomePage = () => {
             </div>
           </div>
 
-          <div className="category-grid">
-            {categories.map((category) => (
-              <CategoryItem key={category.id} category={category} />
-            ))}
-          </div>
+          {isMobile ? (
+            <MobileCarousel
+              items={categories}
+              currentSlide={categoriesSlide}
+              setCurrentSlide={setCategoriesSlide}
+              renderItem={(category) => <CategoryItem category={category} />}
+              showViewAll={false}
+              carouselType="categories"
+            />
+          ) : (
+            <div className="category-grid">
+              {categories.map((category) => (
+                <CategoryItem key={category.id} category={category} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -274,11 +465,23 @@ const HomePage = () => {
             </button>
           </div>
 
-          <div className="products-grid">
-            {bestSellingProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
+          {isMobile ? (
+            <MobileCarousel
+              items={bestSellingProducts}
+              currentSlide={bestSellingSlide}
+              setCurrentSlide={setBestSellingSlide}
+              renderItem={(product) => <ProductCard product={product} />}
+              showViewAll={true}
+              viewAllAction={handleViewAllBestSelling}
+              carouselType="bestSelling"
+            />
+          ) : (
+            <div className="products-grid">
+              {bestSellingProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -294,11 +497,23 @@ const HomePage = () => {
             </button>
           </div>
 
-          <div className="products-grid">
-            {mostViewedProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
+          {isMobile ? (
+            <MobileCarousel
+              items={mostViewedProducts}
+              currentSlide={mostViewedSlide}
+              setCurrentSlide={setMostViewedSlide}
+              renderItem={(product) => <ProductCard product={product} />}
+              showViewAll={true}
+              viewAllAction={handleViewAllMostViewed}
+              carouselType="mostViewed"
+            />
+          ) : (
+            <div className="products-grid">
+              {mostViewedProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -362,17 +577,31 @@ const HomePage = () => {
             </div>
           </div>
 
-          <div className="service-grid">
-            {services.map((service) => (
-              <ServiceItem key={service.id} service={service} />
-            ))}
-          </div>
+          {isMobile ? (
+            <MobileCarousel
+              items={services}
+              currentSlide={servicesSlide}
+              setCurrentSlide={setServicesSlide}
+              renderItem={(service) => <ServiceItem service={service} />}
+              showViewAll={true}
+              viewAllAction={() => navigate("/services")}
+              carouselType="services"
+            />
+          ) : (
+            <>
+              <div className="service-grid">
+                {services.map((service) => (
+                  <ServiceItem key={service.id} service={service} />
+                ))}
+              </div>
 
-          <div className="service-button-container">
-            <Link to="/services" className="service-button">
-              Ver todos
-            </Link>
-          </div>
+              <div className="service-button-container">
+                <Link to="/services" className="service-button">
+                  Ver todos
+                </Link>
+              </div>
+            </>
+          )}
         </div>
       </section>
 

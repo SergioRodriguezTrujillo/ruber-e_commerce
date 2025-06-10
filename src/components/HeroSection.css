@@ -310,6 +310,7 @@
 @media (max-width: 768px) {
   .hero-section {
     padding: 0px;
+    padding-bottom: 16px;
   }
 
   .hero-content {
