@@ -29,7 +29,7 @@ footer {
   border: 1px solid #333;
   border-radius: 4px;
   overflow: hidden;
-  width: 60%; /* Set to 60% of container width */
+  max-width: 270px;
 }
 
 .subscribe-form input {
@@ -145,7 +145,7 @@ footer {
   display: flex;
   gap: 15px;
   align-items: center;
-  justify-content: flex-end; /* Align to the right */
+  justify-content: flex-start;
   flex-wrap: wrap;
   margin-top: 10px;
 }
@@ -176,6 +176,9 @@ footer {
 }
 
 @media (max-width: 768px) {
+  footer {
+    padding: 16px;
+  }
   .footer-grid {
     grid-template-columns: 1fr 1fr;
   }
@@ -183,11 +186,6 @@ footer {
   /* Ajustar el espaciado en móviles */
   .social-links {
     gap: 12px;
-    justify-content: center;
-  }
-
-  .subscribe-form {
-    width: 100%; /* Full width on mobile */
   }
 }
 
@@ -206,16 +204,14 @@ footer {
   font-size: 16px;
 }
 
-@media (max-width: 450px) {
+@media (max-width: 480px) {
   footer {
     padding: 16px;
   }
 
-  .subscribe-form {
-    width: 60%;
-  }
-
-  .social-links {
-    justify-content: left;
+  .footer-main {
+    padding-left: 0;
+    padding-right: 0;
   }
 }
+

@@ -57,185 +57,37 @@ const HomePage = () => {
   const [bestSellingProducts, setBestSellingProducts] = useState([])
   const [mostViewedProducts, setMostViewedProducts] = useState([])
 
-  // Mobile carousel states
-  const [isMobile, setIsMobile] = useState(false)
-  const [categoriesSlide, setCategoriesSlide] = useState(0)
-  const [bestSellingSlide, setBestSellingSlide] = useState(0)
-  const [mostViewedSlide, setMostViewedSlide] = useState(0)
-  const [servicesSlide, setServicesSlide] = useState(0)
+  // Estados para el carrusel móvil de categorías
+  const [currentCategorySlide, setCurrentCategorySlide] = useState(0)
+  const [isCategoryTouch, setIsCategoryTouch] = useState(false)
+  const [categoryStartX, setCategoryStartX] = useState(0)
+  const [categoryCurrentX, setCategoryCurrentX] = useState(0)
+  const [isCategoryDragging, setIsCategoryDragging] = useState(false)
+  const categoryCarouselRef = useRef(null)
 
-  // Touch tracking refs for smooth carousel
-  const touchStartX = useRef(0)
-  const touchEndX = useRef(0)
-  const isDragging = useRef(false)
-  const startTranslate = useRef({})
-  const currentTranslate = useRef({})
-  const carouselRefs = useRef({
-    categories: null,
-    bestSelling: null,
-    mostViewed: null,
-    services: null,
-  })
+  // Estados para el carrusel móvil de productos más vendidos
+  const [currentBestSellingSlide, setCurrentBestSellingSlide] = useState(0)
+  const [isBestSellingTouch, setIsBestSellingTouch] = useState(false)
+  const [bestSellingStartX, setBestSellingStartX] = useState(0)
+  const [bestSellingCurrentX, setBestSellingCurrentX] = useState(0)
+  const [isBestSellingDragging, setIsBestSellingDragging] = useState(false)
+  const bestSellingCarouselRef = useRef(null)
 
-  // Check if mobile
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 450)
-    }
+  // Estados para el carrusel móvil de productos más vistos
+  const [currentMostViewedSlide, setCurrentMostViewedSlide] = useState(0)
+  const [isMostViewedTouch, setIsMostViewedTouch] = useState(false)
+  const [mostViewedStartX, setMostViewedStartX] = useState(0)
+  const [mostViewedCurrentX, setMostViewedCurrentX] = useState(0)
+  const [isMostViewedDragging, setIsMostViewedDragging] = useState(false)
+  const mostViewedCarouselRef = useRef(null)
 
-    checkMobile()
-    window.addEventListener("resize", checkMobile)
-
-    return () => window.removeEventListener("resize", checkMobile)
-  }, [])
-
-  // Generic touch handlers for smooth carousel
-  const handleTouchStart = (e, carouselType) => {
-    if (!isMobile) return
-
-    touchStartX.current = e.touches[0].clientX
-    isDragging.current = true
-    startTranslate.current[carouselType] = currentTranslate.current[carouselType] || 0
-
-    if (carouselRefs.current[carouselType]) {
-      carouselRefs.current[carouselType].style.transition = "none"
-    }
-  }
-
-  const handleTouchMove = (e, carouselType, itemCount) => {
-    if (!isMobile || !isDragging.current) return
-
-    const currentX = e.touches[0].clientX
-    const diff = currentX - touchStartX.current
-
-    // Calculate new position with boundaries
-    const totalSlides = Math.ceil(itemCount / 2)
-    const maxSlides = totalSlides - 1
-    const newTranslate = (startTranslate.current[carouselType] || 0) + diff
-
-    // Apply boundaries
-    currentTranslate.current[carouselType] = Math.max(Math.min(newTranslate, 0), -100 * maxSlides)
-
-    // Apply the transform
-    if (carouselRefs.current[carouselType]) {
-      carouselRefs.current[carouselType].style.transform = `translateX(${currentTranslate.current[carouselType]}%)`
-    }
-  }
-
-  const handleTouchEnd = (carouselType, itemCount, setSlideFunction) => {
-    if (!isMobile || !isDragging.current) return
-
-    isDragging.current = false
-
-    // Calculate which slide to snap to
-    const slideWidth = 100
-    const totalSlides = Math.ceil(itemCount / 2)
-    const slideIndex = Math.min(
-      Math.max(Math.round(Math.abs(currentTranslate.current[carouselType] || 0) / slideWidth), 0),
-      totalSlides - 1,
-    )
-
-    setSlideFunction(slideIndex)
-
-    // Apply smooth transition for snap
-    if (carouselRefs.current[carouselType]) {
-      carouselRefs.current[carouselType].style.transition = "transform 0.3s ease"
-      carouselRefs.current[carouselType].style.transform = `translateX(-${slideIndex * 100}%)`
-      currentTranslate.current[carouselType] = -slideIndex * 100
-    }
-  }
-
-  // Update transform when slide changes
-  useEffect(() => {
-    if (carouselRefs.current.categories) {
-      carouselRefs.current.categories.style.transition = "transform 0.3s ease"
-      carouselRefs.current.categories.style.transform = `translateX(-${categoriesSlide * 100}%)`
-      currentTranslate.current.categories = -categoriesSlide * 100
-    }
-  }, [categoriesSlide])
-
-  useEffect(() => {
-    if (carouselRefs.current.bestSelling) {
-      carouselRefs.current.bestSelling.style.transition = "transform 0.3s ease"
-      carouselRefs.current.bestSelling.style.transform = `translateX(-${bestSellingSlide * 100}%)`
-      currentTranslate.current.bestSelling = -bestSellingSlide * 100
-    }
-  }, [bestSellingSlide])
-
-  useEffect(() => {
-    if (carouselRefs.current.mostViewed) {
-      carouselRefs.current.mostViewed.style.transition = "transform 0.3s ease"
-      carouselRefs.current.mostViewed.style.transform = `translateX(-${mostViewedSlide * 100}%)`
-      currentTranslate.current.mostViewed = -mostViewedSlide * 100
-    }
-  }, [mostViewedSlide])
-
-  useEffect(() => {
-    if (carouselRefs.current.services) {
-      carouselRefs.current.services.style.transition = "transform 0.3s ease"
-      carouselRefs.current.services.style.transform = `translateX(-${servicesSlide * 100}%)`
-      currentTranslate.current.services = -servicesSlide * 100
-    }
-  }, [servicesSlide])
-
-  // Mobile carousel component with smooth dragging
-  const MobileCarousel = ({
-    items,
-    currentSlide,
-    setCurrentSlide,
-    renderItem,
-    showViewAll = false,
-    viewAllAction,
-    carouselType,
-  }) => {
-    const totalSlides = Math.ceil(items.length / 2)
-
-    const getSlideItems = (slideIndex) => {
-      const startIndex = slideIndex * 2
-      return items.slice(startIndex, startIndex + 2)
-    }
-
-    return (
-      <div className="mobile-carousel-container">
-        <div
-          className="mobile-carousel-wrapper"
-          style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-          onTouchStart={(e) => handleTouchStart(e, carouselType)}
-          onTouchMove={(e) => handleTouchMove(e, carouselType, items.length)}
-          onTouchEnd={() => handleTouchEnd(carouselType, items.length, setCurrentSlide)}
-          ref={(el) => (carouselRefs.current[carouselType] = el)}
-        >
-          {Array.from({ length: totalSlides }, (_, slideIndex) => (
-            <div key={slideIndex} className="mobile-carousel-slide">
-              {getSlideItems(slideIndex).map((item, index) => (
-                <div key={item.id || index}>{renderItem(item)}</div>
-              ))}
-            </div>
-          ))}
-        </div>
-
-        {totalSlides > 1 && (
-          <div className="mobile-dots-container">
-            {Array.from({ length: totalSlides }, (_, index) => (
-              <div
-                key={index}
-                className={`mobile-dot ${index === currentSlide ? "active" : ""}`}
-                onClick={() => setCurrentSlide(index)}
-              />
-            ))}
-          </div>
-        )}
-
-        {showViewAll && (
-          <div className="mobile-view-all-container">
-            <button className="mobile-view-all-btn" onClick={viewAllAction}>
-              Ver todos
-            </button>
-          </div>
-        )}
-      </div>
-    )
-  }
+  // Estados para el carrusel móvil de servicios
+  const [currentServicesSlide, setCurrentServicesSlide] = useState(0)
+  const [isServicesTouch, setIsServicesTouch] = useState(false)
+  const [servicesStartX, setServicesStartX] = useState(0)
+  const [servicesCurrentX, setServicesCurrentX] = useState(0)
+  const [isServicesDragging, setIsServicesDragging] = useState(false)
+  const servicesCarouselRef = useRef(null)
 
   useEffect(() => {
     // Cargar solo 4 productos más vendidos y 4 más vistos para la homepage
@@ -313,6 +165,270 @@ const HomePage = () => {
       image: "/asistencia4.png",
     },
   ]
+
+  // Funciones para el carrusel móvil de categorías
+  const totalCategorySlides = Math.ceil(categories.length / 2)
+
+  const handleCategoryTouchStart = (e) => {
+    setIsCategoryTouch(true)
+    setCategoryStartX(e.touches[0].clientX)
+    setCategoryCurrentX(e.touches[0].clientX)
+    setIsCategoryDragging(true)
+  }
+
+  const handleCategoryTouchMove = (e) => {
+    if (!isCategoryDragging) return
+    setCategoryCurrentX(e.touches[0].clientX)
+  }
+
+  const handleCategoryTouchEnd = () => {
+    if (!isCategoryDragging) return
+
+    const diffX = categoryStartX - categoryCurrentX
+    const threshold = 50
+
+    if (Math.abs(diffX) > threshold) {
+      if (diffX > 0 && currentCategorySlide < totalCategorySlides - 1) {
+        setCurrentCategorySlide(currentCategorySlide + 1)
+      } else if (diffX < 0 && currentCategorySlide > 0) {
+        setCurrentCategorySlide(currentCategorySlide - 1)
+      }
+    }
+
+    setIsCategoryDragging(false)
+    setIsCategoryTouch(false)
+  }
+
+  const handleCategoryMouseStart = (e) => {
+    setIsCategoryTouch(false)
+    setCategoryStartX(e.clientX)
+    setCategoryCurrentX(e.clientX)
+    setIsCategoryDragging(true)
+  }
+
+  const handleCategoryMouseMove = (e) => {
+    if (!isCategoryDragging || isCategoryTouch) return
+    setCategoryCurrentX(e.clientX)
+  }
+
+  const handleCategoryMouseEnd = () => {
+    if (!isCategoryDragging || isCategoryTouch) return
+
+    const diffX = categoryStartX - categoryCurrentX
+    const threshold = 50
+
+    if (Math.abs(diffX) > threshold) {
+      if (diffX > 0 && currentCategorySlide < totalCategorySlides - 1) {
+        setCurrentCategorySlide(currentCategorySlide + 1)
+      } else if (diffX < 0 && currentCategorySlide > 0) {
+        setCurrentCategorySlide(currentCategorySlide - 1)
+      }
+    }
+
+    setIsCategoryDragging(false)
+  }
+
+  const goToCategorySlide = (slideIndex) => {
+    setCurrentCategorySlide(slideIndex)
+  }
+
+  // Funciones para el carrusel móvil de productos más vendidos
+  const totalBestSellingSlides = Math.ceil(bestSellingProducts.length / 2)
+
+  const handleBestSellingTouchStart = (e) => {
+    setIsBestSellingTouch(true)
+    setBestSellingStartX(e.touches[0].clientX)
+    setBestSellingCurrentX(e.touches[0].clientX)
+    setIsBestSellingDragging(true)
+  }
+
+  const handleBestSellingTouchMove = (e) => {
+    if (!isBestSellingDragging) return
+    setBestSellingCurrentX(e.touches[0].clientX)
+  }
+
+  const handleBestSellingTouchEnd = () => {
+    if (!isBestSellingDragging) return
+
+    const diffX = bestSellingStartX - bestSellingCurrentX
+    const threshold = 50
+
+    if (Math.abs(diffX) > threshold) {
+      if (diffX > 0 && currentBestSellingSlide < totalBestSellingSlides - 1) {
+        setCurrentBestSellingSlide(currentBestSellingSlide + 1)
+      } else if (diffX < 0 && currentBestSellingSlide > 0) {
+        setCurrentBestSellingSlide(currentBestSellingSlide - 1)
+      }
+    }
+
+    setIsBestSellingDragging(false)
+    setIsBestSellingTouch(false)
+  }
+
+  const handleBestSellingMouseStart = (e) => {
+    setIsBestSellingTouch(false)
+    setBestSellingStartX(e.clientX)
+    setBestSellingCurrentX(e.clientX)
+    setIsBestSellingDragging(true)
+  }
+
+  const handleBestSellingMouseMove = (e) => {
+    if (!isBestSellingDragging || isBestSellingTouch) return
+    setBestSellingCurrentX(e.clientX)
+  }
+
+  const handleBestSellingMouseEnd = () => {
+    if (!isBestSellingDragging || isBestSellingTouch) return
+
+    const diffX = bestSellingStartX - bestSellingCurrentX
+    const threshold = 50
+
+    if (Math.abs(diffX) > threshold) {
+      if (diffX > 0 && currentBestSellingSlide < totalBestSellingSlides - 1) {
+        setCurrentBestSellingSlide(currentBestSellingSlide + 1)
+      } else if (diffX < 0 && currentBestSellingSlide > 0) {
+        setCurrentBestSellingSlide(currentBestSellingSlide - 1)
+      }
+    }
+
+    setIsBestSellingDragging(false)
+  }
+
+  const goToBestSellingSlide = (slideIndex) => {
+    setCurrentBestSellingSlide(slideIndex)
+  }
+
+  // Funciones para el carrusel móvil de productos más vistos
+  const totalMostViewedSlides = Math.ceil(mostViewedProducts.length / 2)
+
+  const handleMostViewedTouchStart = (e) => {
+    setIsMostViewedTouch(true)
+    setMostViewedStartX(e.touches[0].clientX)
+    setMostViewedCurrentX(e.touches[0].clientX)
+    setIsMostViewedDragging(true)
+  }
+
+  const handleMostViewedTouchMove = (e) => {
+    if (!isMostViewedDragging) return
+    setMostViewedCurrentX(e.touches[0].clientX)
+  }
+
+  const handleMostViewedTouchEnd = () => {
+    if (!isMostViewedDragging) return
+
+    const diffX = mostViewedStartX - mostViewedCurrentX
+    const threshold = 50
+
+    if (Math.abs(diffX) > threshold) {
+      if (diffX > 0 && currentMostViewedSlide < totalMostViewedSlides - 1) {
+        setCurrentMostViewedSlide(currentMostViewedSlide + 1)
+      } else if (diffX < 0 && currentMostViewedSlide > 0) {
+        setCurrentMostViewedSlide(currentMostViewedSlide - 1)
+      }
+    }
+
+    setIsMostViewedDragging(false)
+    setIsMostViewedTouch(false)
+  }
+
+  const handleMostViewedMouseStart = (e) => {
+    setIsMostViewedTouch(false)
+    setMostViewedStartX(e.clientX)
+    setMostViewedCurrentX(e.clientX)
+    setIsMostViewedDragging(true)
+  }
+
+  const handleMostViewedMouseMove = (e) => {
+    if (!isMostViewedDragging || isMostViewedTouch) return
+    setMostViewedCurrentX(e.clientX)
+  }
+
+  const handleMostViewedMouseEnd = () => {
+    if (!isMostViewedDragging || isMostViewedTouch) return
+
+    const diffX = mostViewedStartX - mostViewedCurrentX
+    const threshold = 50
+
+    if (Math.abs(diffX) > threshold) {
+      if (diffX > 0 && currentMostViewedSlide < totalMostViewedSlides - 1) {
+        setCurrentMostViewedSlide(currentMostViewedSlide + 1)
+      } else if (diffX < 0 && currentMostViewedSlide > 0) {
+        setCurrentMostViewedSlide(currentMostViewedSlide - 1)
+      }
+    }
+
+    setIsMostViewedDragging(false)
+  }
+
+  const goToMostViewedSlide = (slideIndex) => {
+    setCurrentMostViewedSlide(slideIndex)
+  }
+
+  // Funciones para el carrusel móvil de servicios
+  const totalServicesSlides = Math.ceil(services.length / 2)
+
+  const handleServicesTouchStart = (e) => {
+    setIsServicesTouch(true)
+    setServicesStartX(e.touches[0].clientX)
+    setServicesCurrentX(e.touches[0].clientX)
+    setIsServicesDragging(true)
+  }
+
+  const handleServicesTouchMove = (e) => {
+    if (!isServicesDragging) return
+    setServicesCurrentX(e.touches[0].clientX)
+  }
+
+  const handleServicesTouchEnd = () => {
+    if (!isServicesDragging) return
+
+    const diffX = servicesStartX - servicesCurrentX
+    const threshold = 50
+
+    if (Math.abs(diffX) > threshold) {
+      if (diffX > 0 && currentServicesSlide < totalServicesSlides - 1) {
+        setCurrentServicesSlide(currentServicesSlide + 1)
+      } else if (diffX < 0 && currentServicesSlide > 0) {
+        setCurrentServicesSlide(currentServicesSlide - 1)
+      }
+    }
+
+    setIsServicesDragging(false)
+    setIsServicesTouch(false)
+  }
+
+  const handleServicesMouseStart = (e) => {
+    setIsServicesTouch(false)
+    setServicesStartX(e.clientX)
+    setServicesCurrentX(e.clientX)
+    setIsServicesDragging(true)
+  }
+
+  const handleServicesMouseMove = (e) => {
+    if (!isServicesDragging || isServicesTouch) return
+    setServicesCurrentX(e.clientX)
+  }
+
+  const handleServicesMouseEnd = () => {
+    if (!isServicesDragging || isServicesTouch) return
+
+    const diffX = servicesStartX - servicesCurrentX
+    const threshold = 50
+
+    if (Math.abs(diffX) > threshold) {
+      if (diffX > 0 && currentServicesSlide < totalServicesSlides - 1) {
+        setCurrentServicesSlide(currentServicesSlide + 1)
+      } else if (diffX < 0 && currentServicesSlide > 0) {
+        setCurrentServicesSlide(currentServicesSlide - 1)
+      }
+    }
+
+    setIsServicesDragging(false)
+  }
+
+  const goToServicesSlide = (slideIndex) => {
+    setCurrentServicesSlide(slideIndex)
+  }
 
   const handleViewAllBestSelling = () => {
     // Scroll to top and navigate to shop with best-selling filter
@@ -431,22 +547,46 @@ const HomePage = () => {
             </div>
           </div>
 
-          {isMobile ? (
-            <MobileCarousel
-              items={categories}
-              currentSlide={categoriesSlide}
-              setCurrentSlide={setCategoriesSlide}
-              renderItem={(category) => <CategoryItem category={category} />}
-              showViewAll={false}
-              carouselType="categories"
-            />
-          ) : (
-            <div className="category-grid">
-              {categories.map((category) => (
-                <CategoryItem key={category.id} category={category} />
+          {/* Carrusel normal para desktop/tablet */}
+          <div className="category-grid">
+            {categories.map((category) => (
+              <CategoryItem key={category.id} category={category} />
+            ))}
+          </div>
+
+          {/* Carrusel móvil */}
+          <div className="mobile-category-carousel">
+            <div
+              className="mobile-category-track"
+              ref={categoryCarouselRef}
+              style={{ transform: `translateX(-${currentCategorySlide * 100}%)` }}
+              onTouchStart={handleCategoryTouchStart}
+              onTouchMove={handleCategoryTouchMove}
+              onTouchEnd={handleCategoryTouchEnd}
+              onMouseDown={handleCategoryMouseStart}
+              onMouseMove={handleCategoryMouseMove}
+              onMouseUp={handleCategoryMouseEnd}
+              onMouseLeave={handleCategoryMouseEnd}
+            >
+              {Array.from({ length: totalCategorySlides }, (_, slideIndex) => (
+                <div key={slideIndex} className="mobile-category-slide">
+                  {categories.slice(slideIndex * 2, slideIndex * 2 + 2).map((category) => (
+                    <CategoryItem key={category.id} category={category} />
+                  ))}
+                </div>
               ))}
             </div>
-          )}
+
+            <div className="mobile-category-indicators">
+              {Array.from({ length: totalCategorySlides }, (_, index) => (
+                <div
+                  key={index}
+                  className={`mobile-category-dot ${index === currentCategorySlide ? "active" : ""}`}
+                  onClick={() => goToCategorySlide(index)}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -465,23 +605,52 @@ const HomePage = () => {
             </button>
           </div>
 
-          {isMobile ? (
-            <MobileCarousel
-              items={bestSellingProducts}
-              currentSlide={bestSellingSlide}
-              setCurrentSlide={setBestSellingSlide}
-              renderItem={(product) => <ProductCard product={product} />}
-              showViewAll={true}
-              viewAllAction={handleViewAllBestSelling}
-              carouselType="bestSelling"
-            />
-          ) : (
-            <div className="products-grid">
-              {bestSellingProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
+          <div className="products-grid">
+            {bestSellingProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+
+          {/* Carrusel móvil para productos más vendidos */}
+          <div className="mobile-products-carousel">
+            <div
+              className="mobile-products-track"
+              ref={bestSellingCarouselRef}
+              style={{ transform: `translateX(-${currentBestSellingSlide * 100}%)` }}
+              onTouchStart={handleBestSellingTouchStart}
+              onTouchMove={handleBestSellingTouchMove}
+              onTouchEnd={handleBestSellingTouchEnd}
+              onMouseDown={handleBestSellingMouseStart}
+              onMouseMove={handleBestSellingMouseMove}
+              onMouseUp={handleBestSellingMouseEnd}
+              onMouseLeave={handleBestSellingMouseEnd}
+            >
+              {Array.from({ length: totalBestSellingSlides }, (_, slideIndex) => (
+                <div key={slideIndex} className="mobile-products-slide">
+                  {bestSellingProducts.slice(slideIndex * 2, slideIndex * 2 + 2).map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
               ))}
             </div>
-          )}
+
+            <div className="mobile-products-indicators">
+              {Array.from({ length: totalBestSellingSlides }, (_, index) => (
+                <div
+                  key={index}
+                  className={`mobile-products-dot ${index === currentBestSellingSlide ? "active" : ""}`}
+                  onClick={() => goToBestSellingSlide(index)}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Botón Ver todos móvil */}
+          <div className="mobile-view-all-container">
+            <button onClick={handleViewAllBestSelling} className="mobile-view-all">
+              Ver todos
+            </button>
+          </div>
         </div>
       </section>
 
@@ -497,23 +666,52 @@ const HomePage = () => {
             </button>
           </div>
 
-          {isMobile ? (
-            <MobileCarousel
-              items={mostViewedProducts}
-              currentSlide={mostViewedSlide}
-              setCurrentSlide={setMostViewedSlide}
-              renderItem={(product) => <ProductCard product={product} />}
-              showViewAll={true}
-              viewAllAction={handleViewAllMostViewed}
-              carouselType="mostViewed"
-            />
-          ) : (
-            <div className="products-grid">
-              {mostViewedProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
+          <div className="products-grid">
+            {mostViewedProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+
+          {/* Carrusel móvil para productos más vistos */}
+          <div className="mobile-products-carousel">
+            <div
+              className="mobile-products-track"
+              ref={mostViewedCarouselRef}
+              style={{ transform: `translateX(-${currentMostViewedSlide * 100}%)` }}
+              onTouchStart={handleMostViewedTouchStart}
+              onTouchMove={handleMostViewedTouchMove}
+              onTouchEnd={handleMostViewedTouchEnd}
+              onMouseDown={handleMostViewedMouseStart}
+              onMouseMove={handleMostViewedMouseMove}
+              onMouseUp={handleMostViewedMouseEnd}
+              onMouseLeave={handleMostViewedMouseEnd}
+            >
+              {Array.from({ length: totalMostViewedSlides }, (_, slideIndex) => (
+                <div key={slideIndex} className="mobile-products-slide">
+                  {mostViewedProducts.slice(slideIndex * 2, slideIndex * 2 + 2).map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
               ))}
             </div>
-          )}
+
+            <div className="mobile-products-indicators">
+              {Array.from({ length: totalMostViewedSlides }, (_, index) => (
+                <div
+                  key={index}
+                  className={`mobile-products-dot ${index === currentMostViewedSlide ? "active" : ""}`}
+                  onClick={() => goToMostViewedSlide(index)}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Botón Ver todos móvil */}
+          <div className="mobile-view-all-container">
+            <button onClick={handleViewAllMostViewed} className="mobile-view-all">
+              Ver todos
+            </button>
+          </div>
         </div>
       </section>
 
@@ -577,31 +775,58 @@ const HomePage = () => {
             </div>
           </div>
 
-          {isMobile ? (
-            <MobileCarousel
-              items={services}
-              currentSlide={servicesSlide}
-              setCurrentSlide={setServicesSlide}
-              renderItem={(service) => <ServiceItem service={service} />}
-              showViewAll={true}
-              viewAllAction={() => navigate("/services")}
-              carouselType="services"
-            />
-          ) : (
-            <>
-              <div className="service-grid">
-                {services.map((service) => (
-                  <ServiceItem key={service.id} service={service} />
-                ))}
-              </div>
+          <div className="service-grid">
+            {services.map((service) => (
+              <ServiceItem key={service.id} service={service} />
+            ))}
+          </div>
 
-              <div className="service-button-container">
-                <Link to="/services" className="service-button">
-                  Ver todos
-                </Link>
-              </div>
-            </>
-          )}
+          {/* Carrusel móvil para servicios */}
+          <div className="mobile-services-carousel">
+            <div
+              className="mobile-services-track"
+              ref={servicesCarouselRef}
+              style={{ transform: `translateX(-${currentServicesSlide * 100}%)` }}
+              onTouchStart={handleServicesTouchStart}
+              onTouchMove={handleServicesTouchMove}
+              onTouchEnd={handleServicesTouchEnd}
+              onMouseDown={handleServicesMouseStart}
+              onMouseMove={handleServicesMouseMove}
+              onMouseUp={handleServicesMouseEnd}
+              onMouseLeave={handleServicesMouseEnd}
+            >
+              {Array.from({ length: totalServicesSlides }, (_, slideIndex) => (
+                <div key={slideIndex} className="mobile-services-slide">
+                  {services.slice(slideIndex * 2, slideIndex * 2 + 2).map((service) => (
+                    <ServiceItem key={service.id} service={service} />
+                  ))}
+                </div>
+              ))}
+            </div>
+
+            <div className="mobile-services-indicators">
+              {Array.from({ length: totalServicesSlides }, (_, index) => (
+                <div
+                  key={index}
+                  className={`mobile-services-dot ${index === currentServicesSlide ? "active" : ""}`}
+                  onClick={() => goToServicesSlide(index)}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="service-button-container">
+            <Link to="/services" className="service-button">
+              Ver todos
+            </Link>
+          </div>
+
+          {/* Botón Ver todos móvil para servicios */}
+          <div className="mobile-view-all-container">
+            <Link to="/services" className="mobile-view-all">
+              Ver todos
+            </Link>
+          </div>
         </div>
       </section>
 

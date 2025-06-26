@@ -8,6 +8,7 @@
   border-radius: 4px;
   padding: 0 !important; /* Forzar que no tenga padding */
   text-align: left !important; /* Forzar alineación a la izquierda */
+  max-width: 280px;
 }
 
 .service-item:hover {

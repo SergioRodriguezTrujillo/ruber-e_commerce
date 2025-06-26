@@ -684,6 +684,10 @@ body {
     padding-top: 82px;
   }
 
+  .top-bar {
+    padding: 0;
+  }
+
   .main-header {
     padding: 8px 16px;
   }
@@ -706,6 +710,9 @@ body {
 }
 
 @media (max-width: 480px) {
+  .top-bar {
+    padding: 0;
+  }
   .promo-text-header {
     font-size: 0.75rem;
   }

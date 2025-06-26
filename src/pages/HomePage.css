@@ -12,7 +12,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: 16px; /* Reduced from 48px to 16px for subtitle */
+  margin-bottom: 48px; /* 48px separation between subtitle/button and cards */
 }
 
 .section-title-container {
@@ -26,7 +26,7 @@
   font-weight: 700;
   color: #333;
   padding-left: 24px;
-  margin-bottom: 16px; /* Set to 20px as requested */
+  margin-bottom: 20px;
 }
 
 .section-title::before {
@@ -44,20 +44,18 @@
   font-size: 1.5rem;
   font-weight: 700;
   color: #111;
-  margin-bottom: 16px; /* Set to 16px as requested */
 }
 
 .section-subtitle-home {
   font-size: 1.5rem;
   font-weight: 700;
   color: #111;
-  margin-bottom: 16px; /* Set to 16px as requested */
 }
 
 .view-all {
   background-color: var(--primary-color);
   color: white;
-  padding: 8px 16px; /* Reduced padding */
+  padding: 10px 20px;
   font-weight: 600;
   font-size: 0.9rem;
   border-radius: 4px;
@@ -75,7 +73,7 @@
 .view-all2 {
   background-color: var(--primary-color);
   color: white;
-  padding: 8px 16px; /* Reduced padding */
+  padding: 8px 16px;
   font-weight: 600;
   font-size: 0.9rem;
   border-radius: 4px;
@@ -129,23 +127,25 @@
   align-items: center;
 }
 
+/* Corregir el espaciado de las secciones */
 .categories-section,
 .products-section,
 .featured-section,
 .services-section,
 .recently-arrived-section {
   padding: 40px 0;
-  margin-bottom: 0; /* Eliminar margen inferior */
-  margin-top: 0; /* Eliminar margen superior */
+  margin-bottom: 0;
 }
+
 /* Estilos para la sección Recién llegado */
 .recently-arrived-section {
+  padding: 40px 0;
   margin: 0 auto;
   max-width: 1200px;
 }
 
 .section-header-special {
-  margin-bottom: 16px; /* Changed from 48px to 16px */
+  margin-bottom: 48px; /* 48px separation */
 }
 
 .recently-arrived-grid {
@@ -335,7 +335,7 @@
 
 /* Modificar los estilos de la sección de servicios */
 .services-section {
-  padding: 16px 0; /* Changed to 16px */
+  padding: 40px 0;
 }
 
 .services-header {
@@ -369,7 +369,7 @@
 
 .service-button {
   display: inline-block;
-  padding: 8px 16px; /* Reduced padding */
+  padding: 10px 20px;
   background-color: var(--primary-color);
   color: white;
   font-weight: 600;
@@ -456,14 +456,13 @@
   display: flex;
   gap: 15px;
   margin-bottom: 30px;
-  align-self: flex-start; /* Align to the left */
 }
 
 .countdown-item {
   background-color: white;
   color: black;
-  width: 64px !important; /* Changed to 64px as requested */
-  height: 64px !important; /* Changed to 64px as requested */
+  width: 65px !important;
+  height: 65px !important;
   border-radius: 50%;
   display: flex;
   flex-direction: column;
@@ -510,21 +509,176 @@
   display: flex;
   gap: 10px;
 }
-
 .categories-nav-arrow {
   width: 30px;
   height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--border-color);
-  background: none;
+  border-radius: 50%;
+  background: #f5f5f5;
   cursor: pointer;
   transition: all 0.3s ease;
+  color: #333;
+  border: none;
 }
 
 .categories-nav-arrow:hover {
-  background-color: #f5f5f5;
+  background-color: #c1c0c1;
+}
+
+/* Mobile category carousel styles */
+.mobile-category-carousel {
+  display: none;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.mobile-category-track {
+  display: flex;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+  touch-action: pan-y pinch-zoom;
+}
+
+.mobile-category-slide {
+  display: flex;
+  gap: 16px;
+  min-width: 100%;
+  flex-shrink: 0;
+  padding: 0 0 20px 0;
+}
+
+.mobile-category-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.mobile-category-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ddd;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.mobile-category-dot.active {
+  background-color: #333;
+}
+
+/* Mobile products carousel styles */
+.mobile-products-carousel {
+  display: none;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.mobile-products-track {
+  display: flex;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+  touch-action: pan-y pinch-zoom;
+}
+
+.mobile-products-slide {
+  display: flex;
+  gap: 16px;
+  min-width: 100%;
+  flex-shrink: 0;
+  padding: 0 0 20px 0;
+}
+
+.mobile-products-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.mobile-products-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ddd;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.mobile-products-dot.active {
+  background-color: #333;
+}
+
+/* Mobile services carousel styles */
+.mobile-services-carousel {
+  display: none;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.mobile-services-track {
+  display: flex;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+  touch-action: pan-y pinch-zoom;
+}
+
+.mobile-services-slide {
+  display: flex;
+  gap: 16px;
+  min-width: 100%;
+  flex-shrink: 0;
+  padding: 0 0 20px 0;
+}
+
+.mobile-services-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.mobile-services-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ddd;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.mobile-services-dot.active {
+  background-color: #333;
+}
+
+/* Mobile view all button */
+.mobile-view-all-container {
+  display: none;
+  text-align: center;
+  margin-top: 24px;
+  padding: 0 12px; /* Add padding for mobile */
+}
+
+.mobile-view-all {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 12px 32px;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.mobile-view-all:hover {
+  background-color: #f05c6c;
 }
 
 /* Tablet styles */
@@ -550,286 +704,6 @@
 
   .recently-arrived-grid {
     height: 350px;
-  }
-}
-
-/* Mobile Carousel Styles for ≤450px */
-@media (max-width: 450px) {
-  .home-page {
-    padding: 16px;
-    padding-top: 8px;
-  }
-
-  /* Mobile Carousel Container */
-  .mobile-carousel-container {
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 20px;
-  }
-
-  .mobile-carousel-wrapper {
-    display: flex;
-    transition: transform 0.3s ease;
-    touch-action: pan-y;
-    will-change: transform; /* Optimize for animations */
-  }
-
-  .mobile-carousel-slide {
-    min-width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    padding: 0 4px;
-  }
-
-  /* Mobile Categories Carousel */
-  .categories-section .mobile-carousel-slide .category-item {
-    width: 100%;
-    height: 140px;
-    padding: 12px;
-    border: 1px solid #e1e1e1;
-    border-radius: 4px;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-  }
-
-  .categories-section .mobile-carousel-slide .category-item:hover {
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    background-color: #0e2a47;
-    color: white;
-  }
-
-  .categories-section .mobile-carousel-slide .category-item:hover .category-icon {
-    color: white;
-  }
-
-  .categories-section .mobile-carousel-slide .category-item:hover .category-name {
-    color: white;
-  }
-
-  .categories-section .mobile-carousel-slide .category-icon {
-    font-size: 36px !important;
-    margin-bottom: 8px;
-  }
-
-  .categories-section .mobile-carousel-slide .category-name {
-    font-size: 0.8rem;
-    text-align: center;
-    font-weight: 500;
-  }
-
-  /* Mobile Products Carousel */
-  .products-section .mobile-carousel-slide .product-card-shop,
-  .services-section .mobile-carousel-slide .service-item {
-    width: 100%;
-    height: auto;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    background-color: white;
-    overflow: hidden;
-  }
-
-  /* Mobile Service Items */
-  .services-section .mobile-carousel-slide .service-item {
-    border: 1px solid #e1e1e1;
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-  }
-
-  .services-section .mobile-carousel-slide .service-image {
-    width: 100%;
-    height: 120px;
-    overflow: hidden;
-  }
-
-  .services-section .mobile-carousel-slide .service-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .services-section .mobile-carousel-slide .service-footer {
-    padding: 12px;
-    display: flex;
-    gap: 8px;
-    align-items: flex-start;
-  }
-
-  .services-section .mobile-carousel-slide .service-icon img {
-    width: 32px;
-    height: 32px;
-  }
-
-  .services-section .mobile-carousel-slide .service-title {
-    font-size: 0.85rem;
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
-
-  .services-section .mobile-carousel-slide .service-description {
-    font-size: 0.75rem;
-    color: #666;
-  }
-
-  /* Mobile Product Cards */
-  .products-section .mobile-carousel-slide .product-image-shop {
-    height: 120px;
-    padding: 8px;
-  }
-
-  .products-section .mobile-carousel-slide .product-title-shop {
-    font-size: 0.8rem;
-    line-height: 1.2;
-    margin-bottom: 8px;
-    height: 2.4em; /* Fixed height for consistent card height */
-  }
-
-  .products-section .mobile-carousel-slide .product-buttons-shop {
-    padding: 8px 12px 12px 12px;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .products-section .mobile-carousel-slide .info-btn-shop {
-    font-size: 0.8rem;
-    margin-right: 0;
-    margin-bottom: 4px;
-    align-self: flex-start;
-  }
-
-  .products-section .mobile-carousel-slide .quote-btn-shop {
-    font-size: 0.8rem;
-    padding: 8px 12px;
-  }
-
-  /* Dots Indicator */
-  .mobile-dots-container {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin: 16px 0;
-  }
-
-  .mobile-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #ddd;
-    transition: background-color 0.3s ease;
-    cursor: pointer;
-  }
-
-  .mobile-dot.active {
-    background-color: #333;
-  }
-
-  /* Mobile View All Button */
-  .mobile-view-all-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 16px;
-  }
-
-  .mobile-view-all-btn {
-    background-color: #e63946;
-    color: white;
-    border: none;
-    padding: 8px 16px; /* Reduced padding */
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-  }
-
-  .mobile-view-all-btn:hover {
-    background-color: #d62f3d;
-  }
-
-  /* Hide desktop elements on mobile */
-  .categories-section .category-grid,
-  .products-section .products-grid,
-  .services-section .service-grid {
-    display: none;
-  }
-
-  .section-header-home .view-all,
-  .section-header-home .view-all2,
-  .services-subtitle-row .view-all,
-  .categories-navigation {
-    display: none;
-  }
-
-  /* Adjust section spacing */
-  .categories-section,
-  .products-section,
-  .services-section {
-    padding: 16px 0;
-  }
-  .categories-section{
-    padding-bottom: 0 !important;
-  }
-
-  .section-header-home {
-    margin-bottom: 16px;
-  }
-
-  .section-title {
-    font-size: 0.9rem;
-    padding-left: 16px;
-    margin-bottom: 12px;
-  }
-
-  .section-title::before {
-    width: 8px;
-  }
-
-  .section-subtitle,
-  .section-subtitle-home {
-    font-size: 1.1rem;
-    margin-bottom: 16px;
-  }
-
-  .services-title-row {
-    margin-bottom: 8px;
-  }
-
-  .services-subtitle-row {
-    margin-bottom: 0;
-  }
-
-  .categories-subtitle-row {
-    margin-bottom: 0;
-  }
-  .promo-banner {
-    margin: 0 -16px 16px -16px !important;
-  }
-  /* FullServices carousel for mobile */
-  .full-services-mobile-carousel {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .full-services-mobile-wrapper {
-    display: flex;
-    transition: transform 0.3s ease;
-  }
-
-  .full-services-mobile-slide {
-    min-width: 100%;
-    flex-shrink: 0;
-    padding: 0 15px;
-  }
-  .right-grid {
-    gap: 0;
   }
 }
 
@@ -868,6 +742,7 @@
   .recently-arrived-item.large {
     display: block;
     height: 250px;
+    margin-bottom: 20px;
   }
 
   .recently-arrived-info {
@@ -955,7 +830,6 @@
   }
 
   .countdown {
-    justify-content: flex-start; /* Align to the left */
     gap: 10px;
   }
 
@@ -981,11 +855,10 @@
   .section-subtitle,
   .section-subtitle-home {
     font-size: 1.2rem;
-    margin-bottom: 16px;
   }
 
   .section-header-home {
-    margin-bottom: 16px;
+    margin-bottom: 24px;
   }
 
   /* Botones */
@@ -993,5 +866,483 @@
   .view-all2 {
     padding: 8px 16px;
     font-size: 0.8rem;
+  }
+}
+
+/* Modify the existing mobile styles for screens smaller than 480px */
+@media (max-width: 480px) {
+  .home-page {
+    padding: 16px ;
+    padding-top: 8px;
+  }
+
+  /* Espaciado entre secciones */
+  .categories-section,
+  .products-section,
+  .featured-section,
+  .services-section,
+  .recently-arrived-section {
+    padding: 16px 0;
+    margin-bottom: 0;
+  }
+
+  .recently-arrived-section {
+    padding: 16px 0;
+    max-width: 100%;
+  }
+
+  /* Ensure containers use proper padding */
+  .products-section .container,
+  .categories-section .container,
+  .services-section .container {
+    padding: 0;
+  }
+
+  /* Mobile products carousel styles - improved */
+  .mobile-products-carousel {
+    display: block;
+    padding: 0;
+    width: 100%;
+    overflow: hidden;
+    margin: 0;
+  }
+
+  .mobile-products-track {
+    display: flex;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+    touch-action: pan-y pinch-zoom;
+    width: 100%;
+  }
+
+  .mobile-products-slide {
+    display: flex;
+    gap: 8px; /* Reduced gap */
+    min-width: 100%;
+    flex-shrink: 0;
+    padding: 0 0 20px 0;
+    box-sizing: border-box;
+  }
+
+  /* OCULTAR COMPLETAMENTE el grid de categorías normal */
+  .category-grid {
+    display: none !important;
+  }
+
+  /* OCULTAR COMPLETAMENTE los grids de productos y servicios normales */
+  .products-grid {
+    display: none !important;
+  }
+
+  .service-grid {
+    display: none !important;
+  }
+
+  /* Ocultar botones "Ver todos" normales */
+  .section-header-home .view-all,
+  .section-header-home .view-all2,
+  .service-button-container {
+    display: none !important;
+  }
+
+  /* Ensure mobile carousels are visible */
+  .mobile-category-carousel,
+  .mobile-products-carousel,
+  .mobile-services-carousel {
+    display: block;
+    padding: 0;
+    width: 100%;
+  }
+
+  /* Mostrar botones "Ver todos" móviles */
+  .mobile-view-all-container {
+    display: block;
+    padding: 0 12px;
+  }
+
+  /* NUEVOS ESTILOS PARA PRODUCTOS - Dos tarjetas por slide con mejor ajuste */
+  .mobile-products-slide {
+    gap: 12px;
+    padding: 0 0 20px 0;
+  }
+
+  .mobile-products-slide .product-card-shop {
+    flex: 1;
+    width: calc(50% - 6px);
+    min-width: calc(50% - 6px);
+    max-width: calc(50% - 6px);
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    background: white;
+    border: 1px solid #f0f0f0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Ajustar imagen del producto para móvil - SIN background color y con 8px de padding */
+  .mobile-products-slide .product-card-shop .product-image-shop {
+    height: 140px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-products-slide .product-card-shop .product-image-shop img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  /* Ajustar contenido del producto para móvil */
+  .mobile-products-slide .product-card-shop .product-title-container {
+    padding: 8px 10px 4px 10px;
+    margin: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    min-height: 40px;
+  }
+
+  .mobile-products-slide .product-card-shop .product-title-shop {
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.2;
+    margin: 0;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    color: #333;
+  }
+
+  .mobile-products-slide .product-card-shop .wishlist-btn-shop {
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    margin-left: 6px;
+    flex-shrink: 0;
+    border: none;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-products-slide .product-card-shop .wishlist-btn-shop svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Ajustar botones del producto para móvil */
+  .mobile-products-slide .product-card-shop .product-buttons-shop {
+    padding: 6px 10px 10px 10px;
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .mobile-products-slide .product-card-shop .info-btn-shop {
+    font-size: 0.7rem;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    text-decoration: underline;
+    color: #666;
+    background: none;
+    border: none;
+    align-self: flex-start;
+  }
+
+  .mobile-products-slide .product-card-shop .quote-btn-shop {
+    width: 100%;
+    padding: 6px 8px;
+    font-size: 0.7rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background: white;
+    color: #333;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .mobile-products-slide .product-card-shop .quote-btn-shop:hover {
+    background-color: #f5f5f5;
+    border-color: #d0d0d0;
+  }
+
+  /* NUEVOS ESTILOS PARA SERVICIOS - Dos tarjetas por slide con mejor ajuste */
+  .mobile-services-slide {
+    gap: 12px;
+    padding: 0 0 20px 0;
+  }
+
+  .mobile-services-slide .service-item {
+    flex: 1;
+    width: calc(50% - 6px);
+    min-width: calc(50% - 6px);
+    max-width: calc(50% - 6px);
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    background: white;
+    padding: 0;
+    border: 1px solid #f0f0f0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Ajustar imagen del servicio para móvil */
+  .mobile-services-slide .service-item .service-image {
+    height: 100px;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .mobile-services-slide .service-item .service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Ajustar footer del servicio para móvil */
+  .mobile-services-slide .service-item .service-footer {
+    padding: 10px;
+    gap: 8px;
+    align-items: flex-start;
+    display: flex;
+    flex: 1;
+  }
+
+  .mobile-services-slide .service-item .service-icon {
+    flex-shrink: 0;
+  }
+
+  .mobile-services-slide .service-item .service-icon img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .mobile-services-slide .service-item .service-text {
+    flex: 1;
+  }
+
+  .mobile-services-slide .service-item .service-title {
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-bottom: 3px;
+    line-height: 1.2;
+    color: #333;
+  }
+
+  .mobile-services-slide .service-item .service-description {
+    font-size: 0.65rem;
+    color: #666;
+    line-height: 1.3;
+  }
+
+  /* Ajustar las tarjetas de categoría en el carrusel móvil */
+  .mobile-category-slide {
+    gap: 12px;
+  }
+
+  .mobile-category-slide .category-item {
+    flex: 1;
+    width: calc(50% - 6px);
+    min-width: calc(50% - 6px);
+    height: 150px;
+    border-radius: 4px;
+    min-height: 100px;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    background: white;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .mobile-category-slide .category-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transform: translateY(-1px);
+  }
+
+  .mobile-category-slide .category-item .category-icon {
+    font-size: 28px !important;
+    margin-bottom: 6px;
+  }
+
+  .mobile-category-slide .category-item .category-name {
+    font-size: 0.7rem;
+    font-weight: 500;
+  }
+
+  /* Ajustar los indicadores - mantener color original para productos */
+  .mobile-category-indicators,
+  .mobile-products-indicators,
+  .mobile-services-indicators {
+    padding: 0 16px;
+    margin-top: 16px;
+  }
+
+  .mobile-category-dot,
+  .mobile-products-dot,
+  .mobile-services-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #ddd;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+  }
+
+  .mobile-category-dot.active,
+  .mobile-services-dot.active,
+  .mobile-products-dot.active {
+    background-color: #0e2a47;
+  }
+
+  /* Modificar headers de sección para móvil */
+  .section-header-home {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding: 0 12px;
+  }
+
+  /* Ajustar titles for mobile */
+  .section-title {
+    font-size: 0.9rem;
+    padding-left: 20px;
+    margin-bottom: 16px;
+  }
+
+  .section-title::before {
+    width: 10px;
+  }
+
+  .section-subtitle,
+  .section-subtitle-home {
+    font-size: 1.2rem;
+  }
+
+  /* Espaciado entre secciones */
+  .categories-section,
+  .products-section,
+  .featured-section,
+  .services-section,
+  .recently-arrived-section {
+    padding: 16px 0;
+    margin-bottom: 0;
+  }
+
+  .recently-arrived-section {
+    padding: 16px 0;
+    max-width: 100%;
+  }
+
+  /* Sección Recién llegado - solo mostrar PC */
+  .recently-arrived-grid {
+    display: block;
+    height: auto;
+  }
+
+  .recently-arrived-item {
+    display: none;
+  }
+
+  .recently-arrived-item.large {
+    display: block;
+    height: 250px;
+    margin-bottom: 20px;
+  }
+
+  .recently-arrived-info {
+    width: 70%;
+  }
+
+  /* Banner promocional */
+  .promo-banner {
+    margin: 32px -16px;
+    padding: 40px 16px;
+    height: 300px;
+  }
+
+  .promo-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .promo-text {
+    max-width: 100%;
+    padding-right: 0;
+  }
+
+  .promo-text-header {
+    max-width: 100%;
+    margin-left: 0;
+    padding-right: 0;
+  }
+
+  .promo-title {
+    font-size: 1.8rem;
+  }
+
+  .countdown-value {
+    font-size: 1.1rem;
+  }
+
+  .countdown-label {
+    font-size: 0.6rem;
+  }
+
+  /* Ajustar títulos de sección */
+  .section-title {
+    font-size: 0.9rem;
+    padding-left: 20px;
+    margin-bottom: 16px;
+  }
+
+  .section-title::before {
+    width: 10px;
+  }
+
+  .section-subtitle,
+  .section-subtitle-home {
+    font-size: 1.2rem;
+  }
+
+  .section-header-home {
+    margin-bottom: 20px;
+  }
+
+  /* Botones móviles */
+  .mobile-view-all {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 24px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .mobile-view-all:hover {
+    background-color: #f05c6c;
+  }
+
+  /* Ocultar flechas de navegación en móvil */
+  .categories-navigation {
+    display: none;
   }
 }
