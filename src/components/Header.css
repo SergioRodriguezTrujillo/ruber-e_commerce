@@ -710,6 +710,9 @@ body {
 }
 
 @media (max-width: 480px) {
+  .promo-text-container {
+    justify-content: left;
+  }
   .top-bar {
     padding: 0;
   }

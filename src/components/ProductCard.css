@@ -20,8 +20,8 @@
 
 .discount-badge {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 8px;
+  left: 8px;
   background-color: var(--primary-color);
   color: white;
   padding: 4px 8px;
@@ -289,19 +289,19 @@
   /* Ajustar contenido del producto para móvil */
   .mobile-products-slide .product-card-shop .product-title-container,
   .product-card-shop .product-title-container {
-    padding: 6px 8px 2px 8px; /* Reduced padding */
+    padding: 8px 8px 10px 8px;
     margin: 0;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    min-height: 32px; /* Reduced height */
+    min-height: 40px;
   }
 
   .mobile-products-slide .product-card-shop .product-title-shop,
   .product-card-shop .product-title-shop {
-    font-size: 0.7rem; /* Reduced font size */
-    font-weight: 500;
-    line-height: 1.1;
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.2;
     margin: 0;
     flex: 1;
     display: -webkit-box;
@@ -327,23 +327,23 @@
 
   .mobile-products-slide .product-card-shop .wishlist-btn-shop svg,
   .product-card-shop .wishlist-btn-shop svg {
-    width: 12px;
-    height: 12px;
+    width: 20px;
+    height: 20px;
   }
 
   /* Ajustar botones del producto para móvil */
   .mobile-products-slide .product-card-shop .product-buttons-shop,
   .product-card-shop .product-buttons-shop {
-    padding: 4px 8px 8px 8px; /* Reduced padding */
+    padding: 10px 8px 8px 8px;
     margin-top: auto;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
   }
 
   .mobile-products-slide .product-card-shop .info-btn-shop,
   .product-card-shop .info-btn-shop {
-    font-size: 0.65rem; /* Reduced font size */
+    font-size: 0.75rem;
     margin: 0;
     padding: 0;
     text-align: left;
@@ -357,13 +357,13 @@
   .mobile-products-slide .product-card-shop .quote-btn-shop,
   .product-card-shop .quote-btn-shop {
     width: 100%;
-    padding: 5px 6px; /* Reduced padding */
-    font-size: 0.65rem; /* Reduced font size */
+    padding: 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
     border: 1px solid #e0e0e0;
     border-radius: 4px;
     background: white;
     color: #333;
-    font-weight: 500;
     transition: all 0.2s ease;
   }
 

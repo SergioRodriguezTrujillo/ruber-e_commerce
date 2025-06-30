@@ -7,7 +7,12 @@ import CategoryItem from "../components/CategoryItem"
 import ServiceItem from "../components/ServiceItem"
 import HeroSection from "../components/HeroSection"
 import FullServices from "../components/FullServices"
-import { getBestSellingProductsForHome, getMostViewedProductsForHome } from "../services/productService"
+import {
+  getBestSellingProductsForHome,
+  getMostViewedProductsForHome,
+  getBestSellingProducts,
+  getMostViewedProducts,
+} from "../services/productService"
 import "./HomePage.css"
 
 // Usar iconos de Material Design outline
@@ -90,12 +95,50 @@ const HomePage = () => {
   const servicesCarouselRef = useRef(null)
 
   useEffect(() => {
-    // Cargar solo 4 productos más vendidos y 4 más vistos para la homepage
-    const bestSelling = getBestSellingProductsForHome()
-    const mostViewed = getMostViewedProductsForHome()
+    // Detectar si es móvil
+    const isMobile = window.innerWidth <= 480
 
-    setBestSellingProducts(bestSelling)
-    setMostViewedProducts(mostViewed)
+    if (isMobile) {
+      // Para móvil: cargar hasta 8 productos más vendidos y más vistos
+      const allBestSelling = getBestSellingProducts()
+      const allMostViewed = getMostViewedProducts()
+
+      setBestSellingProducts(allBestSelling.slice(0, 8))
+      setMostViewedProducts(allMostViewed.slice(0, 8))
+    } else {
+      // Para desktop: cargar solo 4 productos para la homepage
+      const bestSelling = getBestSellingProductsForHome()
+      const mostViewed = getMostViewedProductsForHome()
+
+      setBestSellingProducts(bestSelling)
+      setMostViewedProducts(mostViewed)
+    }
+  }, [])
+
+  // Agregar después del useEffect anterior
+  useEffect(() => {
+    const handleResize = () => {
+      const isMobile = window.innerWidth <= 480
+
+      if (isMobile) {
+        // Para móvil: cargar hasta 8 productos más vendidos y más vistos
+        const allBestSelling = getBestSellingProducts()
+        const allMostViewed = getMostViewedProducts()
+
+        setBestSellingProducts(allBestSelling.slice(0, 8))
+        setMostViewedProducts(allMostViewed.slice(0, 8))
+      } else {
+        // Para desktop: cargar solo 4 productos para la homepage
+        const bestSelling = getBestSellingProductsForHome()
+        const mostViewed = getMostViewedProductsForHome()
+
+        setBestSellingProducts(bestSelling)
+        setMostViewedProducts(mostViewed)
+      }
+    }
+
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
   }, [])
 
   useEffect(() => {

@@ -1008,6 +1008,7 @@
 
   .mobile-products-slide .product-card-shop .product-title-shop {
     font-size: 0.85rem;
+    font-weight: 600;
     line-height: 1.2;
     margin: 0;
     flex: 1;
@@ -1061,6 +1062,7 @@
     width: 100%;
     padding: 8px;
     font-size: 0.75rem;
+    font-weight: 600;
     border: 1px solid #e0e0e0;
     border-radius: 4px;
     background: white;
@@ -1293,7 +1295,7 @@
   }
 
   .promo-title {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
 
   .countdown-value {
