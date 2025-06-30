@@ -957,13 +957,13 @@
   /* Mostrar botones "Ver todos" móviles */
   .mobile-view-all-container {
     display: block;
-    padding: 0 12px;
+    margin-top: 16px;
   }
 
   /* NUEVOS ESTILOS PARA PRODUCTOS - Dos tarjetas por slide con mejor ajuste */
   .mobile-products-slide {
     gap: 12px;
-    padding: 0 0 20px 0;
+    padding: 0;
   }
 
   .mobile-products-slide .product-card-shop {
@@ -1078,7 +1078,7 @@
   /* NUEVOS ESTILOS PARA SERVICIOS - Dos tarjetas por slide con mejor ajuste */
   .mobile-services-slide {
     gap: 12px;
-    padding: 0 0 20px 0;
+    padding: 0;
   }
 
   .mobile-services-slide .service-item {
@@ -1149,6 +1149,7 @@
   /* Ajustar las tarjetas de categoría en el carrusel móvil */
   .mobile-category-slide {
     gap: 12px;
+    padding: 0;
   }
 
   .mobile-category-slide .category-item {
@@ -1188,7 +1189,6 @@
   .mobile-category-indicators,
   .mobile-products-indicators,
   .mobile-services-indicators {
-    padding: 0 16px;
     margin-top: 16px;
   }
 
@@ -1239,12 +1239,12 @@
   .featured-section,
   .services-section,
   .recently-arrived-section {
-    padding: 16px 0;
+    padding:32px 0 0 0 !important;
     margin-bottom: 0;
   }
 
   .recently-arrived-section {
-    padding: 16px 0;
+    padding: 0;
     max-width: 100%;
   }
 
@@ -1261,7 +1261,10 @@
   .recently-arrived-item.large {
     display: block;
     height: 250px;
-    margin-bottom: 20px;
+    margin: 0;
+  }
+  .right-grid {
+    gap: 0;
   }
 
   .recently-arrived-info {
@@ -1270,7 +1273,7 @@
 
   /* Banner promocional */
   .promo-banner {
-    margin: 32px -16px;
+    margin: 32px -16px 0 -16px;
     padding: 40px 16px;
     height: 300px;
   }
