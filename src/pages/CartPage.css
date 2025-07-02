@@ -569,3 +569,9 @@
     margin: 10px;
   }
 }
+
+@media (max-width: 480px) {
+  .cart-page {
+    padding: 16px;
+  }
+}

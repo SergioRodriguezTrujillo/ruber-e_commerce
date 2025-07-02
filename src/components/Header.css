@@ -713,6 +713,9 @@ body {
   .promo-text-container {
     justify-content: left;
   }
+  .mobile-menu {
+    top: 78px;
+  }
   .top-bar {
     padding: 0;
   }

@@ -254,9 +254,7 @@
   .mobile-products-slide .product-card-shop,
   .product-card-shop {
     flex: 1;
-    width: calc(50% - 4px); /* Adjusted width calculation */
-    min-width: calc(50% - 4px);
-    max-width: calc(50% - 4px);
+    width: calc(50% - 4px);
     height: auto;
     border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);

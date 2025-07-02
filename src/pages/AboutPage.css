@@ -105,3 +105,9 @@
     order: -1;
   }
 }
+
+@media (max-width: 480px) {
+  .about-page {
+    padding: 16px;
+  }
+}

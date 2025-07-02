@@ -211,10 +211,6 @@
     grid-template-columns: 1fr;
   }
 
-  .signup-left {
-    display: none;
-  }
-
   .signup-right {
     padding: 30px 20px; /* Ajustado para móvil */
     max-width: none;

@@ -235,10 +235,6 @@
     grid-template-columns: 1fr;
   }
 
-  .login-left {
-    display: none;
-  }
-
   .login-right {
     padding: 30px 20px; /* Ajustado para móvil */
     max-width: none;
