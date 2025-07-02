@@ -610,6 +610,37 @@ body {
   color: var(--primary-color);
 }
 
+/* Mobile menu icon styles */
+.mobile-menu-link .material-icons-outlined {
+    font-size: 20px;
+    margin-right: 12px;
+    color: #0e2a47;
+    transition: color 0.3s ease;
+}
+
+.mobile-menu-link:hover .material-icons-outlined {
+  color: var(--primary-color);
+}
+
+/* Ensure mobile menu links are flex containers */
+.mobile-menu-link {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: #333;
+  font-size: 0.95rem;
+  padding: 12px 0;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-link:hover {
+  color: var(--primary-color);
+  background-color: rgba(0, 0, 0, 0.05);
+  padding-left: 8px;
+}
+
 /* Responsive breakpoints basados en el espacio disponible */
 
 /* Cuando el espacio se reduce, primero reducimos el ancho del search */

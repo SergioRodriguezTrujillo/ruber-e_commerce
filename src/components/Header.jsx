@@ -364,15 +364,19 @@ const Header = () => {
           <h3 className="mobile-menu-title">Menú</h3>
           <div className="mobile-menu-links">
             <Link to="/" className="mobile-menu-link" onClick={() => setMobileMenuOpen(false)}>
+              <span className="material-icons-outlined">home</span>
               Inicio
             </Link>
             <Link to="/tienda" className="mobile-menu-link" onClick={() => setMobileMenuOpen(false)}>
+              <span className="material-icons-outlined">store</span>
               Tienda
             </Link>
             <Link to="/contacto" className="mobile-menu-link" onClick={() => setMobileMenuOpen(false)}>
+              <span className="material-icons-outlined">contact_mail</span>
               Contacto
             </Link>
             <Link to="/acerca-de" className="mobile-menu-link" onClick={() => setMobileMenuOpen(false)}>
+              <span className="material-icons-outlined">info</span>
               Acerca de
             </Link>
           </div>
@@ -419,27 +423,34 @@ const Header = () => {
             {isAuthenticated ? (
               <>
                 <Link to="/account" className="mobile-menu-link" onClick={() => setMobileMenuOpen(false)}>
+                  <span className="material-icons-outlined">person</span>
                   Administrar mi cuenta
                 </Link>
                 <Link to="/account/orders" className="mobile-menu-link" onClick={() => setMobileMenuOpen(false)}>
+                  <span className="material-icons-outlined">shopping_bag</span>
                   Mis pedidos
                 </Link>
                 <Link to="/wishlist" className="mobile-menu-link" onClick={() => setMobileMenuOpen(false)}>
+                  <span className="material-icons-outlined">favorite_border</span>
                   Mi lista de deseos
                 </Link>
                 <Link to="/cart" className="mobile-menu-link" onClick={() => setMobileMenuOpen(false)}>
+                  <span className="material-icons-outlined">shopping_cart</span>
                   Mi carrito
                 </Link>
                 <div className="mobile-menu-link" onClick={handleLogout}>
+                  <span className="material-icons-outlined">logout</span>
                   Cerrar sesión
                 </div>
               </>
             ) : (
               <>
                 <Link to="/login" className="mobile-menu-link" onClick={() => setMobileMenuOpen(false)}>
+                  <span className="material-icons-outlined">login</span>
                   Iniciar Sesión
                 </Link>
                 <Link to="/signup" className="mobile-menu-link" onClick={() => setMobileMenuOpen(false)}>
+                  <span className="material-icons-outlined">person_add</span>
                   Registrarse
                 </Link>
               </>
