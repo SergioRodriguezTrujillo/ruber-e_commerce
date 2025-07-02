@@ -59,6 +59,19 @@ const WishlistPage = () => {
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
+            {wishlistItems.length > 0 && (
+              <div className="pagination-container">
+                <div className="pagination">
+                  <button className="pagination-arrow">&lt;</button>
+                  <button className="pagination-number active">1</button>
+                  <button className="pagination-number">2</button>
+                  <button className="pagination-number">3</button>
+                  <button className="pagination-number">4</button>
+                  <button className="pagination-number">5</button>
+                  <button className="pagination-arrow">&gt;</button>
+                </div>
+              </div>
+            )}
           </>
         ) : (
           <div className="empty-wishlist">

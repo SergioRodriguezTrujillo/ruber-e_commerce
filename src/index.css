@@ -350,16 +350,6 @@ ul {
 .section-subtitle {
   margin-bottom: 48px !important; /* Exactly 48px between subtitle and content */
 }
-.categories-section,
-.products-section,
-.featured-section,
-.services-section,
-.recently-arrived-section {
-  padding: 40px 0;
-  margin-bottom: 0; /* Eliminar margen inferior */
-  margin-top: 0; /* Eliminar margen superior */
-}
-
 
 @media (max-width: 768px) {
   .products-grid {

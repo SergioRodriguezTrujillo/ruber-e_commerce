@@ -873,9 +873,10 @@
 @media (max-width: 480px) {
   .home-page {
     padding: 16px;
-    padding-top: 8px;
   }
-
+  .hero-section {
+    padding-bottom: 16px;
+  }
   /* Espaciado entre secciones */
   .categories-section,
   .products-section,
@@ -886,8 +887,14 @@
     margin-bottom: 0;
   }
 
+  .recently-arrived-item.large {
+    margin: 0;
+  }
+
+  .right-grid {
+    gap: 0;
+  }
   .recently-arrived-section {
-    padding: 16px 0;
     max-width: 100%;
   }
 
@@ -1266,5 +1273,9 @@
   /* Ocultar flechas de navegación en móvil */
   .categories-navigation {
     display: none;
+  }
+  .promo-banner-bg {
+    background-size: 65% 80%;
+    background-position-y: bottom;
   }
 }
