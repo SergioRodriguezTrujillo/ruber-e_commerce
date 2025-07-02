@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom"
 import { Eye, EyeOff } from "lucide-react"
 import { useAuth } from "../context/AuthContext"
-import AuthHeader from "../components/AuthHeader"
+import Header from "../components/Header"
 import Footer from "../components/Footer"
 import "./SignupPage.css"
 
@@ -118,7 +118,7 @@ const SignupPage = () => {
 
   return (
     <div className="signup-page">
-      <AuthHeader />
+      <Header />
 
       <div className="signup-content">
         <div className="signup-container">

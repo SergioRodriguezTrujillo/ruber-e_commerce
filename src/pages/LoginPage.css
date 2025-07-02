@@ -245,3 +245,19 @@
     font-size: 1.5rem;
   }
 }
+
+/* Estilos específicos para móvil en páginas de login */
+@media (max-width: 480px) {
+  .login-content {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .login-container {
+    min-height: calc(100vh - 176px); /* Ajustar para header + footer */
+    margin-top: 0;
+  }
+  .login-left {
+    padding: 0;
+  }
+}

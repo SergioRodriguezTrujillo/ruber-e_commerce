@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom"
 import { Eye, EyeOff } from "lucide-react"
 import { useAuth } from "../context/AuthContext"
-import AuthHeader from "../components/AuthHeader"
+import Header from "../components/Header"
 import Footer from "../components/Footer"
 import "./LoginPage.css"
 
@@ -101,7 +101,7 @@ const LoginPage = () => {
 
   return (
     <div className="login-page">
-      <AuthHeader />
+      <Header />
 
       <div className="login-content">
         <div className="login-container">

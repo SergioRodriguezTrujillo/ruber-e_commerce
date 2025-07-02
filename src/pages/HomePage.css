@@ -1275,7 +1275,7 @@
     display: none;
   }
   .promo-banner-bg {
-    background-size: 65% 80%;
-    background-position-y: bottom;
+    background-size: 70% 90%;
+    background-image: url(/placa1.png);
   }
 }

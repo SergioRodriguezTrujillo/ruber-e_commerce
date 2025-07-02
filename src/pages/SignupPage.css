@@ -220,3 +220,19 @@
     font-size: 1.5rem;
   }
 }
+
+/* Estilos específicos para móvil en páginas de signup */
+@media (max-width: 480px) {
+  .signup-content {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .signup-container {
+    min-height: calc(100vh - 176px); /* Ajustar para header + footer */
+    margin-top: 0;
+  }
+  .signup-left {
+    padding: 0;
+  }
+}

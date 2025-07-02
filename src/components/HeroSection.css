@@ -233,14 +233,14 @@
 }
 
 .mobile-dropdown-content {
-  display: none;
-  width: 100%;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 8px;
-  max-height: 300px;
-  overflow-y: auto;
+    display: none;
+    width: 100%;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 2px;
+    height: auto;
+    overflow-y: auto;
 }
 
 .mobile-dropdown-content.open {
