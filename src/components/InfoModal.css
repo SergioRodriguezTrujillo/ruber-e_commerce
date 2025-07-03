@@ -128,7 +128,8 @@
 @media (max-width: 480px) {
   .modal-overlay {
    top: 0;
-   padding: 8px;
+   z-index: 9999;
+   margin: auto; 
   }
   .modal-content {
    margin: 0;

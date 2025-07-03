@@ -62,6 +62,11 @@ const HomePage = () => {
   const [bestSellingProducts, setBestSellingProducts] = useState([])
   const [mostViewedProducts, setMostViewedProducts] = useState([])
 
+  // Estados para el modal overlay móvil
+  const [showMobileModal, setShowMobileModal] = useState(false)
+  const [mobileModalType, setMobileModalType] = useState("") // 'info' or 'quote'
+  const [mobileModalProduct, setMobileModalProduct] = useState(null)
+
   // Estados para el carrusel móvil de categorías
   const [currentCategorySlide, setCurrentCategorySlide] = useState(0)
   const [isCategoryTouch, setIsCategoryTouch] = useState(false)
@@ -491,6 +496,34 @@ const HomePage = () => {
     navigate("/tienda")
   }
 
+  // Funciones para manejar el modal móvil
+  const handleMobileInfoClick = (product) => {
+    if (window.innerWidth <= 480) {
+      setMobileModalProduct(product)
+      setMobileModalType("info")
+      setShowMobileModal(true)
+    }
+  }
+
+  const handleMobileQuoteClick = (product) => {
+    if (window.innerWidth <= 480) {
+      setMobileModalProduct(product)
+      setMobileModalType("quote")
+      setShowMobileModal(true)
+    }
+  }
+
+  const handleCloseMobileModal = () => {
+    setShowMobileModal(false)
+    setMobileModalType("")
+    setMobileModalProduct(null)
+  }
+
+  const handleMobileModalSubmit = (formData) => {
+    console.log(`${mobileModalType} request:`, { ...formData, product: mobileModalProduct?.name })
+    handleCloseMobileModal()
+  }
+
   return (
     <div className="home-page">
       {/* Hero Section con menú lateral y slider */}
@@ -671,7 +704,12 @@ const HomePage = () => {
               {Array.from({ length: totalBestSellingSlides }, (_, slideIndex) => (
                 <div key={slideIndex} className="mobile-products-slide">
                   {bestSellingProducts.slice(slideIndex * 2, slideIndex * 2 + 2).map((product) => (
-                    <ProductCard key={product.id} product={product} />
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      onMobileInfoClick={handleMobileInfoClick}
+                      onMobileQuoteClick={handleMobileQuoteClick}
+                    />
                   ))}
                 </div>
               ))}
@@ -732,7 +770,12 @@ const HomePage = () => {
               {Array.from({ length: totalMostViewedSlides }, (_, slideIndex) => (
                 <div key={slideIndex} className="mobile-products-slide">
                   {mostViewedProducts.slice(slideIndex * 2, slideIndex * 2 + 2).map((product) => (
-                    <ProductCard key={product.id} product={product} />
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      onMobileInfoClick={handleMobileInfoClick}
+                      onMobileQuoteClick={handleMobileQuoteClick}
+                    />
                   ))}
                 </div>
               ))}
@@ -875,6 +918,82 @@ const HomePage = () => {
 
       {/* Full Services Section */}
       <FullServices />
+
+      {/* Mobile Modal Overlay - Solo para HomePage y móvil */}
+      {showMobileModal && (
+        <div className="mobile-modal-overlay-homepage">
+          <div className="mobile-modal-content-homepage">
+            <div className="mobile-modal-header-homepage">
+              <h2>{mobileModalType === "info" ? "Solicitar más información" : "Solicitar cotización"}</h2>
+              <button className="mobile-modal-close-homepage" onClick={handleCloseMobileModal}>
+                ×
+              </button>
+            </div>
+
+            <form
+              onSubmit={(e) => {
+                e.preventDefault()
+                const formData = new FormData(e.target)
+                const data = Object.fromEntries(formData.entries())
+                handleMobileModalSubmit(data)
+              }}
+              className="mobile-modal-form-homepage"
+            >
+              <div className="mobile-form-group-homepage">
+                <label htmlFor="mobile-name">
+                  Nombre<span className="mobile-required-homepage">*</span>
+                </label>
+                <input type="text" id="mobile-name" name="name" placeholder="Introduzca aquí" required />
+              </div>
+
+              {mobileModalType === "info" && (
+                <div className="mobile-form-group-homepage">
+                  <label htmlFor="mobile-company">
+                    Nombre Empresa<span className="mobile-required-homepage">*</span>
+                  </label>
+                  <input type="text" id="mobile-company" name="companyName" placeholder="Introduzca aquí" required />
+                </div>
+              )}
+
+              <div className="mobile-form-group-homepage">
+                <label htmlFor="mobile-email">
+                  Correo<span className="mobile-required-homepage">*</span>
+                </label>
+                <input type="email" id="mobile-email" name="email" placeholder="Introduzca aquí" required />
+              </div>
+
+              {mobileModalType === "info" ? (
+                <div className="mobile-form-group-homepage">
+                  <label htmlFor="mobile-phone">
+                    Número Teléfono<span className="mobile-required-homepage">*</span>
+                  </label>
+                  <input type="tel" id="mobile-phone" name="phone" placeholder="Introduzca aquí" required />
+                </div>
+              ) : (
+                <>
+                  <div className="mobile-form-group-homepage">
+                    <label htmlFor="mobile-postal">
+                      Código postal<span className="mobile-required-homepage">*</span>
+                    </label>
+                    <input type="text" id="mobile-postal" name="postalCode" placeholder="Introduzca aquí" required />
+                  </div>
+
+                  <div className="mobile-form-group-homepage">
+                    <label htmlFor="mobile-comments">
+                      Preguntas y/o Comentarios<span className="mobile-required-homepage">*</span>
+                    </label>
+                    <textarea id="mobile-comments" name="comments" placeholder="Introduzca aquí" rows="4" required />
+                  </div>
+                </>
+              )}
+
+              <button type="submit" className="mobile-modal-submit-homepage">
+                {mobileModalType === "info" ? "Entregar" : "Solicitar cotización"}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

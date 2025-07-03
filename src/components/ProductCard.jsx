@@ -7,7 +7,7 @@ import QuoteModal from "./QuoteModal"
 import InfoModal from "./InfoModal"
 import "./ProductCard.css"
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, onMobileInfoClick, onMobileQuoteClick }) => {
   const { addToWishlist, isInWishlist, removeFromWishlist } = useWishlist()
   const [showQuoteModal, setShowQuoteModal] = useState(false)
   const [showInfoModal, setShowInfoModal] = useState(false)
@@ -34,13 +34,25 @@ const ProductCard = ({ product }) => {
   const handleQuoteClick = (e) => {
     e.stopPropagation()
     e.preventDefault()
-    setShowQuoteModal(true)
+
+    // Check if we're on mobile and have mobile handlers (HomePage)
+    if (window.innerWidth <= 480 && onMobileQuoteClick) {
+      onMobileQuoteClick(product)
+    } else {
+      setShowQuoteModal(true)
+    }
   }
 
   const handleInfoClick = (e) => {
     e.stopPropagation()
     e.preventDefault()
-    setShowInfoModal(true)
+
+    // Check if we're on mobile and have mobile handlers (HomePage)
+    if (window.innerWidth <= 480 && onMobileInfoClick) {
+      onMobileInfoClick(product)
+    } else {
+      setShowInfoModal(true)
+    }
   }
 
   const handleProductClick = () => {

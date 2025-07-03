@@ -1280,3 +1280,156 @@
     background-image: url(/placa1.png);
   }
 }
+
+/* Mobile Modal Overlay - Solo para HomePage */
+@media (max-width: 480px) {
+  .mobile-modal-overlay-homepage {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 100;
+    padding: 20px;
+  }
+
+  .mobile-modal-content-homepage {
+    background-color: white;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .mobile-modal-header-homepage {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 24px 0 24px;
+    margin-bottom: 24px;
+  }
+
+  .mobile-modal-header-homepage h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    color: #333;
+  }
+
+  .mobile-modal-close-homepage {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: #666;
+    font-size: 32px;
+    font-weight: 100;
+    transition: color 0.3s ease;
+  }
+
+  .mobile-modal-close-homepage:hover {
+    color: #333;
+  }
+
+  .mobile-modal-form-homepage {
+    padding: 0 24px 24px 24px;
+  }
+
+  .mobile-form-group-homepage {
+    margin-bottom: 8px;
+  }
+
+  .mobile-form-group-homepage label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+    font-size: 0.95rem;
+  }
+
+  .mobile-required-homepage {
+    color: #e63946;
+    margin-left: 2px;
+  }
+
+  .mobile-form-group-homepage input,
+  .mobile-form-group-homepage textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: none;
+    background-color: #e9ecef;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: background-color 0.3s ease;
+    box-sizing: border-box;
+  }
+
+  .mobile-form-group-homepage input:focus,
+  .mobile-form-group-homepage textarea:focus {
+    outline: none;
+    background-color: #e8e8e8;
+  }
+
+  .mobile-form-group-homepage input::placeholder,
+  .mobile-form-group-homepage textarea::placeholder {
+    color: #999;
+  }
+
+  .mobile-form-group-homepage textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .mobile-modal-submit-homepage {
+    width: 100%;
+    padding: 14px 20px;
+    background-color: #e63946;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 16px;
+  }
+
+  .mobile-modal-submit-homepage:hover {
+    background-color: #d62f3d;
+  }
+
+  /* Responsive adjustments for smaller mobile screens */
+  @media (max-width: 576px) {
+    .mobile-modal-content-homepage {
+      margin: 10px;
+      max-width: none;
+    }
+
+    .mobile-modal-header-homepage {
+      padding: 20px 20px 0 20px;
+    }
+
+    .mobile-modal-form-homepage {
+      padding: 0 20px 20px 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .mobile-modal-overlay-homepage {
+      top: 0;
+      padding: 8px;
+      z-index: 9999;
+    }
+    .mobile-modal-content-homepage {
+      margin: 0;
+    }
+  }
+}
