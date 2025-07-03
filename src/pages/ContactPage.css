@@ -159,6 +159,9 @@
     flex: 1;
     min-width: 200px;
   }
+   .contact-page {
+    padding: 16px;
+  }
 }
 
 @media (max-width: 768px) {

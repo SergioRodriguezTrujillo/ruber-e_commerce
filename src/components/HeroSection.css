@@ -293,8 +293,6 @@
   }
 
   .hero-slider {
-    /* Mantener el slider a la derecha */
-    height: 300px;
     flex: 1;
   }
 
@@ -330,8 +328,6 @@
   }
 
   .hero-slider {
-    /* Slider a todo ancho en móvil */
-    height: 250px;
     width: 100%;
     flex: none;
     display: block;

@@ -446,9 +446,12 @@
   }
 
   .products-grid {
+    margin: 0 16px;
     grid-template-columns: repeat(2, 1fr);
   }
-
+ .pagination-container {
+    margin: 24px 16px 0 0;
+  }
 }
 
 @media (max-width: 480px) {

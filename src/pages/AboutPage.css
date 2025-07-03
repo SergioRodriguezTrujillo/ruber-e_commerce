@@ -93,6 +93,9 @@
 }
 
 @media (max-width: 992px) {
+    .about-page {
+    padding: 16px;
+  }
   .about-section {
     grid-template-columns: 1fr;
   }

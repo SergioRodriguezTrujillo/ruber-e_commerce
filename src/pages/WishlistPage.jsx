@@ -49,7 +49,7 @@ const WishlistPage = () => {
                   Vaciar la lista
                 </button>
                 <button className="move-all-btn" onClick={handleMoveAllToCart}>
-                  Mover todo al carro de compras
+                  Mover al carro
                 </button>
               </div>
             </div>
