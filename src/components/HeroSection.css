@@ -369,3 +369,9 @@
     margin: 0;
   }
 }
+
+@media (max-width: 480px) {
+  .hero-slider {
+    height: 250px;
+  }
+}
