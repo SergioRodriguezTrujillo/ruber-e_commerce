@@ -101,12 +101,14 @@
   gap: 8px;
 }
 
-.expand-icon {
+.expand-icon,
+.dropdown-icon {
   transition: transform 0.3s ease;
   font-size: 18px !important;
 }
 
-.expand-icon.rotated {
+.expand-icon.rotated,
+.dropdown-icon.rotated {
   transform: rotate(180deg);
 }
 
@@ -121,6 +123,16 @@
   z-index: 1000;
   min-width: 130px;
   overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.language-dropdown.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 
 .language-dropdown-item {
@@ -149,7 +161,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 0;
+  padding: 12px 0;
   cursor: pointer;
   border-radius: 4px;
   transition: background-color 0.3s ease;
@@ -166,6 +178,14 @@
   background-color: #f5f5f5;
   border-radius: 8px;
   overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.mobile-language-dropdown.show {
+  max-height: 200px;
+  opacity: 1;
 }
 
 .mobile-language-dropdown-item {
@@ -175,7 +195,7 @@
   padding: 12px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  border-bottom: 1px solid #eee;
+  /* border-bottom: 1px solid #eee; */
 }
 
 .mobile-language-dropdown-item:last-child {
@@ -564,7 +584,7 @@ body {
   bottom: 0;
   background-color: white;
   z-index: 999;
-  padding: 20px;
+  padding: 16px;
   overflow-y: auto;
   transform: translateX(-100%);
   transition: transform 0.3s ease;
@@ -575,9 +595,9 @@ body {
 }
 
 .mobile-menu-section {
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   border-bottom: 1px solid #eee;
-  padding-bottom: 20px;
+  padding-bottom: 16px;
 }
 
 .mobile-menu-section:last-child {
@@ -587,14 +607,13 @@ body {
 .mobile-menu-title {
   font-size: 1.1rem;
   font-weight: 600;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   color: #333;
 }
 
 .mobile-menu-links {
   display: flex;
   flex-direction: column;
-  gap: 15px;
 }
 
 .mobile-menu-link {
@@ -612,10 +631,10 @@ body {
 
 /* Mobile menu icon styles */
 .mobile-menu-link .material-icons-outlined {
-    font-size: 20px;
-    margin-right: 12px;
-    color: #0e2a47;
-    transition: color 0.3s ease;
+  font-size: 20px;
+  margin-right: 12px;
+  color: #0e2a47;
+  transition: color 0.3s ease;
 }
 
 .mobile-menu-link:hover .material-icons-outlined {
@@ -639,6 +658,42 @@ body {
   color: var(--primary-color);
   background-color: rgba(0, 0, 0, 0.05);
   padding-left: 8px;
+}
+
+/* Estilos generales para dropdowns en mobile */
+.mobile-dropdown-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 16px;
+  background-color: white;
+  color: black;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.mobile-dropdown-button:hover {
+  background-color: #f5f5f5;
+}
+
+.mobile-dropdown-menu {
+  background-color: white;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  margin-top: 8px;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.mobile-dropdown-menu.show {
+  max-height: 400px;
+  opacity: 1;
 }
 
 /* Responsive breakpoints basados en el espacio disponible */

@@ -15,7 +15,7 @@
 
 .modal-content {
   background-color: white;
-  border-radius: 8px;
+  border-radius: 4px;
   width: 100%;
   max-width: 500px;
   max-height: 90vh;
@@ -97,16 +97,17 @@
 }
 
 .modal-submit-btn {
-  width: 100%;
   padding: 14px 20px;
   background-color: #e63946;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 4px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  float: right;
+  margin: 16px 0;
 }
 
 .modal-submit-btn:hover {
@@ -132,9 +133,12 @@
   .modal-overlay {
    top: 0;
    z-index: 9999;
-   margin: auto;
+   margin: auto; 
   }
   .modal-content {
    margin: 0;
+  }
+  .form-group {
+    margin-bottom: 0;
   }
 }

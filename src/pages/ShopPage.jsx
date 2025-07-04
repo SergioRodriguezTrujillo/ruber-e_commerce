@@ -265,89 +265,95 @@ const ShopPage = () => {
                       ? selectedCategories[0]
                       : `${selectedCategories.length} categorías seleccionadas`}
                   {showCategoryDropdown ? (
-                    <ChevronUp size={16} strokeWidth={1.5} />
+                    <ChevronUp
+                      size={16}
+                      strokeWidth={1.5}
+                      className={`dropdown-icon ${showCategoryDropdown ? "rotated" : ""}`}
+                    />
                   ) : (
-                    <ChevronDown size={16} strokeWidth={1.5} />
+                    <ChevronDown
+                      size={16}
+                      strokeWidth={1.5}
+                      className={`dropdown-icon ${showCategoryDropdown ? "rotated" : ""}`}
+                    />
                   )}
                 </button>
-                {showCategoryDropdown && (
-                  <div className="dropdown-menu">
-                    <div className="dropdown-item">
+                <div className={`dropdown-menu ${showCategoryDropdown ? "show" : ""}`}>
+                  <div className="dropdown-item">
+                    <label className="filter-option">
+                      <input
+                        type="checkbox"
+                        checked={selectedCategories.length === 0}
+                        onChange={handleAllCategoriesToggle}
+                      />
+                      Todas las categorías
+                    </label>
+                  </div>
+
+                  {/* Categorías con checkboxes */}
+                  {availableCategories.map((category) => (
+                    <div key={category} className="dropdown-item">
                       <label className="filter-option">
                         <input
                           type="checkbox"
-                          checked={selectedCategories.length === 0}
-                          onChange={handleAllCategoriesToggle}
+                          checked={selectedCategories.includes(category)}
+                          onChange={() => toggleCategory(category)}
                         />
-                        Todas las categorías
+                        {category}
                       </label>
                     </div>
+                  ))}
 
-                    {/* Categorías con checkboxes */}
-                    {availableCategories.map((category) => (
-                      <div key={category} className="dropdown-item">
-                        <label className="filter-option">
-                          <input
-                            type="checkbox"
-                            checked={selectedCategories.includes(category)}
-                            onChange={() => toggleCategory(category)}
-                          />
-                          {category}
-                        </label>
-                      </div>
-                    ))}
+                  {/* Sección de filtros */}
+                  <div className="dropdown-filters">
+                    <h4>Filtros</h4>
 
-                    {/* Sección de filtros */}
-                    <div className="dropdown-filters">
-                      <h4>Filtros</h4>
-
-                      <div className="filter-section">
-                        <h4>Color</h4>
-                        <div className="filter-options">
-                          {availableColors.map((color) => (
-                            <label key={color} className="filter-option">
-                              <input
-                                type="checkbox"
-                                checked={selectedColors.includes(color)}
-                                onChange={() => toggleColor(color)}
-                              />
-                              {getColorDisplayName(color)}
-                            </label>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="filter-section">
-                        <h4>Precio</h4>
-                        <div className="price-range">
-                          <div className="price-inputs">
+                    <div className="filter-section">
+                      <h4>Color</h4>
+                      <div className="filter-options">
+                        {availableColors.map((color) => (
+                          <label key={color} className="filter-option">
                             <input
-                              type="number"
-                              value={priceRange[0]}
-                              onChange={(e) => handlePriceChange(e, 0)}
-                              min="0"
-                              max={priceRange[1]}
-                              placeholder="Min"
+                              type="checkbox"
+                              checked={selectedColors.includes(color)}
+                              onChange={() => toggleColor(color)}
                             />
-                            <span>-</span>
-                            <input
-                              type="number"
-                              value={priceRange[1]}
-                              onChange={(e) => handlePriceChange(e, 1)}
-                              min={priceRange[0]}
-                              max="2000"
-                              placeholder="Max"
-                            />
-                          </div>
-                        </div>
+                            {getColorDisplayName(color)}
+                          </label>
+                        ))}
                       </div>
-
-                      <button className="clear-filters" onClick={clearFilters}>
-                        Limpiar Filtros
-                      </button>
                     </div>
+
+                    <div className="filter-section">
+                      <h4>Precio</h4>
+                      <div className="price-range">
+                        <div className="price-inputs">
+                          <input
+                            type="number"
+                            value={priceRange[0]}
+                            onChange={(e) => handlePriceChange(e, 0)}
+                            min="0"
+                            max={priceRange[1]}
+                            placeholder="Min"
+                          />
+                          <span>-</span>
+                          <input
+                            type="number"
+                            value={priceRange[1]}
+                            onChange={(e) => handlePriceChange(e, 1)}
+                            min={priceRange[0]}
+                            max="2000"
+                            placeholder="Max"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <button className="clear-filters" onClick={clearFilters}>
+                      Limpiar Filtros
+                    </button>
                   </div>
-                )}
+                </div>
               </div>
             )}
 

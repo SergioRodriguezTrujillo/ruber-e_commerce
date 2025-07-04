@@ -44,3 +44,11 @@
 .category-item:hover .category-name {
   color: white;
 }
+@media (max-width: 480px) {
+  .category-item:hover .category-icon {
+  color: #333;
+}
+.category-item:hover .category-name {
+  color: #333;
+}
+}

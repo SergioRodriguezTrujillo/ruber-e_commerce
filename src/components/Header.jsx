@@ -238,16 +238,14 @@ const Header = () => {
                     expand_more
                   </span>
                 </div>
-                {showLanguageDropdown && (
-                  <div className="language-dropdown">
-                    {languageOptions.map((lang) => (
-                      <div key={lang.code} className="language-dropdown-item" onClick={() => selectLanguage(lang)}>
-                        <img src={lang.flag || "/placeholder.svg"} alt={lang.name} className="language-flag" />
-                        <span>{lang.name}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                <div className={`language-dropdown ${showLanguageDropdown ? "show" : ""}`}>
+                  {languageOptions.map((lang) => (
+                    <div key={lang.code} className="language-dropdown-item" onClick={() => selectLanguage(lang)}>
+                      <img src={lang.flag || "/placeholder.svg"} alt={lang.name} className="language-flag" />
+                      <span>{lang.name}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -396,23 +394,21 @@ const Header = () => {
                   expand_more
                 </span>
               </div>
-              {showMobileLanguageDropdown && (
-                <div className="mobile-language-dropdown">
-                  {languageOptions.map((lang) => (
-                    <div
-                      key={lang.code}
-                      className="mobile-language-dropdown-item"
-                      onClick={() => {
-                        selectLanguage(lang)
-                        setMobileMenuOpen(false)
-                      }}
-                    >
-                      <img src={lang.flag || "/placeholder.svg"} alt={lang.name} className="language-flag" />
-                      <span>{lang.name}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
+              <div className={`mobile-language-dropdown ${showMobileLanguageDropdown ? "show" : ""}`}>
+                {languageOptions.map((lang) => (
+                  <div
+                    key={lang.code}
+                    className="mobile-language-dropdown-item"
+                    onClick={() => {
+                      selectLanguage(lang)
+                      setMobileMenuOpen(false)
+                    }}
+                  >
+                    <img src={lang.flag || "/placeholder.svg"} alt={lang.name} className="language-flag" />
+                    <span>{lang.name}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

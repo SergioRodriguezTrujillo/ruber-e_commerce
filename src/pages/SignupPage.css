@@ -135,7 +135,7 @@
 
 .signup-button {
   width: 100%;
-  padding: 14px; /* Reducido de 16px */
+  padding: 16px; /* Reducido de 16px */
   background-color: #e63946;
   color: white;
   border: none;
@@ -234,5 +234,9 @@
   }
   .signup-left {
     padding: 0;
+  }
+    .signup-right {
+    padding: 16px; /* Ajustado para móvil */
+    max-width: none;
   }
 }

@@ -1230,7 +1230,6 @@
     flex-direction: column;
     align-items: flex-start;
     margin-bottom: 20px;
-    padding: 0 12px;
   }
 
   /* Ajustar titles for mobile */
@@ -1300,7 +1299,7 @@
 
   .mobile-modal-content-homepage {
     background-color: white;
-    border-radius: 8px;
+    border-radius: 4px;
     width: 100%;
     max-width: 500px;
     max-height: 90vh;
@@ -1313,7 +1312,6 @@
     justify-content: space-between;
     align-items: center;
     padding: 24px 24px 0 24px;
-    margin-bottom: 24px;
   }
 
   .mobile-modal-header-homepage h2 {
@@ -1342,13 +1340,9 @@
     padding: 0 24px 24px 24px;
   }
 
-  .mobile-form-group-homepage {
-    margin-bottom: 8px;
-  }
-
   .mobile-form-group-homepage label {
     display: block;
-    margin-bottom: 8px;
+    margin: 24px 0 8px 0;
     font-weight: 500;
     color: #333;
     font-size: 0.95rem;
@@ -1365,7 +1359,7 @@
     padding: 12px 16px;
     border: none;
     background-color: #e9ecef;
-    border-radius: 8px;
+    border-radius: 4px;
     font-size: 0.95rem;
     font-family: inherit;
     transition: background-color 0.3s ease;
@@ -1389,17 +1383,17 @@
   }
 
   .mobile-modal-submit-homepage {
-    width: 100%;
     padding: 14px 20px;
     background-color: #e63946;
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 4px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: 16px;
+    margin: 16px 0;
+    float: right;
   }
 
   .mobile-modal-submit-homepage:hover {
@@ -1414,11 +1408,11 @@
     }
 
     .mobile-modal-header-homepage {
-      padding: 20px 20px 0 20px;
+      padding: 16px;
     }
 
     .mobile-modal-form-homepage {
-      padding: 0 20px 20px 20px;
+      padding: 0 16px 16px 16px;
     }
   }
 
